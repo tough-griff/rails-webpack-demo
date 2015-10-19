@@ -1,0 +1,10 @@
+linters:
+  NestingDepth:
+    enabled: true
+    max_depth: 5
+  SelectorDepth:
+    enabled: true
+    max_depth: 4
+  StringQuotes:
+    enabled: true
+    style: double_quotes

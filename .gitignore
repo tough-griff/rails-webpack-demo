@@ -11,3 +11,13 @@
 /log/*
 !/log/.keep
 /tmp
+*.log
+spec/.example_status
+
+# JS
+/node_modules
+*.log
+
+# Misc.
+.env
+.envrc

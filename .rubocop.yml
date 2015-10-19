@@ -1,0 +1,20 @@
+AllCops:
+  Include:
+    - Rakefile
+    - Gemfile
+    - config.ru
+  Exclude:
+    - db/**/*
+    - bin/*
+  RunRailsCops: true
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+Style/SymbolArray:
+  Enabled: true

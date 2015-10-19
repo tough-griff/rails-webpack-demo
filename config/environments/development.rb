@@ -37,5 +37,21 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = true
+
+  # Allow rake notes to pick up annotations in scss and jsx files
+  config.annotations.register_extensions "scss", "jsx" do |annotation|
+    %r{\/\/\s*(#{annotation}):?\s*(.*)$}
+  end
+
+  # ActionMailer & Mailcatcher
+  config.action_mailer.default_url_options = { host: "localhost:#{ENV['PORT'] || 3000}" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: "localhost", port: ENV["MAILCATCHER_PORT"] || 1025 }
+  config.action_mailer.raise_delivery_errors = true
+
+  # Request javascript assets from the webpack dev server
+  config.action_controller.asset_host = proc do |source|
+    "http://localhost:#{ENV['WEBPACK_PORT'] || 3100}" if source.ends_with?("bundle.js")
+  end
 end
