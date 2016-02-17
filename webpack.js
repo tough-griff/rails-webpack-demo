@@ -25,5 +25,5 @@ app.listen(port, 'localhost', err => {
     return;
   }
 
-  console.log(`Webpack server listening at http://localhost:${port}.`)
-})
+  console.log(`Webpack server listening at http://localhost:${port}.`);
+});

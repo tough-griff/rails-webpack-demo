@@ -45,7 +45,7 @@ module.exports = {
 
   debug: true,
 
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
