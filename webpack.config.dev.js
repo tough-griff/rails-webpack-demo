@@ -10,7 +10,7 @@ module.exports = {
 
   entry: {
     app: [
-      'webpack-hot-middleware/client?path=' + HOST + '/assets/javascripts/__webpack_hmr',
+      'webpack-hot-middleware/client?path=' + HOST + '/__webpack_hmr',
       './js/index'
     ]
   },
@@ -52,7 +52,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
+      __DEVELOPMENT__: true
     })
   ]
 };

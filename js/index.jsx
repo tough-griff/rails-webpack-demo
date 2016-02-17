@@ -3,7 +3,7 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Home = () => <h1>Hello, world!!</h1>;
+import Home from './components/Home';
 
 ReactDOM.render(
   <Home />,
