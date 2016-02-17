@@ -3,6 +3,7 @@ ruby "2.2.3"
 
 gem "rails", "4.2.4"
 
+gem "haml-rails",   "~> 0.9.0"
 gem "passenger",    "~> 5.0.20"
 gem "pg",           "~> 0.18.3"
 gem "rack-timeout", "~> 0.3.2"
@@ -11,6 +12,7 @@ gem "uglifier",     "~> 2.7.2"
 
 group :development do
   gem "foreman", require: false
+  gem "haml_lint"
   gem "mailcatcher", require: false
   gem "rubocop"
   gem "scss_lint"
