@@ -1,24 +1,24 @@
-'use-strict';
+import path from 'path';
+import webpack from 'webpack';
 
-var path = require('path');
-var webpack = require('webpack');
+const hostName = process.env.HOSTNAME || 'localhost';
+const nodePort = process.env.NODE_PORT || '4000';
+const serverPath = `http://${hostName}:${nodePort}`;
 
-var HOST = "http://localhost:" + process.env.NODE_PORT || '4000';
-
-module.exports = {
+export default {
   context: __dirname,
 
   entry: {
     app: [
-      'webpack-hot-middleware/client?path=' + HOST + '/__webpack_hmr',
-      './js/index'
-    ]
+      `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
+      './js/index',
+    ],
   },
 
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
     filename: '[name].bundle.js',
-    publicPath: HOST + '/assets/javascripts/'
+    publicPath: `${serverPath}/assets/javascripts/`,
   },
 
   module: {
@@ -26,21 +26,21 @@ module.exports = {
       {
         loader: 'eslint',
         test: /\.jsx?$/,
-        exclude: /node_modules/
-      }
+        exclude: /node_modules/,
+      },
     ],
     loaders: [
       {
         loader: 'babel',
         test: /\.jsx?$/,
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules']
+    modulesDirectories: ['node_modules'],
   },
 
   debug: true,
@@ -52,7 +52,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true
-    })
-  ]
+      __DEVELOPMENT__: true,
+    }),
+  ],
 };
