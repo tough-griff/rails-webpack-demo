@@ -1,9 +1,9 @@
 import path from 'path';
 import webpack from 'webpack';
 
-const hostName = process.env.HOSTNAME || 'localhost';
-const nodePort = process.env.NODE_PORT || '4000';
-const serverPath = `http://${hostName}:${nodePort}`;
+const hostName = process.env.HOSTNAME || 'lvh.me';
+const nodePort = process.env.NODE_PORT || '5050';
+const serverPath = `//${hostName}:${nodePort}`;
 
 export default {
   context: __dirname,

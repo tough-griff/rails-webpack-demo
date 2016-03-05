@@ -45,13 +45,13 @@ Rails.application.configure do
   end
 
   # ActionMailer & Mailcatcher
-  config.action_mailer.default_url_options = { host: "localhost:#{ENV['PORT'] || 3000}" }
+  config.action_mailer.default_url_options = { host: "#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['PORT'] || 5000}" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: "localhost", port: ENV["MAILCATCHER_PORT"] || 1025 }
   config.action_mailer.raise_delivery_errors = true
 
   # Request javascript assets from the webpack dev server
   config.action_controller.asset_host = proc do |source|
-    "//#{ENV['HOSTNAME'] || "localhost"}:#{ENV['NODE_PORT'] || 4000}/assets" if source.ends_with?("bundle.js")
+    "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
   end
 end
