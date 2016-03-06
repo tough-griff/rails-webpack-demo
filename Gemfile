@@ -1,11 +1,11 @@
 source "https://rubygems.org"
-ruby "2.2.3"
+ruby "2.3.0"
 
-gem "rails", "4.2.4"
+gem "rails", "4.2.5.2"
 
 gem "haml-rails",   "~> 0.9.0"
-gem "passenger",    "~> 5.0.20"
-gem "pg",           "~> 0.18.3"
+gem "passenger",    "~> 5.0.26"
+gem "pg",           "~> 0.18.4"
 gem "rack-timeout", "~> 0.3.2"
 gem "sass-rails",   "~> 5.0.4"
 gem "uglifier",     "~> 2.7.2"
