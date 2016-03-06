@@ -52,6 +52,6 @@ Rails.application.configure do
 
   # Request javascript assets from the webpack dev server
   config.action_controller.asset_host = proc do |source|
-    "//#{ENV['HOSTNAME'] || "localhost"}:#{ENV['NODE_PORT'] || 4000}/assets" if source.ends_with?("bundle.js")
+    "//#{ENV['HOSTNAME'] || 'localhost'}:#{ENV['NODE_PORT'] || 4000}/assets" if source.ends_with?("bundle.js")
   end
 end

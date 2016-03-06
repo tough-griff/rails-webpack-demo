@@ -6,7 +6,6 @@ AllCops:
   Exclude:
     - db/**/*
     - bin/*
-  RunRailsCops: true
 Lint/ParenthesesAsGroupedExpression:
   Enabled: false
 Metrics/LineLength:
