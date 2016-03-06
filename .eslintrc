@@ -3,5 +3,8 @@
   parser: "babel-eslint",
   "rules": {
     "react/prefer-stateless-function": 0
+  },
+  "globals": {
+      "__DEVELOPMENT__": true
   }
 }

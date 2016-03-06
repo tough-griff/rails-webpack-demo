@@ -19,5 +19,18 @@ export default merge(config, {
   output: {
     publicPath: '/assets',
   },
-  plugins: [new webpack.optimize.OccurenceOrderPlugin()],
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: false,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+      output: {
+        comments: false,
+      },
+    }),
+  ],
 });
