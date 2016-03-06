@@ -14,10 +14,10 @@
 *.log
 spec/.example_status
 
-# JS
-app/assets/javascripts/*.bundle.*
+# JS and misc build process.
+/app/assets/javascripts/*.bundle.*
+/public/assets
 /node_modules
-*.log
 
 # Misc.
 .env

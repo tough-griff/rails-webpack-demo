@@ -22,6 +22,9 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  # Fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = true
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
@@ -39,10 +42,10 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-  # Raises error for missing translations
+  # Raises error for missing translations.
   config.action_view.raise_on_missing_translations = true
 
-  # Allow rake notes to pick up annotations in scss and jsx files
+  # Allow rake notes to pick up annotations in scss and jsx files.
   config.annotations.register_extensions "scss", "jsx" do |annotation|
     %r{\/\/\s*(#{annotation}):?\s*(.*)$}
   end
@@ -53,8 +56,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { address: "localhost", port: ENV["MAILCATCHER_PORT"] || 1025 }
   config.action_mailer.raise_delivery_errors = true
 
-  # Request javascript assets from the webpack dev server
-  config.action_controller.asset_host = proc do |source|
-    "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
+  if ENV["SIMULATE_PROD"]
+    # In a production-like environment, pull assets straight from public/assets.
+    config.assets.compile = false
+    config.assets.debug = false
+  else
+    # Request javascript assets from the webpack dev server.
+    config.action_controller.asset_host = proc do |source|
+      "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
+    end
   end
 end
