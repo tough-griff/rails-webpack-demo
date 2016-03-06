@@ -41,5 +41,5 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   # ActionMailer
-  config.action_mailer.default_url_options = { host: "localhost:#{ENV['PORT'] || 3000}" }
+  config.action_mailer.default_url_options = { host: "#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['PORT'] || 5000}" }
 end

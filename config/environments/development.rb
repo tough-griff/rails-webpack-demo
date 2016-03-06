@@ -31,6 +31,9 @@ Rails.application.configure do
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
+
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
@@ -45,13 +48,13 @@ Rails.application.configure do
   end
 
   # ActionMailer & Mailcatcher
-  config.action_mailer.default_url_options = { host: "localhost:#{ENV['PORT'] || 3000}" }
+  config.action_mailer.default_url_options = { host: "#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['PORT'] || 5000}" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: "localhost", port: ENV["MAILCATCHER_PORT"] || 1025 }
   config.action_mailer.raise_delivery_errors = true
 
   # Request javascript assets from the webpack dev server
   config.action_controller.asset_host = proc do |source|
-    "//#{ENV['HOSTNAME'] || 'localhost'}:#{ENV['NODE_PORT'] || 4000}/assets" if source.ends_with?("bundle.js")
+    "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
   end
 end
