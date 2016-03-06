@@ -21,4 +21,5 @@ app/assets/javascripts/*.bundle.*
 
 # Misc.
 .env
+.env.prod
 .envrc

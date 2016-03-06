@@ -17,7 +17,7 @@ export default merge(config, {
     }],
   },
   output: {
-    publicPath: '/assets/javascripts',
+    publicPath: '/assets',
   },
   plugins: [new webpack.optimize.OccurenceOrderPlugin()],
 });
