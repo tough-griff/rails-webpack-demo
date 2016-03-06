@@ -10,6 +10,7 @@ import config from './webpack.config.dev.babel';
 
 const app = express();
 const compiler = webpack(config);
+const isHttps = !!process.env.HTTPS || true;
 const hostName = process.env.HOSTNAME || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
 
@@ -25,11 +26,15 @@ app.use(webpackDevMiddleware(compiler, {
 // configure webpack-hot-middleware
 app.use(webpackHotMiddleware(compiler));
 
-// configure https express server for securely serving assets.
-const server = https.createServer({
-  key: fs.readFileSync(process.env.SSL_CERTIFICATE_KEY),
-  cert: fs.readFileSync(process.env.SSL_CERTIFICATE),
-}, app);
+let server = app;
+
+if (isHttps) {
+  // configure https express server for securely serving assets.
+  server = https.createServer({
+    key: fs.readFileSync(process.env.SSL_CERTIFICATE_KEY),
+    cert: fs.readFileSync(process.env.SSL_CERTIFICATE),
+  }, app);
+}
 
 /* eslint-disable no-console */
 server.listen(nodePort, hostName, err => {
@@ -38,6 +43,6 @@ server.listen(nodePort, hostName, err => {
     return;
   }
 
-  console.log(`Webpack server listening at //${hostName}:${nodePort}.`);
+  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}://${hostName}:${nodePort}.`);
 });
 /* eslint-enable no-console */
