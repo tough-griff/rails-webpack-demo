@@ -7,20 +7,14 @@ const serverPath = `//${hostName}:${nodePort}`;
 
 export default {
   context: __dirname,
-
+  debug: true,
+  devtool: 'cheap-module-eval-source-map',
   entry: {
     app: [
       `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
       './js/index',
     ],
   },
-
-  output: {
-    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: '[name].bundle.js',
-    publicPath: `${serverPath}/assets/javascripts/`,
-  },
-
   module: {
     preLoaders: [
       {
@@ -37,16 +31,11 @@ export default {
       },
     ],
   },
-
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules'],
+  output: {
+    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
+    filename: '[name].bundle.js',
+    publicPath: `${serverPath}/assets/javascripts/`,
   },
-
-  debug: true,
-
-  devtool: 'cheap-module-eval-source-map',
-
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -55,4 +44,8 @@ export default {
       __DEVELOPMENT__: true,
     }),
   ],
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+    modulesDirectories: ['node_modules'],
+  },
 };
