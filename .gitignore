@@ -15,6 +15,7 @@
 spec/.example_status
 
 # JS
+app/assets/javascripts/*.bundle.*
 /node_modules
 *.log
 
