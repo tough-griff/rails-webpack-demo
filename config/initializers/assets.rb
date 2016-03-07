@@ -8,4 +8,9 @@ Rails.application.config.assets.version = "1.0"
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( app.bundle.js )
+Rails.application.config.assets.precompile += %w(*.bundle.js)
+
+# Compiles whitelisted files to both digest and non-digest assets, allowing
+# the source map references in bui
+# see: https://github.com/alexspeller/non-stupid-digest-assets
+NonStupidDigestAssets.whitelist += [/.*\.bundle\.js\.map/]
