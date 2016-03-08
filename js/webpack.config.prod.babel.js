@@ -1,15 +1,16 @@
 import webpack from 'webpack';
 import merge from 'lodash.merge';
 
-import config from './webpack.config.dev.babel.js';
+import devConfig from './webpack.config.dev.babel.js';
 
-export default merge(config, {
+export default merge(devConfig, {
   debug: false,
   devtool: 'source-map',
   entry: {
     app: './src/index',
   },
   module: {
+    preLoaders: null,
     loaders: [{
       loader: 'babel',
       test: /\.jsx?$/,
