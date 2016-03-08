@@ -8,8 +8,7 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-!/log/.keep
+/log
 /tmp
 *.log
 spec/.example_status

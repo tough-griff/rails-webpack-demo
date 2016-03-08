@@ -14,14 +14,14 @@
     "webpack"
   ],
   "scripts": {
-    "build:webpack": "NODE_ENV=production webpack --config=webpack.config.prod.babel.js",
+    "build:webpack": "NODE_ENV=production webpack --config=js/webpack.config.prod.babel.js",
     "build": "npm run clean && npm run build:webpack",
     "check": "npm run lint && npm run test",
     "clean": "rimraf app/assets/javascripts/*.bundle.*",
-    "lint": "eslint --ext=.js,.jsx js/ *.js",
+    "lint": "eslint --ext=.js,.jsx js/",
     "start": "npm run webpack",
-    "test": "NODE_ENV=test mocha --compilers=js:babel-register --recursive",
-    "webpack": "npm run clean && babel-node webpack.js"
+    "test": "NODE_ENV=test mocha --compilers=js:babel-register --recursive js/test",
+    "webpack": "npm run clean && babel-node js/webpackServer.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.6.1",

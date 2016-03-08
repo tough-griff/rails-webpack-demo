@@ -12,7 +12,7 @@ export default {
   entry: {
     app: [
       `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
-      './js/index',
+      './src/index',
     ],
   },
   module: {
@@ -32,7 +32,7 @@ export default {
     ],
   },
   output: {
-    path: path.join(__dirname, 'app', 'assets', 'javascripts'),
+    path: path.resolve(__dirname, '..', 'app', 'assets', 'javascripts'),
     filename: '[name].bundle.js',
     publicPath: `${serverPath}/assets/javascripts/`,
   },

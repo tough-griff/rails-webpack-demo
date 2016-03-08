@@ -7,7 +7,7 @@ export default merge(config, {
   debug: false,
   devtool: 'source-map',
   entry: {
-    app: './js/index',
+    app: './src/index',
   },
   module: {
     loaders: [{
