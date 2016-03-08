@@ -92,6 +92,8 @@ GEM
     minitest (5.8.4)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    non-stupid-digest-assets (1.0.8)
+      sprockets (>= 2.0)
     parser (2.3.0.6)
       ast (~> 2.2)
     passenger (5.0.26)
@@ -228,6 +230,7 @@ DEPENDENCIES
   haml-rails (~> 0.9.0)
   haml_lint
   mailcatcher
+  non-stupid-digest-assets (~> 1.0.8)
   passenger (~> 5.0.26)
   pg (~> 0.18.4)
   pry-byebug
