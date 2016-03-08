@@ -19,6 +19,7 @@
     "check": "npm run lint && npm run test",
     "clean": "rimraf app/assets/javascripts/*.bundle.*",
     "lint": "eslint --ext=.js,.jsx js/",
+    "postinstall": "npm run build",
     "start": "npm run webpack",
     "test": "NODE_ENV=test mocha --compilers=js:babel-register --recursive js/test",
     "webpack": "npm run clean && babel-node js/webpackServer.js"

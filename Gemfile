@@ -13,18 +13,18 @@ gem "non-stupid-digest-assets", "~> 1.0.8"
 
 group :development do
   gem "foreman", require: false
-  gem "haml_lint"
+  gem "haml_lint", require: false
   gem "mailcatcher", require: false
-  gem "rubocop"
-  gem "scss_lint"
+  gem "rubocop", require: false
+  gem "scss_lint", require: false
   gem "spring-commands-rspec"
   gem "spring"
 end
 
 group :development, :test do
   gem "awesome_print"
-  gem "pry-rails"
   gem "pry-byebug"
+  gem "pry-rails"
   gem "rspec-rails"
 end
 
