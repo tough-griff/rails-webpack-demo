@@ -1,0 +1,13 @@
+/bin
+/js/test
+/spec
+.env.example
+.envrc.example
+.haml-lint.yml
+.rspec
+.rubocopy.yml
+.ruby-version
+.scss-lint.yml
+.travis.yml
+Procfile.dev
+README.md
