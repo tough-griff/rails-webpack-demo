@@ -4,7 +4,6 @@ ruby "2.3.0"
 gem "rails", "4.2.5.2"
 
 gem "haml-rails",               "~> 0.9.0"
-gem "passenger",                "~> 5.0.26"
 gem "pg",                       "~> 0.18.4"
 gem "rack-timeout",             "~> 0.3.2"
 gem "sass-rails",               "~> 5.0.4"
@@ -35,5 +34,6 @@ group :test do
 end
 
 group :production, :staging do
+  gem "passenger",      "~> 5.0.26"
   gem "rails_12factor", "~> 0.0.3"
 end
