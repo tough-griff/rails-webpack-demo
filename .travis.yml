@@ -1,7 +1,7 @@
 # Language configuration
 language: ruby
 rvm:
-- 2.3.0
+  - 2.3.0
 
 # Misc configuration
 addons:
@@ -11,18 +11,23 @@ cache:
   directories:
   - node_modules
 env:
-- RAILS_ENV=test NODE_ENV=test RACK_TIMEOUT=30
-install:
-- bundle install
-- npm install
+  - RAILS_ENV=test NODE_ENV=test RACK_TIMEOUT=30
 
-# Test Script configuration
+# Installation step configuration
+before_install:
+  - nvm install 5.7.1
+  - nvm use 5.7.1
+install:
+  - bundle install
+  - npm install
+
+# Test script configuration
 before_script:
-  - psql -c 'create database rails-webpack-demo_test;' -U postgres
+  - psql -c 'create database "rails-webpack-demo_test";' -U postgres
 script:
-- bundle exec rake db:migrate
-- bundle exec rake spec
-- npm run test
+  - bundle exec rake db:migrate
+  - bundle exec rake spec
+  - npm run test
 
 # Deployment configuration
 before_deploy:
