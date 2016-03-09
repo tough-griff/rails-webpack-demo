@@ -7,7 +7,7 @@
 .haml-lint.yml
 .node-version
 .rspec
-.rubocopy.yml
+.rubocop.yml
 .ruby-version
 .scss-lint.yml
 .travis.yml
