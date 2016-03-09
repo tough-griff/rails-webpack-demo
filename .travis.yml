@@ -26,12 +26,10 @@ before_script:
 script:
   - bundle exec rake db:migrate
   - bundle exec rake spec
-  - npm run test
 
 # Deployment configuration
 before_deploy:
-  - npm run build
-  - bundle exec rake assets:precompile
+  - bundle exec rake build
 deploy:
   provider: heroku
   skip_cleanup: true
