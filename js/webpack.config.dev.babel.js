@@ -14,6 +14,10 @@ export default {
       `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
       './src/index',
     ],
+    'app.style': [
+      `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
+      '../app/assets/stylesheets/index.scss',
+    ],
   },
   module: {
     preLoaders: [
@@ -28,6 +32,10 @@ export default {
         loader: 'babel',
         test: /\.jsx?$/,
         exclude: /node_modules/,
+      },
+      {
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+        test: /\.scss$/,
       },
     ],
   },
