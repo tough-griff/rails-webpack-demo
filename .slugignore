@@ -1,9 +1,11 @@
 /bin
-/js/test
+/js
 /spec
+.babelrc
 .env.example
 .envrc.example
 .haml-lint.yml
+.node-version
 .rspec
 .rubocopy.yml
 .ruby-version

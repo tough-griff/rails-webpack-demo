@@ -9,14 +9,13 @@ addons:
 cache:
   bundler: true
   directories:
-  - node_modules
+    - node_modules
 env:
   - RAILS_ENV=test NODE_ENV=test RACK_TIMEOUT=30
 
 # Installation step configuration
 before_install:
   - nvm install 5.7.1
-  - nvm use 5.7.1
 install:
   - bundle install
   - npm install
