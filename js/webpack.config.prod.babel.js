@@ -1,16 +1,18 @@
+import _ from 'lodash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import mapValues from 'lodash.mapvalues';
-import merge from 'lodash.merge';
 import webpack from 'webpack';
 
 import devConfig from './webpack.config.dev.babel.js';
 
-// Remove the hot module replacement entry point for development config `entry`.
-mapValues(devConfig.entry, value => value.shift());
+// Prunes the Webpack HMR entry points from the development config `entry` key.
+function pruneHmrEntries(entry) {
+  return _.mapValues(entry, entryValue => _.tail(entryValue));
+}
 
-export default merge(devConfig, {
+export default _.merge(devConfig, {
   debug: false,
   devtool: 'source-map',
+  entry: pruneHmrEntries(devConfig.entry),
   module: {
     preLoaders: null,
     loaders: [
