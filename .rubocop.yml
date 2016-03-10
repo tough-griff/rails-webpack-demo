@@ -4,8 +4,9 @@ AllCops:
     - Gemfile
     - config.ru
   Exclude:
-    - db/**/*
     - bin/*
+    - db/**/*
+    - node_modules/**/*
 Lint/ParenthesesAsGroupedExpression:
   Enabled: false
 Metrics/LineLength:
