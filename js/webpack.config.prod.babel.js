@@ -6,7 +6,7 @@ import devConfig from './webpack.config.dev.babel.js';
 
 // Prunes the Webpack HMR entry points from the development config `entry` key.
 function pruneHmrEntries(entry) {
-  return _.mapValues(entry, entryValue => _.tail(entryValue));
+  return _.mapValues(entry, _.tail);
 }
 
 export default _.merge(devConfig, {
