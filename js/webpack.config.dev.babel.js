@@ -4,6 +4,7 @@ import webpack from 'webpack';
 const hostName = process.env.HOSTNAME || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
 const serverPath = `//${hostName}:${nodePort}`;
+const webpackHmrEntry = `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`;
 
 export default {
   context: __dirname,
@@ -11,8 +12,12 @@ export default {
   devtool: 'cheap-module-eval-source-map',
   entry: {
     app: [
-      `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`,
+      webpackHmrEntry,
       './src/index',
+    ],
+    'app.style': [
+      webpackHmrEntry,
+      '../app/assets/stylesheets/index.scss',
     ],
   },
   module: {
@@ -28,6 +33,10 @@ export default {
         loader: 'babel',
         test: /\.jsx?$/,
         exclude: /node_modules/,
+      },
+      {
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+        test: /\.scss$/,
       },
     ],
   },

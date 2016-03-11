@@ -15,6 +15,7 @@ spec/.example_status
 
 # JS and misc build process.
 /app/assets/javascripts/*.bundle.*
+/app/assets/stylesheets/*.bundle.*
 /public/assets
 /node_modules
 
