@@ -1,11 +1,11 @@
 import 'babel-polyfill';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import Home from './components/Home';
 
-ReactDOM.render(
+render(
   <Home />,
   document.getElementById('app-root')
 );

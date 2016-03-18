@@ -4,11 +4,9 @@ ruby "2.3.0"
 gem "rails", "4.2.6"
 
 gem "haml-rails",               "~> 0.9.0"
+gem "non-stupid-digest-assets", "~> 1.0.8"
 gem "pg",                       "~> 0.18.4"
 gem "rack-timeout",             "~> 0.3.2"
-gem "sass-rails",               "~> 5.0.4"
-gem "uglifier",                 "~> 2.7.2"
-gem "non-stupid-digest-assets", "~> 1.0.8"
 
 group :development do
   gem "foreman", require: false

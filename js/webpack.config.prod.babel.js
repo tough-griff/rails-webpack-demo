@@ -1,18 +1,14 @@
-import _ from 'lodash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import { merge } from 'lodash';
 import webpack from 'webpack';
 
 import devConfig from './webpack.config.dev.babel.js';
+import entries from './entries.json';
 
-// Prunes the Webpack HMR entry points from the development config `entry` key.
-function pruneHmrEntries(entry) {
-  return _.mapValues(entry, _.tail);
-}
-
-export default _.merge(devConfig, {
+const prodConfig = merge(devConfig, {
   debug: false,
   devtool: 'source-map',
-  entry: pruneHmrEntries(devConfig.entry),
+  entry: entries,
   module: {
     preLoaders: null,
     loaders: [
@@ -34,6 +30,8 @@ export default _.merge(devConfig, {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false,
+      'process.env': { NODE_ENV: JSON.stringify('production') },
+
     }),
     new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
     new webpack.optimize.UglifyJsPlugin({
@@ -46,3 +44,5 @@ export default _.merge(devConfig, {
     }),
   ],
 });
+
+export default prodConfig;

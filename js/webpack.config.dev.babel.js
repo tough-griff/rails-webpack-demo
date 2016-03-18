@@ -1,25 +1,24 @@
+import { castArray, mapValues } from 'lodash';
 import path from 'path';
 import webpack from 'webpack';
+
+import entries from './entries.json';
 
 const hostName = process.env.HOSTNAME || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
 const serverPath = `//${hostName}:${nodePort}`;
 const webpackHmrEntry = `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`;
 
-export default {
+// Prepend the webpack HMR entry point to all defined entry points.
+const devEntries = mapValues(entries, entry =>
+  [webpackHmrEntry, ...castArray(entry)]
+);
+
+const devConfig = {
   context: __dirname,
   debug: true,
   devtool: 'cheap-module-eval-source-map',
-  entry: {
-    app: [
-      webpackHmrEntry,
-      './src/index',
-    ],
-    'app.style': [
-      webpackHmrEntry,
-      '../app/assets/stylesheets/index.scss',
-    ],
-  },
+  entry: devEntries,
   module: {
     preLoaders: [
       {
@@ -51,6 +50,7 @@ export default {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
+      'process.env': { NODE_ENV: JSON.stringify('development') },
     }),
   ],
   resolve: {
@@ -58,3 +58,5 @@ export default {
     modulesDirectories: ['node_modules'],
   },
 };
+
+export default devConfig;
