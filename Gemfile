@@ -17,6 +17,7 @@ group :development do
   gem "scss_lint", require: false
   gem "spring-commands-rspec"
   gem "spring"
+  gem "system-bang"
   gem "travis", require: false
 end
 

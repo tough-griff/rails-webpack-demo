@@ -16,7 +16,7 @@ namespace :lint do
   end
 
   task all: %i(haml_lint rubocop scss_lint) do
-    system "npm run lint"
+    system! "npm run lint"
   end
 end
 
