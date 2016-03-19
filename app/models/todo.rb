@@ -11,10 +11,10 @@
 #
 
 class Todo < ActiveRecord::Base
-  default_scope { order(index: :asc, created_at: :asc) }
+  default_scope { order(index: :asc) }
 
   validates :label, presence: true
-  validates :index, presence: true
+  validates :index, presence: true, uniqueness: true
 
   before_create :set_index
 
@@ -22,7 +22,6 @@ class Todo < ActiveRecord::Base
 
   # Auto-increment the todo's `index` to last.
   def set_index
-    max_index = Todo.maximum(:index) || 0
-    self.index = max_index + 1
+    self.index = (Todo.maximum(:index) || 0) + 1 unless index > 0
   end
 end
