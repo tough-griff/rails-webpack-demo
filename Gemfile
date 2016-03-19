@@ -9,6 +9,7 @@ gem "pg",                       "~> 0.18.4"
 gem "rack-timeout",             "~> 0.3.2"
 
 group :development do
+  gem "annotate"
   gem "foreman", require: false
   gem "haml_lint", require: false
   gem "mailcatcher", require: false
@@ -28,6 +29,7 @@ end
 
 group :test do
   gem "database_cleaner", require: false
+  gem "factory_girl_rails"
   gem "shoulda-matchers", require: false
 end
 

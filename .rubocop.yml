@@ -18,3 +18,6 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/SymbolArray:
   Enabled: true
+Style/TrailingCommaInArguments:
+  Enabled: true
+  EnforcedStyleForMultiline: comma
