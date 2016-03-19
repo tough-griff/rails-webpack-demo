@@ -7,6 +7,7 @@ gem "haml-rails",               "~> 0.9.0"
 gem "non-stupid-digest-assets", "~> 1.0.8"
 gem "pg",                       "~> 0.18.4"
 gem "rack-timeout",             "~> 0.3.2"
+gem "system-bang",              "~> 1.0.0"
 
 group :development do
   gem "annotate"
@@ -17,7 +18,6 @@ group :development do
   gem "scss_lint", require: false
   gem "spring-commands-rspec"
   gem "spring"
-  gem "system-bang"
   gem "travis", require: false
 end
 

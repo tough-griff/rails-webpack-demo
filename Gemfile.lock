@@ -283,7 +283,7 @@ DEPENDENCIES
   shoulda-matchers
   spring
   spring-commands-rspec
-  system-bang
+  system-bang (~> 1.0.0)
   travis
 
 BUNDLED WITH
