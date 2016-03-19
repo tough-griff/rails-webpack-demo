@@ -69,7 +69,12 @@ const initialState = new List();
  * reduction of the state. If no corresponding action is found, simply pass
  * the state through.
  */
-export default function todos(state = initialState, { type, payload }) {
+export default function todos(state = initialState, { type, payload, error }) {
+  if (error) {
+    console.error(`${type}: ${payload}`); // eslint-disable-line no-console
+    return state;
+  }
+
   const reducer = ACTIONS_MAP[camelCase(type)];
 
   return (reducer) ? reducer(state, payload) : state;
