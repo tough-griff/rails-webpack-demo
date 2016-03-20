@@ -6,10 +6,13 @@ import { Actions } from '../constants';
 const SERVER_URL = '/api';
 
 /**
- * Parse the response's JSON.
+ * Parse the response's JSON. Throws an error if the response includes a top
+ * level `error` key.
  */
 function parse(response) {
-  return response.json();
+  const json = response.json();
+
+  return (json.error) ? new Error(json.error) : json;
 }
 
 export default {
@@ -22,12 +25,11 @@ export default {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          isComplete: false,
-          label,
+          todo: { label },
         }),
       }).then(checkStatus)
         .then(parse)
-        .then(todo => dispatch({
+        .then(({ todo }) => dispatch({
           type: Actions.ADD_TODO,
           payload: { todo },
         }))
@@ -92,7 +94,7 @@ export default {
         method: 'GET',
       }).then(checkStatus)
         .then(parse)
-        .then(todos => dispatch({
+        .then(({ todos }) => dispatch({
           type: Actions.FETCH_ALL_TODOS,
           payload: { todos },
         }))

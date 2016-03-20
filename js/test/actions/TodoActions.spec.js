@@ -27,7 +27,7 @@ describe('TodoActions', function () {
     };
 
     before(function mockApi() {
-      fetchMock.reMock('/api/todos', 'POST', { label });
+      fetchMock.reMock('/api/todos', 'POST', { todo: { label } });
     });
 
     it('returns a thunk', function () {
@@ -131,7 +131,7 @@ describe('TodoActions', function () {
     };
 
     before(function mockApi() {
-      fetchMock.reMock('/api/todos', 'GET', todos);
+      fetchMock.reMock('/api/todos', 'GET', { todos });
     });
 
     it('returns a thunk', function () {

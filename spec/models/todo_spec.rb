@@ -22,17 +22,12 @@ RSpec.describe Todo, type: :model do
   it { is_expected.to be_valid }
   it { is_expected.to validate_presence_of(:label) }
   it { is_expected.to validate_presence_of(:index) }
-  it { is_expected.to validate_uniqueness_of(:index) }
+  it { is_expected.to validate_numericality_of(:index) }
 
   describe "#index" do
-    it "increments index by 1 on create" do
+    it "increments index on create" do
       previous, current = create_list(:todo, 2)
       expect(current.index).to eq(previous.index + 1)
-    end
-
-    it "allows index to be manually initialized" do
-      todo = create(:todo, index: 34)
-      expect(todo.index).to eq(34)
     end
   end
 end

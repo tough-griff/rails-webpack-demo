@@ -14,14 +14,14 @@ class Todo < ActiveRecord::Base
   default_scope { order(index: :asc) }
 
   validates :label, presence: true
-  validates :index, presence: true, uniqueness: true
+  validates :index, presence: true, numericality: { greater_than: 0 }
 
-  before_create :set_index
+  before_validation :increment_index, on: :create
 
   private
 
-  # Auto-increment the todo's `index` to last.
-  def set_index
-    self.index = (Todo.maximum(:index) || 0) + 1 unless index > 0
+  # Auto-increment a new todo's `index`.
+  def increment_index
+    self.index = (Todo.maximum(:index) || 0) + 1
   end
 end

@@ -13,7 +13,9 @@
 FactoryGirl.define do
   factory :todo do
     sequence(:label) { |n| "Todo #{n}" }
-    complete false
-    sequence(:index)
+
+    trait :invalid do
+      label ""
+    end
   end
 end

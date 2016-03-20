@@ -10,7 +10,7 @@ const Todo = new Record({
 
 const ACTIONS_MAP = {
   addTodo(state, { todo }) {
-    return state.push(new Todo({ index: todo.id, ...todo }));
+    return state.push(new Todo(todo));
   },
 
   clearCompleteTodos(state) {

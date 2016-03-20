@@ -13,4 +13,25 @@ RSpec.describe TodosController, type: :controller do
     specify { expect(assigns(:todos)).to eq(Todo.first(3)) }
     specify { expect(json_response).to include("todos") }
   end
+
+  describe "POST #create" do
+    context "with valid params" do
+      before do
+        post :create, todo: attributes_for(:todo)
+      end
+
+      specify { expect(response).to have_http_status(:success) }
+      specify { expect(assigns(:todo)).to be_a(Todo) }
+      specify { expect(json_response).to include("todo") }
+    end
+
+    context "with invalid params" do
+      before do
+        post :create, todo: attributes_for(:todo, :invalid)
+      end
+
+      specify { expect(response).to have_http_status(:success) }
+      specify { expect(json_response).to include("error") }
+    end
+  end
 end
