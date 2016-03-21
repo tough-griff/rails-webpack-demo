@@ -1,10 +1,7 @@
 class TodoSerializer < ActiveModel::Serializer
-  attributes :id, :index, :isComplete, :label
+  attributes :id, :index, :label
 
-  private
-
-  # TODO: automatically convert booleans to is___
-  def isComplete
+  attribute :isComplete do
     object.complete?
   end
 end

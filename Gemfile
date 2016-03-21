@@ -3,7 +3,7 @@ ruby "2.3.0"
 
 gem "rails", "4.2.6"
 
-gem "active_model_serializers", "~> 0.9.4"
+gem "active_model_serializers", "~> 0.10.0.rc4"
 gem "haml-rails",               "~> 0.9.0"
 gem "non-stupid-digest-assets", "~> 1.0.8"
 gem "pg",                       "~> 0.18.4"
