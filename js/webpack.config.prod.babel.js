@@ -29,7 +29,6 @@ const prodConfig = merge(devConfig, {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: false,
       'process.env': { NODE_ENV: JSON.stringify('production') },
 
     }),

@@ -68,11 +68,11 @@ describe('TodoActions', function () {
     const subject = TodoActions.deleteTodo(id);
     const action = {
       type: 'DELETE_TODO',
-      payload: { id },
+      payload: { todo: { id } },
     };
 
     before(function mockApi() {
-      fetchMock.reMock(`/api/todos/${id}`, 'DELETE', {});
+      fetchMock.reMock(`/api/todos/${id}`, 'DELETE', { todo: { id } });
     });
 
     it('returns a thunk', function () {

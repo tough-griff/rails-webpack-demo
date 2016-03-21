@@ -14,6 +14,17 @@ class TodosController < ApplicationController
     end
   end
 
+  def destroy
+    @todo = Todo.find(params.require(:id))
+    @todo.destroy
+
+    if @todo.destroyed?
+      render json: @todo
+    else
+      render_errors_for(@todo)
+    end
+  end
+
   private
 
   def create_params
@@ -21,6 +32,6 @@ class TodosController < ApplicationController
   end
 
   def render_errors_for(object)
-    render json: { error: object.errors.full_messages }
+    render json: { error: object.errors.full_messages }, status: :error
   end
 end

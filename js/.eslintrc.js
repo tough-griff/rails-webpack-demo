@@ -13,7 +13,4 @@ module.exports = {
     'babel/new-cap': ERROR,
     'react/prefer-stateless-function': OFF,
   },
-  globals: {
-    '__DEVELOPMENT__': true,
-  },
 }

@@ -73,7 +73,7 @@ describe('todos()', function () {
     const action = {
       type: 'DELETE_TODO',
       payload: {
-        id: 2,
+        todo: { id: 2 },
       },
     };
 

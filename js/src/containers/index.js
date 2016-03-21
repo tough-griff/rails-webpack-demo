@@ -3,7 +3,7 @@ export DevTools from './DevTools';
 
 let Root;
 
-if (__DEVELOPMENT__) {
+if (process.env.NODE_ENV === 'development') {
   Root = require('./Root.dev').default;
 } else {
   Root = require('./Root.prod').default;

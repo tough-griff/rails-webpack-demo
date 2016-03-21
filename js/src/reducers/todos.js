@@ -17,7 +17,7 @@ const ACTIONS_MAP = {
     return state.filter(todo => !todo.get('isComplete'));
   },
 
-  deleteTodo(state, { id }) {
+  deleteTodo(state, { todo: { id } }) {
     return state.filter(todo => todo.get('id') !== id);
   },
 

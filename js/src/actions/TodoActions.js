@@ -15,14 +15,25 @@ function parse(response) {
   return (json.error) ? new Error(json.error) : json;
 }
 
+/**
+ * Extracts the CSRF token from the pages meta tags.
+ */
+function getCSRFToken() {
+  if (process.env.NODE_ENV === 'test') return 'FAKE_CSRF_TOKEN';
+
+  return document.getElementsByTagName('meta')['csrf-token'].content;
+}
+
 export default {
   addTodo(label) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
+        credentials: 'same-origin',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
         },
         body: JSON.stringify({
           todo: { label },
@@ -51,10 +62,16 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
+        },
       }).then(checkStatus)
-        .then(() => dispatch({
+        .then(parse)
+        .then(({ todo }) => dispatch({
           type: Actions.DELETE_TODO,
-          payload: { id },
+          payload: { todo },
         }))
         .catch(err => dispatch({
           type: Actions.DELETE_TODO,
@@ -92,6 +109,11 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
+        },
       }).then(checkStatus)
         .then(parse)
         .then(({ todos }) => dispatch({
