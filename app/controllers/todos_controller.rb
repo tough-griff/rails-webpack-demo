@@ -32,6 +32,11 @@ class TodosController < ApplicationController
     end
   end
 
+  def mark_all
+    Todo.update_all(complete: params.require(:complete))
+    render json: Todo.order(:index)
+  end
+
   private
 
   def find_todo

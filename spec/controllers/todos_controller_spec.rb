@@ -82,7 +82,7 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe "PATCH #update" do
-    let!(:todo) { create(:todo) }
+    let!(:todo) { create(:todo, label: "Old label", complete: false) }
 
     context "with valid params" do
       it "returns http success" do
@@ -126,6 +126,24 @@ RSpec.describe TodosController, type: :controller do
           patch :update, id: todo.id, todo: attributes_for(:todo, :invalid)
         end.not_to change(todo, :label)
       end
+    end
+  end
+
+  describe "PATCH #mark_all" do
+    let!(:todos) { create_list(:todo, 3, complete: false) }
+
+    before { patch :mark_all, complete: true }
+
+    it "returns http success" do
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the correct JSON response" do
+      expect(json_response).to include("todos")
+    end
+
+    it "marks all todos as completed" do
+      todos.each { |todo| expect(todo.reload.complete).to be(true) }
     end
   end
 end

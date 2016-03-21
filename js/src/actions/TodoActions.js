@@ -154,12 +154,28 @@ export default {
         }));
   },
 
-  // FIXME: this is just a stub--does nothing on the server.
-  markAllTodos(isComplete) {
-    return {
-      type: Actions.MARK_ALL_TODOS,
-      payload: { isComplete },
-    };
+  markAllTodos(complete) {
+    return dispatch =>
+      fetch(`${SERVER_URL}/todos/mark_all`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
+        },
+        body: JSON.stringify({ complete }),
+      }).then(checkStatus)
+        .then(parse)
+        .then(({ todos }) => dispatch({
+          type: Actions.MARK_ALL_TODOS,
+          payload: { todos },
+        }))
+        .catch(err => dispatch({
+          type: Actions.MARK_ALL_TODOS,
+          payload: err,
+          error: true,
+        }));
   },
 
   // FIXME: this is just a stub--does nothing on the server.

@@ -112,6 +112,38 @@ describe('todos()', function () {
         todos: [{
           id: 1,
           label: 'A couple',
+          isComplete: false,
+        }, {
+          id: 2,
+          label: 'of new',
+          isComplete: false,
+        }, {
+          id: 3,
+          label: 'todos',
+          isComplete: false,
+        }, {
+          id: 4,
+          label: 'all completed',
+          isComplete: false,
+        }],
+      },
+    };
+
+    it('sets todoList to the new fetched todos', function () {
+      const subject = todos(state, action);
+      expect(subject.size).to.equal(4);
+      expect(subject.every(todo => todo.get('isComplete'))).to.be(false);
+    });
+  });
+
+  context('action.type = MARK_ALL_TODOS', function () {
+    const action = {
+      type: 'MARK_ALL_TODOS',
+      payload: {
+        id: 2,
+        todos: [{
+          id: 1,
+          label: 'A couple',
           isComplete: true,
         }, {
           id: 2,
@@ -123,25 +155,9 @@ describe('todos()', function () {
           isComplete: true,
         }, {
           id: 4,
-          label: 'all completed',
+          label: 'all incomplete',
           isComplete: true,
         }],
-      },
-    };
-
-    it('sets todoList to the new fetched todos', function () {
-      const subject = todos(state, action);
-      expect(subject.size).to.equal(4);
-      expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
-    });
-  });
-
-  context('action.type = MARK_ALL_TODOS', function () {
-    const action = {
-      type: 'MARK_ALL_TODOS',
-      payload: {
-        id: 2,
-        isComplete: true,
       },
     };
 

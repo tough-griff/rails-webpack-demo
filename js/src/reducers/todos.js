@@ -31,12 +31,14 @@ const ACTIONS_MAP = {
 
   fetchAllTodos(state, { todos: allTodos }) {
     return new Seq(allTodos)
-      .map(todo => new Todo({ index: todo.id, ...todo }))
+      .map(todo => new Todo(todo))
       .toList();
   },
 
-  markAllTodos(state, { isComplete }) {
-    return state.map(todo => todo.set('isComplete', isComplete));
+  markAllTodos(state, { todos: allTodos }) {
+    return new Seq(allTodos)
+      .map(todo => new Todo(todo))
+      .toList();
   },
 
   markTodo(state, { todo: { id, isComplete } }) {
