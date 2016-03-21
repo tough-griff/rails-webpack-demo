@@ -155,8 +155,10 @@ describe('todos()', function () {
     const action = {
       type: 'MARK_TODO',
       payload: {
-        id: 2,
-        isComplete: true,
+        todo: {
+          id: 2,
+          isComplete: true,
+        },
       },
     };
 

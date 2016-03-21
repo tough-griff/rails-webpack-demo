@@ -157,11 +157,11 @@ describe('TodoActions', function () {
     const subject = TodoActions.markTodo(id, isComplete);
     const action = {
       type: 'MARK_TODO',
-      payload: { id, isComplete },
+      payload: { todo: { id, isComplete } },
     };
 
     before(function mockApi() {
-      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { id, isComplete });
+      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { todo: { id, isComplete } });
     });
 
     it('returns a thunk', function () {

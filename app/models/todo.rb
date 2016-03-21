@@ -11,8 +11,6 @@
 #
 
 class Todo < ActiveRecord::Base
-  default_scope { order(index: :asc) }
-
   validates :label, presence: true
   validates :index, presence: true, numericality: { greater_than: 0 }
 

@@ -16,7 +16,7 @@ function parse(response) {
 }
 
 /**
- * Extracts the CSRF token from the pages meta tags.
+ * Extracts the CSRF token from the page's meta tags.
  */
 function getCSRFToken() {
   if (process.env.NODE_ENV === 'test') return 'FAKE_CSRF_TOKEN';
@@ -128,23 +128,24 @@ export default {
         }));
   },
 
-  markTodo(id, isComplete) {
+  markTodo(id, complete) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
+        credentials: 'same-origin',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
         },
-        body: JSON.stringify({ isComplete }),
+        body: JSON.stringify({
+          todo: { complete },
+        }),
       }).then(checkStatus)
         .then(parse)
-        .then(todo => dispatch({
+        .then(({ todo }) => dispatch({
           type: Actions.MARK_TODO,
-          payload: {
-            id: todo.id,
-            isComplete: todo.isComplete,
-          },
+          payload: { todo },
         }))
         .catch(err => dispatch({
           type: Actions.MARK_TODO,

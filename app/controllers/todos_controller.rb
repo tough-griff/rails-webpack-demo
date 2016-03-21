@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   before_action :find_todo, only: %i(destroy update)
 
   def index
-    @todos = Todo.all
+    @todos = Todo.order(:index)
     render json: @todos
   end
 
@@ -20,7 +20,7 @@ class TodosController < ApplicationController
     if @todo.destroy
       render_todo
     else
-      render json: { error: ["Unable to destroy todo with ID #{todo}"] }, status: 400
+      render json: { error: ["Unable to destroy todo with ID #{todo.id}: #{todo.label}"] }, status: 400
     end
   end
 
@@ -47,6 +47,6 @@ class TodosController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:label)
+    params.require(:todo).permit(:label, :complete)
   end
 end

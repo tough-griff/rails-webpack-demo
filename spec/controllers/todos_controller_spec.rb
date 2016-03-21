@@ -14,7 +14,7 @@ RSpec.describe TodosController, type: :controller do
     end
 
     it "assigns the correct todos" do
-      expect(assigns(:todos)).to eq(Todo.first(3))
+      expect(assigns(:todos)).to eq(Todo.first(3).sort_by(&:index))
     end
 
     it "renders the correct JSON response" do
@@ -95,11 +95,18 @@ RSpec.describe TodosController, type: :controller do
         expect(json_response).to include("todo")
       end
 
-      it "updates the todo" do
+      it "updates the todo's label" do
         expect do
           patch :update, id: todo.id, todo: attributes_for(:todo, label: "New label")
           todo.reload
         end.to change(todo, :label).to("New label")
+      end
+
+      it "updates the todo's completed status" do
+        expect do
+          patch :update, id: todo.id, todo: attributes_for(:todo, complete: true)
+          todo.reload
+        end.to change(todo, :complete).to(true)
       end
     end
 

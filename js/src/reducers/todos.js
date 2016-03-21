@@ -39,7 +39,7 @@ const ACTIONS_MAP = {
     return state.map(todo => todo.set('isComplete', isComplete));
   },
 
-  markTodo(state, { id, isComplete }) {
+  markTodo(state, { todo: { id, isComplete } }) {
     return state.map(todo =>
       (todo.get('id') === id)
         ? todo.set('isComplete', isComplete)
