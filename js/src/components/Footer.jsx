@@ -31,8 +31,7 @@ function collect(connect, monitor) {
  * @note: we pass `filter` to this component to trigger a re-render when the
  * filter changes. This allows `Link`'s `activeClassName` to work correctly.
  */
-@DropTarget(Items.TODO, target, collect)
-export default class Footer extends Component {
+class Footer extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
@@ -93,3 +92,5 @@ export default class Footer extends Component {
     );
   }
 }
+
+export default DropTarget(Items.TODO, target, collect)(Footer); // eslint-disable-line babel/new-cap

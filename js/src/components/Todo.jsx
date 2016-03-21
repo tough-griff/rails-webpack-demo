@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
+import { compose } from 'redux';
 
 import { TextInput } from '.';
 import { Items } from '../constants';
@@ -43,9 +44,7 @@ function sourceCollect(connect, monitor) {
 /**
  * Represents a single todo item in a todo list.
  */
-@DropTarget(Items.TODO, target, targetCollect)
-@DragSource(Items.TODO, source, sourceCollect)
-export default class Todo extends Component {
+class Todo extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func.isRequired,
@@ -142,3 +141,10 @@ export default class Todo extends Component {
     ));
   }
 }
+
+/* eslint-disable babel/new-cap */
+export default compose(
+  DropTarget(Items.TODO, target, targetCollect),
+  DragSource(Items.TODO, source, sourceCollect),
+)(Todo);
+/* eslint-enable babel/new-cap */

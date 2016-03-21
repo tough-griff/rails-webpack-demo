@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 
 import { TodoActions } from '../actions';
 import { Header, TodoList } from '../components';
@@ -25,9 +25,7 @@ function mapDispatchToProps(dispatch) {
  * passing their state through as props, as well as receives props from the
  * router.
  */
-@DragDropContext(HTML5Backend)
-@connect(mapStateToProps, mapDispatchToProps)
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -58,3 +56,8 @@ export default class App extends Component {
     );
   }
 }
+
+export default compose(
+  DragDropContext(HTML5Backend), // eslint-disable-line babel/new-cap
+  connect(mapStateToProps, mapDispatchToProps),
+)(App);
