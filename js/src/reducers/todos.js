@@ -21,7 +21,7 @@ const ACTIONS_MAP = {
     return state.filter(todo => todo.get('id') !== id);
   },
 
-  editTodo(state, { id, label }) {
+  editTodo(state, { todo: { id, label } }) {
     return state.map(todo =>
       (todo.get('id') === id)
         ? todo.set('label', label)

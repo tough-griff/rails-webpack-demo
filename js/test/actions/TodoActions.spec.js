@@ -98,11 +98,11 @@ describe('TodoActions', function () {
     const subject = TodoActions.editTodo(id, label);
     const action = {
       type: 'EDIT_TODO',
-      payload: { id, label },
+      payload: { todo: { id, label } },
     };
 
     before(function mockApi() {
-      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { id, label });
+      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { todo: { id, label } });
     });
 
     it('returns a thunk', function () {

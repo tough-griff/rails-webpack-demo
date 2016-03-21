@@ -84,19 +84,20 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
+        credentials: 'same-origin',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
         },
-        body: JSON.stringify({ label }),
+        body: JSON.stringify({
+          todo: { label },
+        }),
       }).then(checkStatus)
         .then(parse)
-        .then(todo => dispatch({
+        .then(({ todo }) => dispatch({
           type: Actions.EDIT_TODO,
-          payload: {
-            id: todo.id,
-            label: todo.label,
-          },
+          payload: { todo },
         }))
         .catch(err => dispatch({
           type: Actions.EDIT_TODO,

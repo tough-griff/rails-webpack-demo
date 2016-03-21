@@ -88,14 +88,15 @@ describe('todos()', function () {
     const action = {
       type: 'EDIT_TODO',
       payload: {
-        id: 2,
-        label: 'New label',
+        todo: {
+          id: 2,
+          label: 'New label',
+        },
       },
     };
 
     it('modifies the correct todo', function () {
       const subject = todos(state, action)
-
         .find(todo => todo.get('id') === 2);
 
       expect(subject.get('label')).to.equal('New label');
