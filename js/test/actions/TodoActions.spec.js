@@ -48,18 +48,31 @@ describe('TodoActions', function () {
   });
 
   describe('.clearCompleteTodos()', function () {
+    const todos = [{ id: 1 }, { id: 4 }];
     const subject = TodoActions.clearCompleteTodos();
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
+      payload: { todos },
     };
 
-    it('creates the correct action', function () {
-      expect(subject).to.eql(action);
+    before(function mockApi() {
+      fetchMock.reMock('/api/todos/clear_complete', 'DELETE', { todos });
     });
 
-    it('dispatches the correct action', function () {
-      storeMock.dispatch(subject);
-      expect(storeMock.getActions()).to.eql([action]);
+    it('returns a thunk', function () {
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', function () {
+      subject();
+      expect(fetchMock.called('/api/todos/clear_complete')).to.be(true);
+    });
+
+    it('dispatches the correct action', function (done) {
+      storeMock.dispatch(subject).then(() => {
+        expect(storeMock.getActions()).to.eql([action]);
+        done();
+      });
     });
   });
 

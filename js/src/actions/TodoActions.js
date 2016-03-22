@@ -51,11 +51,27 @@ export default {
         }));
   },
 
-  // FIXME: this is just a stub--does nothing on the server.
   clearCompleteTodos() {
-    return {
-      type: Actions.CLEAR_COMPLETE_TODOS,
-    };
+    return dispatch =>
+      fetch(`${SERVER_URL}/todos/clear_complete`, {
+        method: 'DELETE',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
+        },
+      }).then(checkStatus)
+        .then(parse)
+        .then(({ todos }) => dispatch({
+          type: Actions.CLEAR_COMPLETE_TODOS,
+          payload: { todos },
+        }))
+        .catch(err => dispatch({
+          type: Actions.CLEAR_COMPLETE_TODOS,
+          payload: err,
+          error: true,
+        }));
   },
 
   deleteTodo(id) {

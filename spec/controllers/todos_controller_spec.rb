@@ -146,4 +146,25 @@ RSpec.describe TodosController, type: :controller do
       todos.each { |todo| expect(todo.reload.complete).to be(true) }
     end
   end
+
+  describe "DELETE #clear_complete" do
+    let!(:complete_todos) { create_list(:todo, 2, complete: true) }
+    let!(:incomplete_todo) { create(:todo, complete: false) }
+
+    it "returns http success" do
+      delete :clear_complete
+      expect(response).to have_http_status(:success)
+    end
+
+    it "renders the correct JSON response" do
+      delete :clear_complete
+      expect(json_response).to include("todos")
+    end
+
+    it "deletes all completed todos" do
+      expect do
+        delete :clear_complete
+      end.to change(Todo, :count).by(-2)
+    end
+  end
 end

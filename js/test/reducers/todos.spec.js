@@ -60,6 +60,11 @@ describe('todos()', function () {
   context('action.type = CLEAR_COMPLETE_TODOS', function () {
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
+      payload: {
+        todos: [{
+          id: 1,
+        }],
+      },
     };
 
     it('removes todos where isComplete = true', function () {
@@ -108,23 +113,14 @@ describe('todos()', function () {
     const action = {
       type: 'FETCH_ALL_TODOS',
       payload: {
-        id: 2,
         todos: [{
-          id: 1,
-          label: 'A couple',
-          isComplete: false,
+          label: 'Fetched me!',
         }, {
-          id: 2,
-          label: 'of new',
-          isComplete: false,
+          label: 'Fetched me!',
         }, {
-          id: 3,
-          label: 'todos',
-          isComplete: false,
+          label: 'Fetched me!',
         }, {
-          id: 4,
-          label: 'all completed',
-          isComplete: false,
+          label: 'Fetched me!',
         }],
       },
     };
@@ -132,7 +128,7 @@ describe('todos()', function () {
     it('sets todoList to the new fetched todos', function () {
       const subject = todos(state, action);
       expect(subject.size).to.equal(4);
-      expect(subject.every(todo => todo.get('isComplete'))).to.be(false);
+      expect(subject.every(todo => todo.get('label') === 'Fetched me!')).to.be(true);
     });
   });
 
@@ -140,22 +136,13 @@ describe('todos()', function () {
     const action = {
       type: 'MARK_ALL_TODOS',
       payload: {
-        id: 2,
         todos: [{
-          id: 1,
-          label: 'A couple',
           isComplete: true,
         }, {
-          id: 2,
-          label: 'of new',
           isComplete: true,
         }, {
-          id: 3,
-          label: 'todos',
           isComplete: true,
         }, {
-          id: 4,
-          label: 'all incomplete',
           isComplete: true,
         }],
       },

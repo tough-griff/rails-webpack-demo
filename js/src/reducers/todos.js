@@ -13,12 +13,17 @@ const ACTIONS_MAP = {
     return state.push(new Todo(todo));
   },
 
-  clearCompleteTodos(state) {
-    return state.filter(todo => !todo.get('isComplete'));
+  clearCompleteTodos(state, { todos: removedTodos }) {
+    const removed = new Seq(removedTodos).map(todo => new Todo(todo)).toList();
+
+    // Removes todos where the ID is present in the removedTodos list.
+    return state.filterNot(todo =>
+      removed.some(removedTodo => removedTodo.get('id') === todo.get('id'))
+    );
   },
 
   deleteTodo(state, { todo: { id } }) {
-    return state.filter(todo => todo.get('id') !== id);
+    return state.filterNot(todo => todo.get('id') === id);
   },
 
   editTodo(state, { todo: { id, label } }) {
