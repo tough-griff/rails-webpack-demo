@@ -13,6 +13,9 @@ Metrics/LineLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes

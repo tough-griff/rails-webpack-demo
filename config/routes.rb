@@ -2,7 +2,7 @@
 #
 #               Prefix Verb   URI Pattern                         Controller#Action
 #       mark_all_todos PATCH  /api/todos/mark_all(.:format)       todos#mark_all
-#                      PUT    /api/todos/mark_all(.:format)       todos#mark_all
+#           move_todos PATCH  /api/todos/move(.:format)           todos#move
 # clear_complete_todos DELETE /api/todos/clear_complete(.:format) todos#clear_complete
 #                todos GET    /api/todos(.:format)                todos#index
 #                      POST   /api/todos(.:format)                todos#create
@@ -16,9 +16,11 @@
 Rails.application.routes.draw do
   scope :api do
     resources :todos, only: %i(index create destroy update) do
-      patch :mark_all, on: :collection
-      put :mark_all, on: :collection
-      delete :clear_complete, on: :collection
+      collection do
+        patch :mark_all
+        patch :move
+        delete :clear_complete
+      end
     end
   end
 

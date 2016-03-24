@@ -38,6 +38,20 @@ class TodosController < ApplicationController
     render json: @todos
   end
 
+  def move
+    to = params.require(:to)
+    from = params.require(:from)
+
+    todos = Todo.where("index < ?", to)
+      .concat(Todo.where(index: from))
+      .concat(Todo.where("index >= ? AND index != ?", to, from))
+
+    todos.each_with_index { |todo, i| todo.update!(index: i + 1) }
+
+    @todos = Todo.order(:index)
+    render json: @todos
+  end
+
   def clear_complete
     @todos = Todo.destroy_all(complete: true)
     render json: @todos
