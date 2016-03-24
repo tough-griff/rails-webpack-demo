@@ -38,10 +38,11 @@ const REDUCERS = {
   },
 
   editTodo(state, { todo: { id, label } }) {
-    return state.map(todo =>
+    return state.map(todo => (
       (todo.get('id') === id)
         ? todo.set('label', label)
         : todo
+      )
     );
   },
 
@@ -54,10 +55,11 @@ const REDUCERS = {
   },
 
   markTodo(state, { todo: { id, isComplete } }) {
-    return state.map(todo =>
+    return state.map(todo => (
       (todo.get('id') === id)
         ? todo.set('isComplete', isComplete)
         : todo
+      )
     );
   },
 

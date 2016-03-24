@@ -31,9 +31,9 @@ export default class TodoList extends Component {
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
-    const maxIndex = todos.reduce((max, { index }) =>
+    const maxIndex = todos.reduce((max, { index }) => (
       (index > max) ? index : max
-    , 0);
+    ), 0);
 
     return (
       <Footer
@@ -86,9 +86,9 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.reduce((count, { isComplete }) =>
+    const completeCount = todos.reduce((count, { isComplete }) => (
       (isComplete) ? count + 1 : count
-    , 0);
+    ), 0);
 
     return (
       <section className="main">
