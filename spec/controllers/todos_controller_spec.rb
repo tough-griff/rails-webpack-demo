@@ -148,22 +148,36 @@ RSpec.describe TodosController, type: :controller do
   end
 
   describe "PATCH #move" do
-    let!(:todos) { [create(:todo, label: "One"), create(:todo, label: "Two"), create(:todo, label: "Three")] }
+    before do
+      create(:todo, label: "One")
+      create(:todo, label: "Two")
+      create(:todo, label: "Three")
+    end
 
     it "returns http success" do
-      patch :move, to: 1, from: 2
+      patch :move, at: 2, to: 1
       expect(response).to have_http_status(:success)
     end
 
     it "renders the correct JSON response" do
-      patch :move, to: 1, from: 2
+      patch :move, at: 2, to: 1
       expect(json_response).to include("todos")
     end
 
-    it "correctly changes the order of the todos" do
-      expect { patch :move, to: 1, from: 2 }
-        .to change { Todo.order(:index).map(&:label) }
-        .from(%w(One Two Three)).to(%w(Two One Three))
+    context "moving up the list" do
+      it "correctly changes the order of the todos" do
+        expect { patch :move, at: 2, to: 1 }
+          .to change { Todo.order(:index).map(&:label) }
+          .from(%w(One Two Three)).to(%w(Two One Three))
+      end
+    end
+
+    context "moving down the list" do
+      it "correctly changes the order of the todos" do
+        expect { patch :move, at: 1, to: 4 }
+          .to change { Todo.order(:index).map(&:label) }
+          .from(%w(One Two Three)).to(%w(Two Three One))
+      end
     end
   end
 

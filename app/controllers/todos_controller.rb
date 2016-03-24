@@ -39,14 +39,14 @@ class TodosController < ApplicationController
   end
 
   def move
+    at = params.require(:at)
     to = params.require(:to)
-    from = params.require(:from)
 
-    todos = Todo.where("index < ?", to)
-      .concat(Todo.where(index: from))
-      .concat(Todo.where("index >= ? AND index != ?", to, from))
-
-    todos.each_with_index { |todo, i| todo.update!(index: i + 1) }
+    # Reorder the todos and assign new indices.
+    Todo.where("index < ? AND index != ?", to, at)
+      .append(Todo.find_by(index: at))
+      .concat(Todo.where("index >= ? AND index != ?", to, at))
+      .each_with_index { |todo, i| todo.update!(index: i + 1) }
 
     @todos = Todo.order(:index)
     render json: @todos

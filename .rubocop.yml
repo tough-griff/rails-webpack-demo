@@ -24,3 +24,6 @@ Style/SymbolArray:
 Style/TrailingCommaInArguments:
   Enabled: true
   EnforcedStyleForMultiline: comma
+Style/TrailingCommaInLiteral:
+  Enabled: true
+  EnforcedStyleForMultiline: comma

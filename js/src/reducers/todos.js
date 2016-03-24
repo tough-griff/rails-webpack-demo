@@ -1,6 +1,7 @@
 import camelCase from 'camel-case';
 import { List, Record, Seq } from 'immutable';
 
+// Define an Immutable.js Todo Record.
 const Todo = new Record({
   id: 0,
   index: 0,
@@ -8,13 +9,23 @@ const Todo = new Record({
   label: 'todo',
 });
 
-const ACTIONS_MAP = {
+/**
+ * Returns a new Immutable.js List of Todo Records.
+ */
+function createTodoList(newTodos) {
+  return new Seq(newTodos)
+    .map(todo => new Todo(todo))
+    .toList();
+}
+
+// Define reducer functions to handle each potential action.
+const REDUCERS = {
   addTodo(state, { todo }) {
     return state.push(new Todo(todo));
   },
 
   clearCompleteTodos(state, { todos: removedTodos }) {
-    const removed = new Seq(removedTodos).map(todo => new Todo(todo)).toList();
+    const removed = createTodoList(removedTodos);
 
     // Removes todos where the ID is present in the removedTodos list.
     return state.filterNot(todo =>
@@ -35,15 +46,11 @@ const ACTIONS_MAP = {
   },
 
   fetchAllTodos(state, { todos: allTodos }) {
-    return new Seq(allTodos)
-      .map(todo => new Todo(todo))
-      .toList();
+    return createTodoList(allTodos);
   },
 
   markAllTodos(state, { todos: allTodos }) {
-    return new Seq(allTodos)
-      .map(todo => new Todo(todo))
-      .toList();
+    return createTodoList(allTodos);
   },
 
   markTodo(state, { todo: { id, isComplete } }) {
@@ -54,25 +61,16 @@ const ACTIONS_MAP = {
     );
   },
 
-  moveTodo(state, { at, to }) {
-    return state.map(todo => {
-      let newTodo = todo;
-
-      if (todo.get('index') === at) {
-        newTodo = todo.set('index', to);
-      } else if (todo.get('index') >= to) {
-        newTodo = todo.update('index', index => index + 1);
-      }
-
-      return newTodo;
-    });
+  moveTodo(state, { todos: allTodos }) {
+    return createTodoList(allTodos);
   },
 };
 
+// Define the default, initial state.
 const initialState = new List();
 
 /**
- * If the action type corresponds to a handler in ACTIONS_MAP, return a
+ * If the action type corresponds to a handler in REDUCERS, return a
  * reduction of the state. If no corresponding action is found, simply pass
  * the state through.
  */
@@ -82,7 +80,7 @@ export default function todos(state = initialState, { type, payload, error }) {
     return state;
   }
 
-  const reducer = ACTIONS_MAP[camelCase(type)];
+  const reducer = REDUCERS[camelCase(type)];
 
   return (reducer) ? reducer(state, payload) : state;
 }

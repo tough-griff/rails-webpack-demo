@@ -194,11 +194,27 @@ export default {
         }));
   },
 
-  // FIXME: this is just a stub--does nothing on the server.
   moveTodo(at, to) {
-    return {
-      type: Actions.MOVE_TODO,
-      payload: { at, to },
-    };
+    return dispatch =>
+      fetch(`${SERVER_URL}/todos/move`, {
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': getCSRFToken(),
+        },
+        body: JSON.stringify({ at, to }),
+      }).then(checkStatus)
+        .then(parse)
+        .then(({ todos }) => dispatch({
+          type: Actions.MOVE_TODO,
+          payload: { todos },
+        }))
+        .catch(err => dispatch({
+          type: Actions.MOVE_TODO,
+          payload: err,
+          error: true,
+        }));
   },
 };

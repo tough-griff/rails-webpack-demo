@@ -197,7 +197,6 @@ describe('TodoActions', function () {
   describe('.markAllTodos()', function () {
     const isComplete = true;
     const todos = [{ isComplete: true }, { isComplete: true }];
-
     const subject = TodoActions.markAllTodos(isComplete);
     const action = {
       type: 'MARK_ALL_TODOS',
@@ -228,19 +227,31 @@ describe('TodoActions', function () {
   describe('.moveTodo()', function () {
     const at = 5;
     const to = 8;
+    const todos = [{ index: 8 }];
     const subject = TodoActions.moveTodo(at, to);
     const action = {
       type: 'MOVE_TODO',
-      payload: { at, to },
+      payload: { todos },
     };
 
-    it('creates the correct action', function () {
-      expect(subject).to.eql(action);
+    before(function mockApi() {
+      fetchMock.reMock('/api/todos/move', 'PATCH', { todos });
     });
 
-    it('dispatches the correct action', function () {
-      storeMock.dispatch(subject);
-      expect(storeMock.getActions()).to.eql([action]);
+    it('returns a thunk', function () {
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', function () {
+      subject();
+      expect(fetchMock.called('/api/todos/move')).to.be(true);
+    });
+
+    it('dispatches the correct action', function (done) {
+      storeMock.dispatch(subject).then(() => {
+        expect(storeMock.getActions()).to.eql([action]);
+        done();
+      });
     });
   });
 });

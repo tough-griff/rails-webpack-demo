@@ -177,20 +177,15 @@ describe('todos()', function () {
     const action = {
       type: 'MOVE_TODO',
       payload: {
-        at: 2,
-        to: 1,
+        todos: [{ index: 2 }, { index: 1 }],
       },
     };
 
-    // Adds a third todo with `index` 0 to ensure indices below `to` do not increment.
-    const newState = state.push(new Todo());
-
     it('modifies the todo list indices correctly', function () {
-      const subject = todos(newState, action);
+      const subject = todos(state, action);
 
       expect(subject.get(0).get('index')).to.equal(2);
       expect(subject.get(1).get('index')).to.equal(1);
-      expect(subject.get(2).get('index')).to.equal(0);
     });
   });
 });
