@@ -16,7 +16,7 @@
   "scripts": {
     "build:webpack:dev": "NODE_ENV=development webpack --config=js/webpack.config.dev.babel.js",
     "build:webpack": "NODE_ENV=production webpack --config=js/webpack.config.prod.babel.js",
-    "build": "npm run clean && npm run build:webpack && npm run clean:after-build",
+    "build": "npm run build:webpack && npm run clean:after-build",
     "check": "npm run lint && npm run test",
     "clean:after-build": "rimraf app/assets/javascripts/*.style.bundle.*",
     "clean": "rimraf app/assets/{javascripts,stylesheets}/*.bundle.*",
