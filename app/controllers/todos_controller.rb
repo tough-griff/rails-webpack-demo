@@ -33,7 +33,10 @@ class TodosController < ApplicationController
   end
 
   def mark_all
-    Todo.update_all(complete: params.require(:complete))
+    Todo.transaction do
+      Todo.find_each { |todo| todo.update(complete: params.require(:complete)) }
+    end
+
     @todos = Todo.order(:index)
     render json: @todos
   end
@@ -43,17 +46,22 @@ class TodosController < ApplicationController
     to = params.require(:to)
 
     # Reorder the todos and assign new indices.
-    Todo.where("index < ? AND index != ?", to, at)
-      .append(Todo.find_by(index: at))
-      .concat(Todo.where("index >= ? AND index != ?", to, at))
-      .each_with_index { |todo, i| todo.update!(index: i + 1) }
+    Todo.transaction do
+      Todo.where("index < ? AND index != ?", to, at)
+        .append(Todo.find_by(index: at))
+        .concat(Todo.where("index >= ? AND index != ?", to, at))
+        .each_with_index { |todo, i| todo.update!(index: i + 1) }
+    end
 
     @todos = Todo.order(:index)
     render json: @todos
   end
 
   def clear_complete
-    @todos = Todo.destroy_all(complete: true)
+    Todo.transaction do
+      @todos = Todo.destroy_all(complete: true)
+    end
+
     render json: @todos
   end
 
