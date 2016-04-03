@@ -3,9 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 
-import Home from './components/Home';
+import { Root } from './containers';
+import configureStore from './store';
 
-render(
-  <Home />,
-  document.getElementById('app-root')
-);
+render(<Root store={configureStore()} />, document.getElementById('app'));

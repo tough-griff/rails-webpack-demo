@@ -49,7 +49,6 @@ const devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
       'process.env': { NODE_ENV: JSON.stringify('development') },
     }),
   ],

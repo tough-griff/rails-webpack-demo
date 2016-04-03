@@ -51,6 +51,7 @@ Alive 10
 ListenHTTP
   Address 127.0.0.1
   Port    80
+  xHTTP   1
 
   Service
     BackEnd
@@ -64,6 +65,7 @@ End
 ListenHTTPS
   Address 127.0.0.1
   Port    443
+  xHTTP   1
   Cert    "/usr/local/etc/lvh.me.pem"
   AddHeader "X-Forwarded-Proto: https"
 
@@ -75,6 +77,7 @@ ListenHTTPS
     End
   End
 End
+
 ```
 
 */Library/LaunchDaemons/homebrew.mxcl.pound.plist*
