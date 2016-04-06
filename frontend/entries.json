@@ -1,0 +1,4 @@
+{
+  "app": "./js/index",
+  "app.style": "./css/index.scss"
+}

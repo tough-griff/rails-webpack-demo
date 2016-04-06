@@ -3,8 +3,8 @@ import sinon from 'sinon';
 
 import setup from '../support/componentSetup';
 
-import Header from '../../src/components/Header';
-import { TextInput } from '../../src/components';
+import Header from '../../js/components/Header';
+import { TextInput } from '../../js/components';
 
 describe('<Header />', function () {
   const addTodo = sinon.spy();

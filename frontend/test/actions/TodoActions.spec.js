@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock';
 
 import configureMockStore from '../support/configureMockStore';
 
-import TodoActions from '../../src/actions/TodoActions';
+import TodoActions from '../../js/actions/TodoActions';
 
 describe('TodoActions', function () {
   const storeMock = configureMockStore({});

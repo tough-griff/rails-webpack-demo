@@ -1,6 +1,6 @@
 /app/assets
 /bin
-/js
+/frontend
 /node_modules
 /spec
 .env.example

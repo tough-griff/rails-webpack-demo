@@ -3,7 +3,7 @@ import sinon from 'sinon';
 
 import setup from '../support/componentSetup';
 
-import TextInput from '../../src/components/TextInput';
+import TextInput from '../../js/components/TextInput';
 
 describe('<TextInput />', function () {
   const className = 'className';

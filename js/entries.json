@@ -1,4 +1,0 @@
-{
-  "app": "./src/index",
-  "app.style": "../app/assets/stylesheets/index.scss"
-}

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 
 import setup from '../support/componentSetup';
 
-import Footer from '../../src/components/Footer';
+import Footer from '../../js/components/Footer';
 
 describe('<Footer />', function () {
   const clearCompleteTodos = sinon.spy();

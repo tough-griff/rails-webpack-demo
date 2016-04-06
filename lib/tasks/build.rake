@@ -3,5 +3,6 @@ unless Rails.env.production?
   task :build do
     system! "npm run build"
     Rake::Task["assets:precompile"].invoke
+    system! "rm -v public/assets/*-*.map"
   end
 end

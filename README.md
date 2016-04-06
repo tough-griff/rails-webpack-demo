@@ -1,5 +1,13 @@
-# Starter Config
-This repository demonstrates how to configure a rails app with webpack.
+# Rails & Webpack Starter Config [![Travis](https://img.shields.io/travis/tough-griff/rails-webpack-demo.svg)](https://travis-ci.org/tough-griff/rails-webpack-demo)
+> This repository demonstrates how to configure a rails app with webpack.
+
+## Development
+`bin/setup` will take care of all your dependencies and other environment setup.
+
+Run `foreman start -f Procfile.dev` to start up a development environment.
+
+Run `bin/rake build && foreman start -e .env.prod` to simulate a production
+environment (still using the development database).
 
 ## SSL Setup (on OS X)
 #### Self-signed certificate
@@ -69,7 +77,6 @@ ListenHTTPS
   Cert    "/usr/local/etc/lvh.me.pem"
   AddHeader "X-Forwarded-Proto: https"
 
-  # STAQ
   Service
     BackEnd
       Address 127.0.0.1
@@ -105,7 +112,7 @@ End
 ```
 
 And finally, run the following:
-```bash
+```sh
 brew install pound
 sudo chown root /Library/LaunchDaemons/homebrew.mxcl.pound.plist
 sudo chgrp wheel /Library/LaunchDaemons/homebrew.mxcl.pound.plist

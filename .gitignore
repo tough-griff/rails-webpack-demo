@@ -10,12 +10,12 @@
 # Ignore all logfiles and tempfiles.
 /log
 /tmp
+/spec/.example_status
 *.log
-spec/.example_status
 
 # JS and misc build process.
-/app/assets/javascripts/*.bundle.*
-/app/assets/stylesheets/*.bundle.*
+/app/assets/javascripts
+/app/assets/stylesheets
 /public/assets
 /node_modules
 

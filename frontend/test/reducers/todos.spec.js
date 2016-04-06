@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import { List, Record } from 'immutable';
 
-import todos from '../../src/reducers/todos';
+import todos from '../../js/reducers/todos';
 
 describe('todos()', function () {
   const Todo = new Record({
