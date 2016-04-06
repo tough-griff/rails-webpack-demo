@@ -30,6 +30,7 @@ script:
 # Deployment configuration
 before_deploy:
   - bundle exec rake build
+  - rm -rf .bundle/ vendor/bundle
 deploy:
   provider: heroku
   skip_cleanup: true
