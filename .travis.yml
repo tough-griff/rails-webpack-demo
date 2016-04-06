@@ -30,7 +30,7 @@ script:
 # Deployment configuration
 before_deploy:
   - bundle exec rake build
-  - sed -i'' '/\/public\/assets/d' .gitignore
+  - sed -i '' '/\/public\/assets/d' .gitignore
 deploy:
   provider: heroku
   strategy: git
