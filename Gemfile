@@ -3,11 +3,12 @@ ruby "2.3.0"
 
 gem "rails", "4.2.6"
 
-gem "active_model_serializers", "~> 0.10.0.rc4"
+gem "active_model_serializers", "~> 0.10.0.rc5"
 gem "haml-rails",               "~> 0.9.0"
 gem "non-stupid-digest-assets", "~> 1.0.8"
+gem "passenger",                "~> 5.0.27"
 gem "pg",                       "~> 0.18.4"
-gem "rack-timeout",             "~> 0.3.2"
+gem "rack-timeout",             "~> 0.4.2"
 gem "system-bang",              "~> 1.0.0"
 
 group :development do
@@ -36,6 +37,5 @@ group :test do
 end
 
 group :production, :staging do
-  gem "passenger",      "~> 5.0.26"
   gem "rails_12factor", "~> 0.0.3"
 end

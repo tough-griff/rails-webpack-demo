@@ -18,10 +18,11 @@ RSpec.describe TodoSerializer, type: :serialzer do
   subject { described_class.new(todo) }
 
   it "returns the expected attributes" do
-    expect(subject.attributes).to include(:id, :index, :isComplete, :label)
+    expect(subject.attributes)
+      .to include(:id, :index, :is_complete, :label, :created_at, :updated_at)
   end
 
-  context "#isComplete" do
-    specify { expect(subject.attributes[:isComplete]).to eq(todo.complete?) }
+  context "#is_complete" do
+    specify { expect(subject.attributes[:is_complete]).to eq(todo.complete?) }
   end
 end

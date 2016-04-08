@@ -47,9 +47,9 @@ class TodosController < ApplicationController
 
     # Reorder the todos and assign new indices.
     Todo.transaction do
-      Todo.where("index < ? AND index != ?", to, at)
+      [].concat(Todo.where("index < ? AND index != ?", to, at).order(:index))
         .append(Todo.find_by(index: at))
-        .concat(Todo.where("index >= ? AND index != ?", to, at))
+        .concat(Todo.where("index >= ? AND index != ?", to, at).order(:index))
         .each_with_index { |todo, i| todo.update!(index: i + 1) }
     end
 

@@ -11,9 +11,7 @@
 #
 
 class TodoSerializer < ActiveModel::Serializer
-  attributes :id, :index, :label
+  attributes :id, :index, :label, :created_at, :updated_at
 
-  attribute :isComplete do
-    object.complete?
-  end
+  attribute(:is_complete) { object.complete? }
 end
