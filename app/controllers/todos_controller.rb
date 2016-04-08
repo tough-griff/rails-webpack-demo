@@ -20,7 +20,7 @@ class TodosController < ApplicationController
     if @todo.destroy
       render json: @todo
     else
-      render json: { error: ["Unable to destroy todo with ID #{todo.id}: #{todo.label}"] }, status: 400
+      render_destroy_todo_errors
     end
   end
 
@@ -34,7 +34,7 @@ class TodosController < ApplicationController
 
   def mark_all
     Todo.transaction do
-      Todo.find_each { |todo| todo.update(complete: params.require(:complete)) }
+      Todo.find_each { |todo| todo.update!(complete: params.require(:complete)) }
     end
 
     @todos = Todo.order(:index)
@@ -42,16 +42,7 @@ class TodosController < ApplicationController
   end
 
   def move
-    at = params.require(:at)
-    to = params.require(:to)
-
-    # Reorder the todos and assign new indices.
-    Todo.transaction do
-      [].concat(Todo.where("index < ? AND index != ?", to, at).order(:index))
-        .append(Todo.find_by(index: at))
-        .concat(Todo.where("index >= ? AND index != ?", to, at).order(:index))
-        .each_with_index { |todo, i| todo.update!(index: i + 1) }
-    end
+    TodosService.move(params.require(:at), params.require(:to))
 
     @todos = Todo.order(:index)
     render json: @todos
@@ -75,7 +66,25 @@ class TodosController < ApplicationController
     render json: { error: @todo.errors.full_messages }, status: 422
   end
 
+  def render_destroy_todo_errors
+    render json: { error: ["Unable to destroy todo with ID #{todo.id}: #{todo.label}"] }, status: 400
+  end
+
   def todo_params
     params.require(:todo).permit(:label, :complete)
+  end
+
+  module TodosService
+    module_function
+
+    def move(at, to)
+      # Reorder the todos and assign new indices.
+      Todo.transaction do
+        [].concat(Todo.where("index < ? AND index != ?", to, at).order(:index))
+          .append(Todo.find_by(index: at))
+          .concat(Todo.where("index >= ? AND index != ?", to, at).order(:index))
+          .each_with_index { |todo, i| todo.update!(index: i + 1) }
+      end
+    end
   end
 end
