@@ -1,4 +1,6 @@
 class TodosController < ApplicationController
+  attr_writer :todos_service
+
   before_action :find_todo, only: %i(destroy update)
 
   def index
@@ -42,7 +44,7 @@ class TodosController < ApplicationController
   end
 
   def move
-    TodosService.move(params.require(:at), params.require(:to))
+    todos_service.move(params.require(:at), params.require(:to))
 
     @todos = Todo.order(:index)
     render json: @todos
@@ -74,17 +76,7 @@ class TodosController < ApplicationController
     params.require(:todo).permit(:label, :complete)
   end
 
-  module TodosService
-    module_function
-
-    def move(at, to)
-      # Reorder the todos and assign new indices.
-      Todo.transaction do
-        [].concat(Todo.where("index < ? AND index != ?", to, at).order(:index))
-          .append(Todo.find_by(index: at))
-          .concat(Todo.where("index >= ? AND index != ?", to, at).order(:index))
-          .each_with_index { |todo, i| todo.update!(index: i + 1) }
-      end
-    end
+  def todos_service
+    @todos_service ||= TodosService.new
   end
 end

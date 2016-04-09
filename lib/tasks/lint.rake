@@ -13,7 +13,7 @@ unless Rails.env.production?
 
     SCSSLint::RakeTask.new do |t|
       t.config = ".scss-lint.yml"
-      t.files = ["app/assets/stylesheets"]
+      t.files = ["frontend/css"]
     end
 
     task all: %i(haml_lint rubocop scss_lint) do
