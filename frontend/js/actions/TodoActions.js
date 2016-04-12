@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 import checkStatus from 'fetch-check-http-status';
 
-import { Actions } from '../constants';
+import Actions from '../constants/Actions';
 
 const SERVER_URL = '/api';
 

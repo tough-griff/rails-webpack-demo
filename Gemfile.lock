@@ -227,7 +227,7 @@ GEM
       eventmachine (~> 1.0.0)
       thin (>= 1.5, < 1.7)
     slop (3.6.0)
-    spring (1.7.0)
+    spring (1.7.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     sprockets (3.6.0)

@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import { Link } from 'react-router';
 
-import { Items } from '../constants';
+import DnD from '../constants/DnD';
 
 const target = {
   canDrop(props, monitor) {
@@ -93,4 +93,4 @@ class Footer extends Component {
   }
 }
 
-export default DropTarget(Items.TODO, target, collect)(Footer); // eslint-disable-line babel/new-cap
+export default DropTarget(DnD.TODO, target, collect)(Footer);

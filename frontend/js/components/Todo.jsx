@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 
-import { TextInput } from '.';
-import { Items } from '../constants';
+import TextInput from './TextInput';
+import DnD from '../constants/DnD';
 
 const target = {
   canDrop(props, monitor) {
@@ -142,9 +142,7 @@ class Todo extends Component {
   }
 }
 
-/* eslint-disable babel/new-cap */
 export default compose(
-  DropTarget(Items.TODO, target, targetCollect),
-  DragSource(Items.TODO, source, sourceCollect),
+  DropTarget(DnD.TODO, target, targetCollect),
+  DragSource(DnD.TODO, source, sourceCollect),
 )(Todo);
-/* eslint-enable babel/new-cap */

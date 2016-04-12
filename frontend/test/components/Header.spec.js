@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import setup from '../support/componentSetup';
 
 import Header from '../../js/components/Header';
-import { TextInput } from '../../js/components';
+import TextInput from '../../js/components/TextInput';
 
 describe('<Header />', function () {
   const addTodo = sinon.spy();
