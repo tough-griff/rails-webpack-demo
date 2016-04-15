@@ -56,11 +56,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { address: "localhost", port: ENV["MAILCATCHER_PORT"] || 1025 }
   config.action_mailer.raise_delivery_errors = true
 
-  if ENV["SIMULATE_PROD"]
+  if ENV["SIMULATE_PROD"].present?
+    puts "Simulating production."
     # In a production-like environment, pull assets straight from public/assets.
     config.assets.compile = false
     config.assets.debug = false
+    config.serve_static_files = true
   else
+    puts "In development mode."
     # Request javascript assets from the webpack dev server.
     config.action_controller.asset_host = proc do |source|
       "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
