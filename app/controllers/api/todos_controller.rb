@@ -1,4 +1,4 @@
-class TodosController < ApplicationController
+class Api::TodosController < ApiController
   attr_writer :todos_service
 
   before_action :find_todo, only: %i(destroy update)

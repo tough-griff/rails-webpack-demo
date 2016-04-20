@@ -10,7 +10,7 @@ import config from './webpack.config.dev.babel';
 
 const app = express();
 const compiler = webpack(config);
-const isHttps = !!process.env.HTTPS || true;
+const isHttps = !!process.env.HTTPS;
 const hostName = process.env.HOSTNAME || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
 

@@ -6,6 +6,9 @@ module.exports = {
   extends: 'airbnb',
   parser: 'babel-eslint',
   rules: {
-    'new-cap': OFF,
+    'new-cap': [WARN, { newIsCap: true, capIsNew: false }],
+    'no-unused-vars': [ERROR, { argsIgnorePattern: "^_" }],
+
+    'react/prefer-stateless-function': WARN,
   },
 }

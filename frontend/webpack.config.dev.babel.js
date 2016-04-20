@@ -2,7 +2,7 @@ import { castArray, mapValues } from 'lodash';
 import path from 'path';
 import webpack from 'webpack';
 
-import entries from './entries.json';
+import entries from './entries';
 
 const hostName = process.env.HOSTNAME || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
@@ -20,24 +20,19 @@ const devConfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: devEntries,
   module: {
-    preLoaders: [
-      {
-        loader: 'eslint',
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-      },
-    ],
-    loaders: [
-      {
-        loader: 'babel',
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-      },
-      {
-        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
-        test: /\.scss$/,
-      },
-    ],
+    preLoaders: [{
+      loader: 'eslint',
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+    }],
+    loaders: [{
+      loader: 'babel',
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+    }, {
+      loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+      test: /\.scss$/,
+    }],
   },
   output: {
     path: path.resolve(__dirname, '..', 'app', 'assets', 'javascripts'),

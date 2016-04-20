@@ -4,11 +4,13 @@ import { browserHistory, Router } from 'react-router';
 
 import routes from '../routes';
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
-  </Provider>
-);
+function Root({ store }) {
+  return (
+    <Provider store={store}>
+      <Router history={browserHistory} routes={routes} />
+    </Provider>
+  );
+}
 
 Root.propTypes = {
   store: PropTypes.object.isRequired,

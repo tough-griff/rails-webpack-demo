@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TodosController, type: :controller do
+RSpec.describe Api::TodosController, type: :controller do
   let(:json_response) { JSON(response.body) }
 
   describe "GET #index" do

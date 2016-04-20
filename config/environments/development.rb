@@ -35,7 +35,7 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = ENV["HTTPS"].present?
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
@@ -63,7 +63,6 @@ Rails.application.configure do
     config.assets.debug = false
     config.serve_static_files = true
   else
-    puts "In development mode."
     # Request javascript assets from the webpack dev server.
     config.action_controller.asset_host = proc do |source|
       "//#{ENV['HOSTNAME'] || 'lvh.me'}:#{ENV['NODE_PORT'] || 5050}/assets" if source.ends_with?("bundle.js")
