@@ -29,7 +29,7 @@ script:
 
 # Deployment configuration
 before_deploy:
-  - bundle exec rake build
+  - RAILS_ENV=production bundle exec rake build
   - rm -rf .bundle/ vendor/bundle
 deploy:
   provider: heroku
