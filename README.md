@@ -6,8 +6,8 @@
 
 Run `foreman start -f Procfile.dev` to start up a development environment.
 
-Run `bin/rake build && foreman start -e .env.prod` to simulate a production
-environment (still using the development database).
+Run `RAILS_ENV=production bundle exec rake build && foreman start -e .env.prod`
+to simulate a production environment (still using the development database).
 
 ## SSL Setup (on OS X)
 #### Self-signed certificate
