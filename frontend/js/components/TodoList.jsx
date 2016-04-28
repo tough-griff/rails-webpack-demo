@@ -1,8 +1,8 @@
 import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
-import Footer from './Footer';
-import Todo from './Todo';
+import Footer from '../containers/dnd/Footer';
+import Todo from '../containers/dnd/Todo';
 
 const FILTERS = {
   all: () => true,

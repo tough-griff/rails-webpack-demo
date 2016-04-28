@@ -1,50 +1,12 @@
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
-import { compose } from 'redux';
 
 import TextInput from './TextInput';
-import DnD from '../constants/DnD';
-
-const target = {
-  canDrop(props, monitor) {
-    const { index } = props;
-    const draggedIndex = monitor.getItem().index;
-
-    return draggedIndex !== index && draggedIndex !== index - 1;
-  },
-
-  drop(props, monitor) {
-    const { index, moveTodo } = props;
-    moveTodo(monitor.getItem().index, index);
-  },
-};
-
-const source = {
-  beginDrag(props) {
-    return { index: props.index };
-  },
-};
-
-function targetCollect(connect, monitor) {
-  return {
-    canDrop: monitor.canDrop(),
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-  };
-}
-
-function sourceCollect(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  };
-}
 
 /**
  * Represents a single todo item in a todo list.
  */
-class Todo extends Component {
+export default class Todo extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func.isRequired,
@@ -141,8 +103,3 @@ class Todo extends Component {
     ));
   }
 }
-
-export default compose(
-  DropTarget(DnD.TODO, target, targetCollect),
-  DragSource(DnD.TODO, source, sourceCollect),
-)(Todo);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
 
-import App from './containers/App';
+import App from './containers/redux/App';
 
 export default (
   <Route component={App}>

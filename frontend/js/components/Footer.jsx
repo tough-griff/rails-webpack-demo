@@ -1,28 +1,6 @@
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
-import { DropTarget } from 'react-dnd';
 import { Link } from 'react-router';
-
-import DnD from '../constants/DnD';
-
-const target = {
-  canDrop(props, monitor) {
-    return monitor.getItem().index < props.maxIndex;
-  },
-
-  drop(props, monitor) {
-    const { moveTodo, maxIndex } = props;
-    moveTodo(monitor.getItem().index, maxIndex + 1);
-  },
-};
-
-function collect(connect, monitor) {
-  return {
-    canDrop: monitor.canDrop(),
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-  };
-}
 
 /**
  * Manages routing using ReactRouter.Link, as well as renders a
@@ -31,7 +9,7 @@ function collect(connect, monitor) {
  * @note: we pass `filter` to this component to trigger a re-render when the
  * filter changes. This allows `Link`'s `activeClassName` to work correctly.
  */
-class Footer extends Component {
+export default class Footer extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
@@ -92,5 +70,3 @@ class Footer extends Component {
     );
   }
 }
-
-export default DropTarget(DnD.TODO, target, collect)(Footer);
