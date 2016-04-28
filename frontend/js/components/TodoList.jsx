@@ -1,7 +1,8 @@
 import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
-import { Footer, Todo } from '.';
+import Footer from './Footer';
+import Todo from './Todo';
 
 const FILTERS = {
   all: () => true,
@@ -31,9 +32,7 @@ export default class TodoList extends Component {
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
-    const maxIndex = todos.reduce((max, { index }) => (
-      (index > max) ? index : max
-    ), 0);
+    const maxIndex = todos.maxBy(todo => todo.index).index;
 
     return (
       <Footer
@@ -86,9 +85,7 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.reduce((count, { isComplete }) => (
-      (isComplete) ? count + 1 : count
-    ), 0);
+    const completeCount = todos.count(todo => todo.isComplete);
 
     return (
       <section className="main">

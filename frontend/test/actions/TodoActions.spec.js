@@ -9,6 +9,12 @@ import TodoActions from '../../js/actions/TodoActions';
 describe('TodoActions', function () {
   const storeMock = configureMockStore({});
 
+  before(function stubGetCSRFToken() {
+    document.getElementsByTagName = (_tagName) => ({
+      'csrf-token': { content: 'FAKE_CSRF_TOKEN' },
+    });
+  });
+
   afterEach(function resetMocks() {
     fetchMock.reset();
     storeMock.clearActions();

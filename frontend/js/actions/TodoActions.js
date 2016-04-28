@@ -9,7 +9,7 @@ const SERVER_URL = '/api';
  * Parse the response's JSON. Throws an error if the response includes a top
  * level `error` key.
  */
-function parse(response) {
+function parseJSON(response) {
   const json = response.json();
 
   return (json.error) ? new Error(json.error) : json;
@@ -19,27 +19,34 @@ function parse(response) {
  * Extracts the CSRF token from the page's meta tags.
  */
 function getCSRFToken() {
-  if (process.env.NODE_ENV === 'test') return 'FAKE_CSRF_TOKEN';
-
   return document.getElementsByTagName('meta')['csrf-token'].content;
 }
 
-export default {
+/**
+ * Allow actions to use a default `fetch` configuration.
+ */
+function fetch(url, config) {
+  return global.fetch(url, {
+    credentials: 'same-origin',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': getCSRFToken(),
+    },
+    ...config,
+  });
+}
+
+const TodoActions = {
   addTodo(label) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
         body: JSON.stringify({
           todo: { label },
         }),
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todo }) => dispatch({
           type: Actions.ADD_TODO,
           payload: { todo },
@@ -55,14 +62,8 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/clear_complete`, {
         method: 'DELETE',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todos }) => dispatch({
           type: Actions.CLEAR_COMPLETE_TODOS,
           payload: { todos },
@@ -78,13 +79,8 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todo }) => dispatch({
           type: Actions.DELETE_TODO,
           payload: { todo },
@@ -100,17 +96,11 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
         body: JSON.stringify({
           todo: { label },
         }),
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todo }) => dispatch({
           type: Actions.EDIT_TODO,
           payload: { todo },
@@ -126,13 +116,8 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'GET',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todos }) => dispatch({
           type: Actions.FETCH_ALL_TODOS,
           payload: { todos },
@@ -148,17 +133,11 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
         body: JSON.stringify({
           todo: { complete },
         }),
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todo }) => dispatch({
           type: Actions.MARK_TODO,
           payload: { todo },
@@ -174,15 +153,9 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/mark_all`, {
         method: 'PATCH',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
         body: JSON.stringify({ complete }),
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todos }) => dispatch({
           type: Actions.MARK_ALL_TODOS,
           payload: { todos },
@@ -198,15 +171,9 @@ export default {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/move`, {
         method: 'PATCH',
-        credentials: 'same-origin',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': getCSRFToken(),
-        },
         body: JSON.stringify({ at, to }),
       }).then(checkStatus)
-        .then(parse)
+        .then(parseJSON)
         .then(({ todos }) => dispatch({
           type: Actions.MOVE_TODO,
           payload: { todos },
@@ -218,3 +185,5 @@ export default {
         }));
   },
 };
+
+export default TodoActions;

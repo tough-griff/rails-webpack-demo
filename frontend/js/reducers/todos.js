@@ -42,8 +42,7 @@ const REDUCERS = {
       (todo.get('id') === id)
         ? todo.set('label', label)
         : todo
-      )
-    );
+    ));
   },
 
   fetchAllTodos(state, { todos: allTodos }) {
@@ -59,8 +58,7 @@ const REDUCERS = {
       (todo.get('id') === id)
         ? todo.set('isComplete', isComplete)
         : todo
-      )
-    );
+    ));
   },
 
   moveTodo(state, { todos: allTodos }) {

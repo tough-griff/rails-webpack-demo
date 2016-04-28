@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { Header, TodoList } from '.';
+import Header from './Header';
+import TodoList from './TodoList';
 
 /**
  * Top-level application component. Holds all other application components, and
