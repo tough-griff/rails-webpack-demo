@@ -45,11 +45,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -74,11 +73,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos/clear_complete')).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -103,11 +101,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -133,11 +130,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -162,11 +158,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -192,11 +187,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -222,11 +216,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos/mark_all')).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 
@@ -253,11 +246,10 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos/move')).to.be(true);
     });
 
-    it('dispatches the correct action', function (done) {
-      storeMock.dispatch(subject).then(() => {
-        expect(storeMock.getActions()).to.eql([action]);
-        done();
-      });
+    it('dispatches the correct action', function () {
+      storeMock.dispatch(subject).then(() =>
+        expect(storeMock.getActions()).to.eql([action])
+      );
     });
   });
 });

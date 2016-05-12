@@ -16,11 +16,12 @@ unless Rails.env.production?
       t.files = ["frontend/css"]
     end
 
-    task all: %i(haml_lint rubocop scss_lint) do
+    desc "run `npm run lint`"
+    task :js do
       system! "npm run lint"
     end
   end
 
   desc "Runs all linters across the repository"
-  task lint: "lint:all"
+  task lint: %w(lint:haml_lint lint:rubocop lint:scss_lint lint:js)
 end

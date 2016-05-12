@@ -11,7 +11,7 @@ import config from './webpack.config.dev.babel';
 const app = express();
 const compiler = webpack(config);
 const isHttps = !!process.env.HTTPS;
-const hostName = process.env.HOSTNAME || 'lvh.me';
+const appHost = process.env.APP_HOST || 'lvh.me';
 const nodePort = process.env.NODE_PORT || '5050';
 
 // Set the `Access-Control-Allow-Origin: *` header.
@@ -37,12 +37,12 @@ if (isHttps) {
 }
 
 /* eslint-disable no-console */
-server.listen(nodePort, hostName, err => {
+server.listen(nodePort, appHost, err => {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}://${hostName}:${nodePort}.`);
+  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}://${appHost}:${nodePort}.`);
 });
 /* eslint-enable no-console */
