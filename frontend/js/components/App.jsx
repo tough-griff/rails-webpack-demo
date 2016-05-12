@@ -1,7 +1,5 @@
 import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import Header from './Header';
 import TodoList from './TodoList';
@@ -10,7 +8,7 @@ import TodoList from './TodoList';
  * Top-level application component. Holds all other application components, and
  * receives props from the router.
  */
-class App extends Component {
+export default class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -41,5 +39,3 @@ class App extends Component {
     );
   }
 }
-
-export default DragDropContext(HTML5Backend)(App);

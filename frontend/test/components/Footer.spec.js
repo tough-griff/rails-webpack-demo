@@ -19,7 +19,7 @@ describe('<Footer />', function () {
     moveTodo: sinon.stub(),
   };
 
-  const { output } = setup(Footer.DecoratedComponent, props);
+  const { output } = setup(Footer, props);
   const list = output.props.children[1];
 
   it('renders correctly', function () {
@@ -40,7 +40,7 @@ describe('<Footer />', function () {
   });
 
   context('with a nonzero complete count', function () {
-    const { output: completeOutput } = setup(Footer.DecoratedComponent, {
+    const { output: completeOutput } = setup(Footer, {
       ...props, completeCount: 2,
     });
     const button = completeOutput.props.children[2];
@@ -73,7 +73,7 @@ describe('<Footer />', function () {
 
   context('with a nonzero incomplete count', function () {
     const incompleteCount = 2;
-    const { output: incompleteOutput } = setup(Footer.DecoratedComponent, {
+    const { output: incompleteOutput } = setup(Footer, {
       ...props, incompleteCount,
     });
     const count = incompleteOutput.props.children[0];
