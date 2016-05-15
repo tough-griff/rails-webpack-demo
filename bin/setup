@@ -14,9 +14,9 @@ Dir.chdir APP_ROOT do
   system "npm install"
 
   puts "\n== Copying sample files as necessary =="
-  system "cp .env.example .env" unless File.exist?(".env")
-  system "cp .env .env.prod && echo 'SIMULATE_PROD=true' >> .env.prod" unless File.exist?(".env.prod")
-  system "cp .envrc.example .envrc" unless File.exist?(".envrc")
+  system "cp -v .env.example .env" unless File.exist?(".env")
+  system "cp -v .env .env.prod && echo 'SIMULATE_PROD=true' >> .env.prod" unless File.exist?(".env.prod")
+  system "cp -v .envrc.example .envrc" unless File.exist?(".envrc")
 
   puts "\n== Preparing database =="
   system "bin/rake db:setup"
