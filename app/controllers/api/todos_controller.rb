@@ -70,7 +70,7 @@ module Api
     end
 
     def render_destroy_todo_errors
-      render json: { error: ["Unable to destroy todo with ID #{todo.id}: #{todo.label}"] }, status: 400
+      render json: { error: ["Unable to destroy todo with ID #{@todo.id}: #{@todo.label}"] }, status: 500
     end
 
     def todo_params

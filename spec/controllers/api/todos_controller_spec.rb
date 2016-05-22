@@ -64,20 +64,45 @@ RSpec.describe Api::TodosController, type: :controller do
   describe "DELETE #destroy" do
     let!(:todo) { create(:todo) }
 
-    it "returns http success" do
-      delete :destroy, id: todo.id
-      expect(response).to have_http_status(:success)
-    end
-
-    it "renders the correct JSON response" do
-      delete :destroy, id: todo.id
-      expect(json_response).to include("todo")
-    end
-
-    it "deletes the todo" do
-      expect do
+    context "success" do
+      it "returns http success" do
         delete :destroy, id: todo.id
-      end.to change(Todo, :count).by(-1)
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the correct JSON response" do
+        delete :destroy, id: todo.id
+        expect(json_response).to include("todo")
+      end
+
+      it "deletes the todo" do
+        expect do
+          delete :destroy, id: todo.id
+        end.to change(Todo, :count).by(-1)
+      end
+    end
+
+    context "failure" do
+      before do
+        allow(Todo).to receive(:find).with(todo.id.to_s).and_return(todo)
+        allow(todo).to receive(:destroy).and_return(false)
+      end
+
+      it "returns http error" do
+        delete :destroy, id: todo.id
+        expect(response).to have_http_status(500)
+      end
+
+      it "renders the correct JSON response" do
+        delete :destroy, id: todo.id
+        expect(json_response).to include("error")
+      end
+
+      it "does not delete the todo" do
+        expect do
+          delete :destroy, id: todo.id
+        end.not_to change(Todo, :count)
+      end
     end
   end
 
