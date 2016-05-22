@@ -1,8 +1,8 @@
-import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
 import Header from './Header';
 import TodoList from './TodoList';
+import todoShape from '../shapes/todoShape';
 
 /**
  * Top-level application component. Holds all other application components, and
@@ -12,7 +12,7 @@ export default class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    todos: PropTypes.instanceOf(List).isRequired,
+    todos: PropTypes.arrayOf(todoShape).isRequired,
   };
 
   componentWillMount() {

@@ -1,8 +1,8 @@
-import { List } from 'immutable';
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
-import Footer from '../containers/dnd/Footer';
-import Todo from '../containers/dnd/Todo';
+import { Footer, Todo } from '../containers/dnd';
+import todoShape from '../shapes/todoShape';
 
 const FILTERS = {
   all: () => true,
@@ -17,7 +17,7 @@ export default class TodoList extends Component {
   static propTypes = {
     actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
     filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
-    todos: PropTypes.instanceOf(List).isRequired,
+    todos: PropTypes.arrayOf(todoShape).isRequired,
   };
 
   onToggle = (evt) => {
@@ -27,12 +27,12 @@ export default class TodoList extends Component {
   renderFooter(completeCount) {
     const { actions, filter, todos } = this.props;
     const { clearCompleteTodos, moveTodo } = actions;
-    const { size } = todos;
+    const { length } = todos;
 
-    if (!size) return null;
+    if (!length) return null;
 
-    const incompleteCount = size - completeCount;
-    const maxIndex = todos.maxBy(todo => todo.index).index;
+    const incompleteCount = length - completeCount;
+    const { index } = _.maxBy(todos, 'index');
 
     return (
       <Footer
@@ -40,7 +40,7 @@ export default class TodoList extends Component {
         completeCount={completeCount}
         filter={filter}
         incompleteCount={incompleteCount}
-        maxIndex={maxIndex}
+        maxIndex={index}
         moveTodo={moveTodo}
       />
     );
@@ -49,16 +49,15 @@ export default class TodoList extends Component {
   renderListItems() {
     const { filter, todos } = this.props;
 
-    return todos.toSeq()
+    return _(todos)
       .filter(FILTERS[filter])
-      .sortBy(todo => todo.index)
+      .sortBy('index')
       .map(this.renderTodo)
-      .toArray();
+      .value();
   }
 
   renderTodo = (todo) => {
     const { deleteTodo, editTodo, markTodo, moveTodo } = this.props.actions;
-    const todoObj = todo.toJS();
 
     return (
       <Todo
@@ -67,7 +66,7 @@ export default class TodoList extends Component {
         editTodo={editTodo}
         markTodo={markTodo}
         moveTodo={moveTodo}
-        {...todoObj}
+        {...todo}
       />
     );
   };
@@ -75,7 +74,7 @@ export default class TodoList extends Component {
   renderToggle(completeCount) {
     return (
       <input
-        checked={completeCount === this.props.todos.size}
+        checked={completeCount === this.props.todos.length}
         className="toggle-all"
         onChange={this.onToggle}
         type="checkbox"
@@ -85,7 +84,7 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.count(todo => todo.isComplete);
+    const completeCount = _(todos).filter('isComplete').size();
 
     return (
       <section className="main">

@@ -37,7 +37,7 @@ function fetch(url, config) {
   });
 }
 
-const TodoActions = {
+const TodoActionCreators = {
   addTodo(label) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
@@ -186,4 +186,4 @@ const TodoActions = {
   },
 };
 
-export default TodoActions;
+export default TodoActionCreators;
