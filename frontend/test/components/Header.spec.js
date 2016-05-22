@@ -7,9 +7,12 @@ import Header from '../../js/components/Header';
 import TextInput from '../../js/components/TextInput';
 
 describe('<Header />', function () {
-  const addTodo = sinon.spy();
-  const fetchAllTodos = sinon.stub();
-  const { output } = setup(Header, { addTodo, fetchAllTodos });
+  const props = {
+    addTodo: sinon.spy(),
+    fetchAllTodos: sinon.spy(),
+  };
+
+  const { output } = setup(Header, props);
   const [h1, textInput] = output.props.children;
 
   it('renders correctly', function () {
@@ -17,7 +20,7 @@ describe('<Header />', function () {
     expect(output.props.className).to.equal('header');
 
     expect(h1.type).to.equal('h1');
-    expect(h1.props.onDoubleClick).to.equal(fetchAllTodos);
+    expect(h1.props.onDoubleClick).to.equal(props.fetchAllTodos);
     expect(h1.props.children).to.equal('Todos');
 
     expect(textInput.type).to.equal(TextInput);
@@ -29,9 +32,9 @@ describe('<Header />', function () {
   describe('#onSave()', function () {
     it('calls addTodo correctly', function () {
       textInput.props.onSave('');
-      expect(addTodo.called).to.be(false);
+      expect(props.addTodo.called).to.be(false);
       textInput.props.onSave('Example');
-      expect(addTodo.called).to.be(true);
+      expect(props.addTodo.calledWith('Example')).to.be(true);
     });
   });
 });

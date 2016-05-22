@@ -6,10 +6,9 @@ import setup from '../support/componentSetup';
 import Footer from '../../js/components/Footer';
 
 describe('<Footer />', function () {
-  const clearCompleteTodos = sinon.spy();
   const props = {
     canDrop: false,
-    clearCompleteTodos,
+    clearCompleteTodos: sinon.spy(),
     connectDropTarget: (el) => el,
     completeCount: 0,
     filter: 'all',
@@ -54,9 +53,8 @@ describe('<Footer />', function () {
 
     describe('#onRemoveCompleted()', function () {
       it('calls clearCompleteTodos', function () {
-        expect(clearCompleteTodos.called).to.be(false);
         button.props.onClick();
-        expect(clearCompleteTodos.called).to.be(true);
+        expect(props.clearCompleteTodos.calledOnce).to.be(true);
       });
     });
   });

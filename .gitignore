@@ -7,17 +7,18 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all logfiles and tempfiles.
+# Ignore all log files and temp files.
+/coverage
 /log
-/tmp
 /spec/.example_status
+/tmp
 *.log
 
 # JS and misc build process.
 /app/assets/javascripts
 /app/assets/stylesheets
-/public/assets
 /node_modules
+/public/assets
 
 # Misc.
 .env

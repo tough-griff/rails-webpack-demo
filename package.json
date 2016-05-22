@@ -17,10 +17,11 @@
     "build": "NODE_ENV=production webpack --config=frontend/webpack.config.prod.babel.js",
     "postbuild": "rimraf app/assets/javascripts/*.style.bundle.*",
     "check": "npm run lint && npm run test",
-    "clean": "rimraf app/assets/{javascripts,stylesheets}",
+    "clean": "rimraf app/assets/{javascripts,stylesheets} coverage/",
     "lint": "eslint --ext=.js,.jsx frontend/",
     "start": "npm run webpack-server",
     "test": "NODE_ENV=test mocha --compilers=js:babel-register --require=./frontend/test/support/jsdom --recursive frontend/test",
+    "test:cov": "NODE_ENV=test babel-node $(npm bin)/babel-istanbul cover $(npm bin)/_mocha -- --require=./frontend/test/support/jsdom --recursive frontend/test",
     "webpack-server": "babel-node frontend/webpackServer.js"
   },
   "engines": {
@@ -49,6 +50,7 @@
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-eslint": "^6.0.4",
+    "babel-istanbul": "^0.8.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
