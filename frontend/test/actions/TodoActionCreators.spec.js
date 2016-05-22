@@ -4,9 +4,9 @@ import fetchMock from 'fetch-mock';
 
 import configureMockStore from '../support/configureMockStore';
 
-import TodoActions from '../../js/actions/TodoActions';
+import TodoActionCreators from '../../js/actions/TodoActionCreators';
 
-describe('TodoActions', function () {
+describe('TodoActionCreators', function () {
   const storeMock = configureMockStore({});
 
   before(function stubGetCSRFToken() {
@@ -21,12 +21,12 @@ describe('TodoActions', function () {
   });
 
   it('exposes an object', function () {
-    expect(TodoActions).to.be.an('object');
+    expect(TodoActionCreators).to.be.an('object');
   });
 
   describe('.addTodo()', function () {
     const label = 'fake todo';
-    const subject = TodoActions.addTodo(label);
+    const subject = TodoActionCreators.addTodo(label);
     const action = {
       type: 'ADD_TODO',
       payload: { todo: { label } },
@@ -54,7 +54,7 @@ describe('TodoActions', function () {
 
   describe('.clearCompleteTodos()', function () {
     const todos = [{ id: 1 }, { id: 4 }];
-    const subject = TodoActions.clearCompleteTodos();
+    const subject = TodoActionCreators.clearCompleteTodos();
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
       payload: { todos },
@@ -82,7 +82,7 @@ describe('TodoActions', function () {
 
   describe('.deleteTodo()', function () {
     const id = 5;
-    const subject = TodoActions.deleteTodo(id);
+    const subject = TodoActionCreators.deleteTodo(id);
     const action = {
       type: 'DELETE_TODO',
       payload: { todo: { id } },
@@ -111,7 +111,7 @@ describe('TodoActions', function () {
   describe('.editTodo()', function () {
     const id = 5;
     const label = 'fake todo';
-    const subject = TodoActions.editTodo(id, label);
+    const subject = TodoActionCreators.editTodo(id, label);
     const action = {
       type: 'EDIT_TODO',
       payload: { todo: { id, label } },
@@ -139,7 +139,7 @@ describe('TodoActions', function () {
 
   describe('.fetchAllTodos()', function () {
     const todos = [{ label: 'fake1' }, { label: 'fake2' }];
-    const subject = TodoActions.fetchAllTodos();
+    const subject = TodoActionCreators.fetchAllTodos();
     const action = {
       type: 'FETCH_ALL_TODOS',
       payload: { todos },
@@ -168,7 +168,7 @@ describe('TodoActions', function () {
   describe('.markTodo()', function () {
     const id = 5;
     const isComplete = true;
-    const subject = TodoActions.markTodo(id, isComplete);
+    const subject = TodoActionCreators.markTodo(id, isComplete);
     const action = {
       type: 'MARK_TODO',
       payload: { todo: { id, isComplete } },
@@ -197,7 +197,7 @@ describe('TodoActions', function () {
   describe('.markAllTodos()', function () {
     const isComplete = true;
     const todos = [{ isComplete: true }, { isComplete: true }];
-    const subject = TodoActions.markAllTodos(isComplete);
+    const subject = TodoActionCreators.markAllTodos(isComplete);
     const action = {
       type: 'MARK_ALL_TODOS',
       payload: { todos },
@@ -227,7 +227,7 @@ describe('TodoActions', function () {
     const at = 5;
     const to = 8;
     const todos = [{ index: 8 }];
-    const subject = TodoActions.moveTodo(at, to);
+    const subject = TodoActionCreators.moveTodo(at, to);
     const action = {
       type: 'MOVE_TODO',
       payload: { todos },
