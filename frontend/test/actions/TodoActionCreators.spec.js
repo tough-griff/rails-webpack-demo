@@ -3,47 +3,12 @@ import expect from 'expect.js';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
 
-import configureMockStore from '../support/configureMockStore';
+import mockStore from '../support/mockStore';
+import { behavesLikeAsyncAction } from '../support/sharedBehaviors';
 
 import TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {
-  const storeMock = configureMockStore({});
-
-  // Shared behaviors between actions.
-  function shouldBehaveLikeAction(endpoint) {
-    it('returns a thunk', function () {
-      expect(this.subject).to.be.a('function');
-    });
-
-    it('makes the correct web request', function () {
-      this.subject();
-      expect(fetchMock.called(endpoint)).to.be(true);
-    });
-
-    it('dispatches the correct action', function () {
-      return storeMock.dispatch(this.subject).then(() => {
-        expect(storeMock.getActions()[0]).to.eql(this.expectedAction);
-      });
-    });
-
-    context('when receiving an error', function () {
-      beforeEach(function mockApiResponse() {
-        fetchMock.reMock(endpoint, { error: 'AN ERROR' });
-      });
-
-      it('dispatches the error', function () {
-        return storeMock.dispatch(this.subject).then(() => {
-          expect(storeMock.getActions()[0]).to.eql({
-            type: this.expectedAction.type,
-            payload: new Error('AN ERROR'),
-            error: true,
-          });
-        });
-      });
-    });
-  }
-
   before(function stubGetCSRFToken() {
     sinon.stub(document, 'getElementsByTagName').returns({
       'csrf-token': { content: 'FAKE_CSRF_TOKEN' },
@@ -52,7 +17,7 @@ describe('TodoActionCreators', function () {
 
   afterEach(function resetMocks() {
     fetchMock.reset();
-    storeMock.clearActions();
+    mockStore.clearActions();
   });
 
   after(function restoreGetCSRFToken() {
@@ -64,127 +29,135 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.addTodo()', function () {
-    beforeEach(function () {
+    before(function () {
       const label = 'label';
+      this.url = '/api/todos';
       this.subject = TodoActionCreators.addTodo(label);
       this.expectedAction = {
         type: 'ADD_TODO',
         payload: { todo: { label } },
       };
 
-      fetchMock.reMock('/api/todos', 'POST', { todo: { label } });
+      fetchMock.reMock(this.url, 'POST', { todo: { label } });
     });
 
-    shouldBehaveLikeAction('/api/todos');
+    behavesLikeAsyncAction();
   });
 
   describe('.clearCompleteTodos()', function () {
-    beforeEach(function () {
+    before(function () {
       const todos = [{ id: 1 }, { id: 4 }];
+      this.url = '/api/todos/clear_complete';
       this.subject = TodoActionCreators.clearCompleteTodos();
       this.expectedAction = {
         type: 'CLEAR_COMPLETE_TODOS',
         payload: { todos },
       };
 
-      fetchMock.reMock('/api/todos/clear_complete', 'DELETE', { todos });
+      fetchMock.reMock(this.url, 'DELETE', { todos });
     });
 
-    shouldBehaveLikeAction('/api/todos/clear_complete');
+    behavesLikeAsyncAction();
   });
 
   describe('.deleteTodo()', function () {
-    beforeEach(function () {
+    before(function () {
       const id = 5;
+      this.url = `/api/todos/${id}`;
       this.subject = TodoActionCreators.deleteTodo(id);
       this.expectedAction = {
         type: 'DELETE_TODO',
         payload: { todo: { id } },
       };
 
-      fetchMock.reMock(`/api/todos/${id}`, 'DELETE', { todo: { id } });
+      fetchMock.reMock(this.url, 'DELETE', { todo: { id } });
     });
 
-    shouldBehaveLikeAction('/api/todos/5');
+    behavesLikeAsyncAction();
   });
 
   describe('.editTodo()', function () {
-    beforeEach(function () {
+    before(function () {
       const id = 5;
       const label = 'fake todo';
+      this.url = `/api/todos/${id}`;
       this.subject = TodoActionCreators.editTodo(id, label);
       this.expectedAction = {
         type: 'EDIT_TODO',
         payload: { todo: { id, label } },
       };
 
-      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { todo: { id, label } });
+      fetchMock.reMock(this.url, 'PATCH', { todo: { id, label } });
     });
 
-    shouldBehaveLikeAction('/api/todos/5');
+    behavesLikeAsyncAction();
   });
 
   describe('.fetchAllTodos()', function () {
-    beforeEach(function () {
+    before(function () {
       const todos = [{ label: 'fake1' }, { label: 'fake2' }];
+      this.url = '/api/todos';
       this.subject = TodoActionCreators.fetchAllTodos();
       this.expectedAction = {
         type: 'FETCH_ALL_TODOS',
         payload: { todos },
       };
 
-      fetchMock.reMock('/api/todos', 'GET', { todos });
+      fetchMock.reMock(this.url, 'GET', { todos });
     });
 
-    shouldBehaveLikeAction('/api/todos');
+    behavesLikeAsyncAction();
   });
 
   describe('.markTodo()', function () {
-    beforeEach(function () {
+    before(function () {
       const id = 5;
       const isComplete = true;
+      this.url = `/api/todos/${id}`;
       this.subject = TodoActionCreators.markTodo(id, isComplete);
       this.expectedAction = {
         type: 'MARK_TODO',
         payload: { todo: { id, isComplete } },
       };
 
-      fetchMock.reMock(`/api/todos/${id}`, 'PATCH', { todo: { id, isComplete } });
+      fetchMock.reMock(this.url, 'PATCH', { todo: { id, isComplete } });
     });
 
-    shouldBehaveLikeAction('/api/todos/5');
+    behavesLikeAsyncAction();
   });
 
   describe('.markAllTodos()', function () {
-    beforeEach(function () {
+    before(function () {
       const isComplete = true;
       const todos = [{ isComplete: true }, { isComplete: true }];
+      this.url = '/api/todos/mark_all';
       this.subject = TodoActionCreators.markAllTodos(isComplete);
       this.expectedAction = {
         type: 'MARK_ALL_TODOS',
         payload: { todos },
       };
 
-      fetchMock.reMock('/api/todos/mark_all', 'PATCH', { todos });
+      fetchMock.reMock(this.url, 'PATCH', { todos });
     });
 
-    shouldBehaveLikeAction('/api/todos/mark_all');
+    behavesLikeAsyncAction();
   });
 
   describe('.moveTodo()', function () {
-    beforeEach(function () {
+    before(function () {
       const at = 5;
       const to = 8;
-      const todos = [{ index: 8 }];
+      const todos = [{ index: 8 }, { index: 9 }];
+      this.url = '/api/todos/move';
       this.subject = TodoActionCreators.moveTodo(at, to);
       this.expectedAction = {
         type: 'MOVE_TODO',
         payload: { todos },
       };
 
-      fetchMock.reMock('/api/todos/move', 'PATCH', { todos });
+      fetchMock.reMock(this.url, 'PATCH', { todos });
     });
 
-    shouldBehaveLikeAction('/api/todos/move');
+    behavesLikeAsyncAction();
   });
 });

@@ -6,26 +6,29 @@ import setup from '../support/componentSetup';
 import TextInput from '../../js/components/TextInput';
 
 describe('<TextInput />', function () {
-  const className = 'className';
-  const onSave = sinon.spy();
-  const placeholder = 'placeholder';
-  const value = 'value';
-  const { output, renderer } = setup(TextInput, { className, onSave, placeholder, value });
+  const props = {
+    className: 'className',
+    onSave: sinon.spy(),
+    placeholder: 'placeholder',
+    value: 'value',
+  };
+
+  const { output, renderer } = setup(TextInput, props);
 
   beforeEach(function () {
-    onSave.reset();
+    props.onSave.reset();
   });
 
   it('renders correctly', function () {
     expect(output.type).to.equal('input');
     expect(output.props.autoFocus).to.be(true);
-    expect(output.props.className).to.equal(className);
+    expect(output.props.className).to.equal(props.className);
     expect(output.props.onBlur).to.be.a('function');
     expect(output.props.onChange).to.be.a('function');
     expect(output.props.onKeyDown).to.be.a('function');
-    expect(output.props.placeholder).to.equal(placeholder);
+    expect(output.props.placeholder).to.equal(props.placeholder);
     expect(output.props.type).to.equal('text');
-    expect(output.props.value).to.equal(value);
+    expect(output.props.value).to.equal(props.value);
   });
 
   describe('#onBlur()', function () {
@@ -34,7 +37,7 @@ describe('<TextInput />', function () {
     });
 
     it('calls onSave correctly', function () {
-      expect(onSave.called).to.be(true);
+      expect(props.onSave.called).to.be(true);
     });
 
     it('sets the state correctly', function () {
@@ -54,9 +57,9 @@ describe('<TextInput />', function () {
   describe('#onKeyDown()', function () {
     it('calls onSave correctly', function () {
       output.props.onKeyDown({ keyCode: 10 });
-      expect(onSave.called).to.be(false);
+      expect(props.onSave.called).to.be(false);
       output.props.onKeyDown({ keyCode: 13 });
-      expect(onSave.called).to.be(true);
+      expect(props.onSave.called).to.be(true);
     });
   });
 });
