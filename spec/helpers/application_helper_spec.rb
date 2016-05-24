@@ -11,20 +11,20 @@ RSpec.describe ApplicationHelper, type: :helper do
   describe "#style_tag" do
     subject { style_tag("bundle") }
 
-    context "development or test mode" do
+    context "in development or test mode" do
       it { is_expected.to match(%r{<script src=.*></script>}) }
     end
 
-    context "production mode" do
+    context "in production mode" do
       before do
-        allow(Rails).to receive_message_chain(:env, :production?) { true }
+        allow(Rails).to receive_message_chain(:env, :production?).and_return(true)
       end
 
       it { is_expected.to match(%r{<link rel="stylesheet" media="all" href=.* />}) }
     end
 
-    context "simulating production" do
-      before { allow(ENV).to receive(:[]).with("SIMULATE_PROD") { true } }
+    context "when simulating production" do
+      before { allow(ENV).to receive(:[]).with("SIMULATE_PROD").and_return(true) }
 
       it { is_expected.to match(%r{<link rel="stylesheet" media="all" href=.* />}) }
     end

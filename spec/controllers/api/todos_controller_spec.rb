@@ -60,11 +60,10 @@ RSpec.describe Api::TodosController, type: :controller do
     end
   end
 
-  # TODO: test failure?
   describe "DELETE #destroy" do
     let!(:todo) { create(:todo) }
 
-    context "success" do
+    context "on success" do
       it "returns http success" do
         delete :destroy, id: todo.id
         expect(response).to have_http_status(:success)
@@ -82,7 +81,7 @@ RSpec.describe Api::TodosController, type: :controller do
       end
     end
 
-    context "failure" do
+    context "on failure" do
       before do
         allow(Todo).to receive(:find).with(todo.id.to_s).and_return(todo)
         allow(todo).to receive(:destroy).and_return(false)

@@ -8,7 +8,7 @@ RSpec.describe TodosService, type: :service do
       create(:todo, label: "Three", index: 3)
     end
 
-    context "moving up the list" do
+    context "when moving up the list" do
       it "correctly changes the order of the todos" do
         expect { subject.move(2, 1) }
           .to change { Todo.order(:index).map(&:label) }
@@ -16,7 +16,7 @@ RSpec.describe TodosService, type: :service do
       end
     end
 
-    context "moving down the list" do
+    context "when moving down the list" do
       it "correctly changes the order of the todos" do
         expect { subject.move(1, 4) }
           .to change { Todo.order(:index).map(&:label) }

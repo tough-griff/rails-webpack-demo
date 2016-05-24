@@ -22,7 +22,7 @@ RSpec.describe TodoSerializer, type: :serialzer do
       .to include(:id, :index, :is_complete, :label, :created_at, :updated_at)
   end
 
-  context "#is_complete" do
+  describe "#is_complete" do
     specify { expect(subject.attributes[:is_complete]).to eq(todo.complete?) }
   end
 end
