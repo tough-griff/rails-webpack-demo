@@ -1,17 +1,10 @@
 import expect from 'expect.js';
-import { List, Record } from 'immutable';
+import { List } from 'immutable';
 import sinon from 'sinon';
 
-import todos from '../../js/reducers/todos';
+import todos, { Todo } from '../../js/reducers/todos';
 
 describe('todos()', function () {
-  const Todo = new Record({
-    id: 0,
-    index: 0,
-    isComplete: false,
-    label: 'new todo',
-  });
-
   const state = new List([
     new Todo({
       id: 1,

@@ -8,7 +8,7 @@ import TextInput from '../../js/components/TextInput';
 describe('<TextInput />', function () {
   const props = {
     className: 'className',
-    onSave: sinon.spy(),
+    onSave: sinon.stub(),
     placeholder: 'placeholder',
     value: 'value',
   };

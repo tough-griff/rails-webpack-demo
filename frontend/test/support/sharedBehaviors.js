@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import fetchMock from 'fetch-mock';
 
-import mockStore from '../support/mockStore';
+import mockStore from './mockStore';
 
 /**
  * Shared behaviors for asynchronous action creators.
@@ -15,6 +15,7 @@ export function behavesLikeAsyncAction() {
     this.subject();
     expect(fetchMock.called(this.url)).to.be(true);
   });
+
   it('dispatches the correct action', function () {
     return mockStore.dispatch(this.subject).then(() => {
       expect(mockStore.getActions()[0]).to.eql(this.expectedAction);

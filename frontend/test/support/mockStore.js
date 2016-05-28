@@ -3,7 +3,8 @@ import thunk from 'redux-thunk';
 
 const createMockStore = configureMockStore([thunk]);
 
-export { createMockStore };
-
 // Export a singleton with blank initial state as default.
 export default createMockStore({});
+
+// Export the `createMockStore` method if we need to create a new mock store.
+export { createMockStore };

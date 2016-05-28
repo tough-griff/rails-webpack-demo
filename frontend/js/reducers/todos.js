@@ -84,3 +84,5 @@ export default function todos(state = initialState, { error, payload, type }) {
 
   return (reducer) ? reducer(state, payload) : state;
 }
+
+export { Todo };

@@ -29,7 +29,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.addTodo()', function () {
-    before(function () {
+    before(function setContext() {
       const label = 'label';
       this.url = '/api/todos';
       this.subject = TodoActionCreators.addTodo(label);
@@ -45,7 +45,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.clearCompleteTodos()', function () {
-    before(function () {
+    before(function setContext() {
       const todos = [{ id: 1 }, { id: 4 }];
       this.url = '/api/todos/clear_complete';
       this.subject = TodoActionCreators.clearCompleteTodos();
@@ -61,7 +61,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.deleteTodo()', function () {
-    before(function () {
+    before(function setContext() {
       const id = 5;
       this.url = `/api/todos/${id}`;
       this.subject = TodoActionCreators.deleteTodo(id);
@@ -77,7 +77,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.editTodo()', function () {
-    before(function () {
+    before(function setContext() {
       const id = 5;
       const label = 'fake todo';
       this.url = `/api/todos/${id}`;
@@ -94,7 +94,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.fetchAllTodos()', function () {
-    before(function () {
+    before(function setContext() {
       const todos = [{ label: 'fake1' }, { label: 'fake2' }];
       this.url = '/api/todos';
       this.subject = TodoActionCreators.fetchAllTodos();
@@ -110,7 +110,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.markTodo()', function () {
-    before(function () {
+    before(function setContext() {
       const id = 5;
       const isComplete = true;
       this.url = `/api/todos/${id}`;
@@ -127,7 +127,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.markAllTodos()', function () {
-    before(function () {
+    before(function setContext() {
       const isComplete = true;
       const todos = [{ isComplete: true }, { isComplete: true }];
       this.url = '/api/todos/mark_all';
@@ -144,7 +144,7 @@ describe('TodoActionCreators', function () {
   });
 
   describe('.moveTodo()', function () {
-    before(function () {
+    before(function setContext() {
       const at = 5;
       const to = 8;
       const todos = [{ index: 8 }, { index: 9 }];

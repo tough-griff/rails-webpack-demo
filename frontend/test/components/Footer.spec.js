@@ -8,7 +8,7 @@ import Footer from '../../js/components/Footer';
 describe('<Footer />', function () {
   const props = {
     canDrop: false,
-    clearCompleteTodos: sinon.spy(),
+    clearCompleteTodos: sinon.stub(),
     connectDropTarget: (el) => el,
     completeCount: 0,
     filter: 'all',

@@ -8,8 +8,8 @@ import TextInput from '../../js/components/TextInput';
 
 describe('<Header />', function () {
   const props = {
-    addTodo: sinon.spy(),
-    fetchAllTodos: sinon.spy(),
+    addTodo: sinon.stub(),
+    fetchAllTodos: sinon.stub(),
   };
 
   const { output } = setup(Header, props);
