@@ -2,7 +2,7 @@ module Api
   class TodosController < ApiController
     attr_writer :todos_service
 
-    before_action :find_todo, only: %i(destroy update)
+    before_action :find_todo, only: %i(show update destroy)
 
     def index
       @todos = Todo.order(:index)
@@ -19,12 +19,8 @@ module Api
       end
     end
 
-    def destroy
-      if @todo.destroy
-        render json: @todo
-      else
-        render_destroy_todo_errors
-      end
+    def show
+      render json: @todo
     end
 
     def update
@@ -32,6 +28,14 @@ module Api
         render json: @todo
       else
         render_todo_errors
+      end
+    end
+
+    def destroy
+      if @todo.destroy
+        render json: @todo
+      else
+        render_destroy_todo_errors
       end
     end
 
@@ -66,11 +70,11 @@ module Api
     end
 
     def render_todo_errors
-      render json: { error: @todo.errors.full_messages }, status: 422
+      render json: { todo: @todo, error: @todo.errors.full_messages }, status: 422
     end
 
     def render_destroy_todo_errors
-      render json: { error: ["Unable to destroy todo with ID #{@todo.id}: #{@todo.label}"] }, status: 500
+      render json: { todo: @todo, error: ["Unable to destroy todo with ID #{@todo.id}: #{@todo.label}"] }, status: 500
     end
 
     def todo_params

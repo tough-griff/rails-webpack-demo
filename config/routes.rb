@@ -6,7 +6,8 @@
 # clear_complete_todos DELETE /api/todos/clear_complete(.:format) api/todos#clear_complete
 #                todos GET    /api/todos(.:format)                api/todos#index
 #                      POST   /api/todos(.:format)                api/todos#create
-#                 todo PATCH  /api/todos/:id(.:format)            api/todos#update
+#                 todo GET    /api/todos/:id(.:format)            api/todos#show
+#                      PATCH  /api/todos/:id(.:format)            api/todos#update
 #                      PUT    /api/todos/:id(.:format)            api/todos#update
 #                      DELETE /api/todos/:id(.:format)            api/todos#destroy
 #                 root GET    /                                   application#index
@@ -15,7 +16,7 @@
 
 Rails.application.routes.draw do
   scope :api, module: :api do
-    resources :todos, only: %i(index create destroy update) do
+    resources :todos, only: %i(index create show update destroy) do
       collection do
         patch :mark_all
         patch :move
