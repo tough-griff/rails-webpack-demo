@@ -11,12 +11,16 @@ function getDebugSessionKey() {
 }
 
 export default function configureStore(initialState) {
+  const devTools = window.devToolsExtension
+    ? window.devToolsExtension
+    : DevTools.instrument;
+
   const store = createStore(
     rootReducer,
     initialState,
     compose(
       applyMiddleware(thunk),
-      DevTools.instrument(),
+      devTools(),
       persistState(getDebugSessionKey()),
     ),
   );
