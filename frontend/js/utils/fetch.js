@@ -1,11 +1,24 @@
-import 'isomorphic-fetch';
-import checkStatus from 'fetch-check-http-status';
+import { merge } from 'lodash';
 
 /**
  * Extracts the CSRF token from the page's meta tags.
  */
 function getCSRFToken() {
   return document.getElementsByTagName('meta')['csrf-token'].content;
+}
+
+/**
+ * Response handler which rejects fetch requests on any non-2xx response.
+ * @see {https://github.com/tough-griff/fetch-check-http-status}
+ */
+function checkStatus(response) {
+  const { status } = response;
+
+  if (status >= 200 && status < 300) return response;
+
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
 }
 
 /**
@@ -29,15 +42,15 @@ function checkJSON(json) {
  * Allow actions to use a default `fetch` configuration.
  */
 export default function fetch(url, config) {
-  return global.fetch(url, {
+  return global.fetch(url, merge({
     credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'X-CSRF-Token': getCSRFToken(),
     },
-    ...config,
-  }).then(checkStatus)
+  }, config))
+    .then(checkStatus)
     .then(parseJSON)
     .then(checkJSON);
 }

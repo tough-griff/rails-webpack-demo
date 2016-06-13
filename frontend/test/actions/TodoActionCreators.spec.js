@@ -1,4 +1,3 @@
-import 'isomorphic-fetch';
 import expect from 'expect.js';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
