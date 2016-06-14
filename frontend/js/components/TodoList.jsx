@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { flow, filter, map, maxBy, sortBy } from 'lodash/fp';
 import React, { Component, PropTypes } from 'react';
 
 import { Footer, Todo } from '../containers/dnd';
@@ -16,7 +16,7 @@ const FILTERS = {
 export default class TodoList extends Component {
   static propTypes = {
     actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
-    filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
+    todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
   };
 
@@ -25,35 +25,35 @@ export default class TodoList extends Component {
   };
 
   renderFooter(completeCount) {
-    const { actions, filter, todos } = this.props;
+    const { actions, todosFilter, todos } = this.props;
     const { clearCompleteTodos, moveTodo } = actions;
     const { length } = todos;
 
     if (!length) return null;
 
     const incompleteCount = length - completeCount;
-    const { index } = _.maxBy(todos, 'index');
+    const { index: maxIndex } = maxBy('index')(todos);
 
     return (
       <Footer
         clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
-        filter={filter}
+        todosFilter={todosFilter}
         incompleteCount={incompleteCount}
-        maxIndex={index}
+        maxIndex={maxIndex}
         moveTodo={moveTodo}
       />
     );
   }
 
   renderListItems() {
-    const { filter, todos } = this.props;
+    const { todosFilter, todos } = this.props;
 
-    return _(todos)
-      .filter(FILTERS[filter])
-      .sortBy('index')
-      .map(this.renderTodo)
-      .value();
+    return flow(
+      filter(FILTERS[todosFilter]),
+      sortBy('index'),
+      map(this.renderTodo),
+    )(todos);
   }
 
   renderTodo = (todo) => {
@@ -84,7 +84,7 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = _(todos).filter('isComplete').size();
+    const { length: completeCount } = filter('isComplete')(todos);
 
     return (
       <section className="main">

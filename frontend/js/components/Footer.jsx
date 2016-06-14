@@ -6,8 +6,8 @@ import { Link } from 'react-router';
  * Manages routing using ReactRouter.Link, as well as renders a
  * 'Clear complete' button and complete tasks counter.
  *
- * @note: we pass `filter` to this component to trigger a re-render when the
- * filter changes. This allows `Link`'s `activeClassName` to work correctly.
+ * @note: we pass `todosFilter` to this component to trigger a re-render when the
+ * todosFilter changes. This allows `Link`'s `activeClassName` to work correctly.
  */
 export default class Footer extends Component {
   static propTypes = {
@@ -15,11 +15,11 @@ export default class Footer extends Component {
     clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-    filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     incompleteCount: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
     moveTodo: PropTypes.func.isRequired,
+    todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
   };
 
   onClick = (_evt) => {

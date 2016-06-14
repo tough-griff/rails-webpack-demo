@@ -22,7 +22,7 @@ export default class App extends Component {
   render() {
     const { actions, location, todos } = this.props;
     const { addTodo, fetchAllTodos } = actions;
-    const filter = location.pathname.replace('/', '');
+    const todosFilter = location.pathname.replace('/', '');
 
     return (
       <div>
@@ -32,7 +32,7 @@ export default class App extends Component {
         />
         <TodoList
           actions={actions}
-          filter={filter}
+          todosFilter={todosFilter}
           todos={todos}
         />
       </div>

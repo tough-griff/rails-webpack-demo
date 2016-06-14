@@ -1,5 +1,5 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 import webpack from 'webpack';
 
 import devConfig from './webpack.config.dev.babel';

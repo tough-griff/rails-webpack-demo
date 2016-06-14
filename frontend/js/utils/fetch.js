@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge } from 'lodash/fp';
 
 /**
  * Extracts the CSRF token from the page's meta tags.
@@ -42,14 +42,16 @@ function checkJSON(json) {
  * Allow actions to use a default `fetch` configuration.
  */
 export default function fetch(url, config) {
-  return global.fetch(url, merge({
+  const fetchConfig = merge({
     credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'X-CSRF-Token': getCSRFToken(),
     },
-  }, config))
+  })(config);
+
+  return global.fetch(url, fetchConfig)
     .then(checkStatus)
     .then(parseJSON)
     .then(checkJSON);

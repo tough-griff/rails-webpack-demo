@@ -1,4 +1,5 @@
-import { castArray, mapValues } from 'lodash';
+import castArray from 'lodash/castArray';
+import mapValues from 'lodash/mapValues';
 import path from 'path';
 import webpack from 'webpack';
 
