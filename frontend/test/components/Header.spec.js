@@ -2,7 +2,6 @@ import expect from 'expect.js';
 import sinon from 'sinon';
 
 import setup from '../support/componentSetup';
-
 import Header from '../../js/components/Header';
 import TextInput from '../../js/components/TextInput';
 

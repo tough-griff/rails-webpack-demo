@@ -2,7 +2,7 @@ import camelCase from 'camel-case';
 import { List, Record, Seq } from 'immutable';
 
 // Define an Immutable.js Todo Record.
-const Todo = new Record({
+export const Todo = new Record({
   id: 0,
   index: 0,
   isComplete: false,
@@ -12,7 +12,7 @@ const Todo = new Record({
 /**
  * Returns a new Immutable.js List of Todo Records.
  */
-function createTodoList(newTodos) {
+export function createTodoList(newTodos) {
   return new Seq(newTodos)
     .map(todo => new Todo(todo))
     .toList();
@@ -84,5 +84,3 @@ export default function todos(state = initialState, { error, payload, type }) {
 
   return (reducer) ? reducer(state, payload) : state;
 }
-
-export { Todo };

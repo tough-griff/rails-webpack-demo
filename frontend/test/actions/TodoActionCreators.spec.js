@@ -4,7 +4,6 @@ import sinon from 'sinon';
 
 import mockStore from '../support/mockStore';
 import { behavesLikeAsyncAction } from '../support/sharedBehaviors';
-
 import TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {

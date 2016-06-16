@@ -2,14 +2,13 @@ import expect from 'expect.js';
 import sinon from 'sinon';
 
 import setup from '../support/componentSetup';
-
 import Footer from '../../js/components/Footer';
 
 describe('<Footer />', function () {
   const props = {
     canDrop: false,
     clearCompleteTodos: sinon.stub(),
-    connectDropTarget: (el) => el,
+    connectDropTarget: el => el,
     completeCount: 0,
     filter: 'all',
     incompleteCount: 0,
@@ -51,7 +50,7 @@ describe('<Footer />', function () {
       expect(button.props.children).to.equal('Clear complete');
     });
 
-    describe('#onRemoveCompleted()', function () {
+    describe('#onClick()', function () {
       it('calls clearCompleteTodos', function () {
         button.props.onClick();
         expect(props.clearCompleteTodos.calledOnce).to.be(true);

@@ -17,7 +17,7 @@ export default class TextInput extends Component {
     value: this.props.value || '',
   };
 
-  onBlur = () => {
+  onBlur = (_evt) => {
     this.props.onSave(this.state.value.trim());
     this.setState({
       value: '',

@@ -2,23 +2,20 @@ import expect from 'expect.js';
 import { List } from 'immutable';
 import sinon from 'sinon';
 
-import todos, { Todo } from '../../js/reducers/todos';
+import todos, { createTodoList } from '../../js/reducers/todos';
 
 describe('todos()', function () {
-  const state = new List([
-    new Todo({
-      id: 1,
-      index: 1,
-      isComplete: true,
-      label: 'Hello',
-    }),
-    new Todo({
-      id: 2,
-      index: 2,
-      isComplete: false,
-      label: 'World',
-    }),
-  ]);
+  const state = createTodoList([{
+    id: 1,
+    index: 1,
+    isComplete: true,
+    label: 'Hello',
+  }, {
+    id: 2,
+    index: 2,
+    isComplete: false,
+    label: 'World',
+  }]);
 
   it('exposes a function', function () {
     expect(todos).to.be.a('function');

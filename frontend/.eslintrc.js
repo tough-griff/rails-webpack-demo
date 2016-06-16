@@ -1,15 +1,16 @@
-const OFF = 0;
-const WARN = 1;
-const ERROR = 2;
-
 module.exports = {
   extends: 'airbnb',
   parser: 'babel-eslint',
   rules: {
-    'global-require': OFF,
-    'new-cap': [WARN, { newIsCap: true, capIsNew: false }],
-    'no-unused-vars': [ERROR, { argsIgnorePattern: "^_" }],
+    'global-require': 'off',
+    'new-cap': ['warn', { newIsCap: true, capIsNew: false }],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
-    'react/prefer-stateless-function': WARN,
+    'import/order': ['warn', {
+      groups: [['builtin', 'external'], ['index', 'internal', 'parent', 'sibling']],
+      'newlines-between': 'always',
+    }],
+
+    'react/prefer-stateless-function': 'warn',
   },
 }

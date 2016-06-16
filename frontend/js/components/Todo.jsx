@@ -27,13 +27,19 @@ export default class Todo extends Component {
     isEditing: false,
   };
 
-  onDestroy = () => {
+  onChange = (_evt) => {
+    const { id, isComplete, markTodo } = this.props;
+
+    markTodo(id, !isComplete);
+  };
+
+  onClick = (_evt) => {
     const { deleteTodo, id } = this.props;
 
     deleteTodo(id);
   };
 
-  onEdit = () => {
+  onDoubleClick = (_evt) => {
     this.setState({
       isEditing: true,
     });
@@ -51,12 +57,6 @@ export default class Todo extends Component {
     this.setState({
       isEditing: false,
     });
-  };
-
-  onToggle = () => {
-    const { id, isComplete, markTodo } = this.props;
-
-    markTodo(id, !isComplete);
   };
 
   renderInput() {
@@ -90,13 +90,13 @@ export default class Todo extends Component {
           <input
             checked={isComplete}
             className="toggle"
-            onChange={this.onToggle}
+            onChange={this.onChange}
             type="checkbox"
           />
-          <label onDoubleClick={this.onEdit}>
+          <label onDoubleClick={this.onDoubleClick}>
             {label}
           </label>
-          <button className="destroy" onClick={this.onDestroy} />
+          <button className="destroy" onClick={this.onClick} />
         </div>
         {this.renderInput()}
       </li>

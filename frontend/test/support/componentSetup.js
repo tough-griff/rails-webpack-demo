@@ -6,5 +6,5 @@ export default function componentSetup(component, props) {
   renderer.render(React.createElement(component, props));
   const output = renderer.getRenderOutput();
 
-  return { props, output, renderer };
+  return { output, props, renderer };
 }

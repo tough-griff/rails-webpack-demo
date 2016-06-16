@@ -22,7 +22,7 @@ export default class Footer extends Component {
     moveTodo: PropTypes.func.isRequired,
   };
 
-  onRemoveCompleted = () => {
+  onClick = (_evt) => {
     this.props.clearCompleteTodos();
   };
 
@@ -32,7 +32,7 @@ export default class Footer extends Component {
     return (
       <button
         className="clear-completed"
-        onClick={this.onRemoveCompleted}
+        onClick={this.onClick}
       >
         Clear complete
       </button>
