@@ -8,13 +8,13 @@ describe('<Footer />', function () {
   const props = {
     canDrop: false,
     clearCompleteTodos: sinon.stub(),
-    connectDropTarget: el => el,
     completeCount: 0,
-    filter: 'all',
+    connectDropTarget: el => el,
     incompleteCount: 0,
     isOver: false,
     maxIndex: 0,
     moveTodo: sinon.stub(),
+    todosFilter: 'all',
   };
 
   const { output } = setup(Footer, props);
