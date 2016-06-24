@@ -37,14 +37,15 @@ describe('todos()', function () {
     });
   });
 
-  /* eslint-disable no-console */
   context('when passed an error', function () {
+    let consoleStub;
+
     before(function stubConsoleError() {
-      sinon.stub(console, 'error');
+      consoleStub = sinon.stub(console, 'error');
     });
 
     after(function restoreConsoleError() {
-      console.error.restore();
+      consoleStub.restore();
     });
 
     it('passes state through and logs', function () {
@@ -55,10 +56,9 @@ describe('todos()', function () {
       });
 
       expect(result).to.equal(state);
-      expect(console.error.calledOnce).to.be(true);
+      expect(consoleStub.calledOnce).to.be(true);
     });
   });
-  /* eslint-enable no-console */
 
   context('with action type "ADD_TODO"', function () {
     const action = {
