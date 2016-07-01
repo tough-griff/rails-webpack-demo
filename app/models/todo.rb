@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Todo < ActiveRecord::Base
+class Todo < ApplicationRecord
   validates :label, presence: true
   validates :index, presence: true, numericality: { greater_than: 0 }
 

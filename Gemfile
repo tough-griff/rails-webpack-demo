@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby "2.3.1"
 
-gem "rails", "4.2.6"
+gem "rails", "5.0.0"
 
 gem "active_model_serializers", "~> 0.10.2"
 gem "haml-rails",               "~> 0.9.0"
@@ -35,6 +35,7 @@ end
 group :test do
   gem "database_cleaner", require: false
   gem "factory_girl_rails"
+  gem "rails-controller-testing"
   gem "shoulda-matchers", require: false
 end
 
