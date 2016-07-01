@@ -13,6 +13,8 @@ Metrics/LineLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
 Style/IndentArray:
   Enabled: true
   EnforcedStyle: consistent
