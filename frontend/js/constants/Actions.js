@@ -6,6 +6,7 @@ export default constantMirror(
   'DELETE_TODO',
   'EDIT_TODO',
   'FETCH_ALL_TODOS',
+  'FETCH_TODO',
   'MARK_ALL_TODOS',
   'MARK_TODO',
   'MOVE_TODO'

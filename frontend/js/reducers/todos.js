@@ -49,6 +49,15 @@ const REDUCERS = {
     return createTodoList(allTodos);
   },
 
+  fetchTodo(state, { todo }) {
+    const newTodo = new Todo(todo);
+    const index = state.findIndex(t => t.get('id') === newTodo.get('id'));
+
+    return (index > 0)
+      ? state.set(index, newTodo)
+      : state.push(newTodo);
+  },
+
   markAllTodos(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },

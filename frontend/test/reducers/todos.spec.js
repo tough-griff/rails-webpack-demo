@@ -1,6 +1,4 @@
-import expect from 'expect.js';
 import { List } from 'immutable';
-import sinon from 'sinon';
 
 import todos, { createTodoList } from '../../js/reducers/todos';
 
@@ -149,6 +147,34 @@ describe('todos()', function () {
       const result = todos(state, action);
       expect(result.size).to.equal(4);
       expect(result.every(todo => todo.get('label') === 'Fetched me!')).to.be(true);
+    });
+  });
+
+  context('with action type "FETCH_TODO"', function () {
+    context('when fetching a new todo', function () {
+      const action = {
+        type: 'FETCH_TODO',
+        payload: { todo: { id: 3, label: 'Fetched me!' } },
+      };
+
+      it('correctly replaces the todo', function () {
+        const result = todos(state, action);
+        expect(result.size).to.equal(3);
+        expect(result.last().get('label')).to.equal('Fetched me!');
+      });
+    });
+
+    context('when fetching an existing todo', function () {
+      const action = {
+        type: 'FETCH_TODO',
+        payload: { todo: { id: 2, label: 'Fetched me!' } },
+      };
+
+      it('correctly replaces the todo', function () {
+        const result = todos(state, action);
+        expect(result.size).to.equal(2);
+        expect(result.last().get('label')).to.equal('Fetched me!');
+      });
     });
   });
 

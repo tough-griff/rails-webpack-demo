@@ -2,7 +2,7 @@ import { flow, filter, map, maxBy, sortBy } from 'lodash/fp';
 import React, { Component, PropTypes } from 'react';
 
 import { Footer, Todo } from '../containers/dnd';
-import todoShape from '../shapes/todoShape';
+import { todoActionsShape, todoShape } from '../shapes';
 
 const FILTERS = {
   all: () => true,
@@ -15,7 +15,7 @@ const FILTERS = {
  */
 export default class TodoList extends Component {
   static propTypes = {
-    actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
+    actions: todoActionsShape.isRequired,
     todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
   };

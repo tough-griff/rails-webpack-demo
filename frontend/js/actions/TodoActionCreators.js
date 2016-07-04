@@ -90,20 +90,17 @@ const TodoActionCreators = {
         }));
   },
 
-  markTodo(id, complete) {
+  fetchTodo(id) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({
-          todo: { complete },
-        }),
+        method: 'GET',
       })
         .then(({ todo }) => dispatch({
-          type: Actions.MARK_TODO,
+          type: Actions.FETCH_TODO,
           payload: { todo },
         }))
         .catch(err => dispatch({
-          type: Actions.MARK_TODO,
+          type: Actions.FETCH_TODO,
           payload: err,
           error: true,
         }));
@@ -121,6 +118,25 @@ const TodoActionCreators = {
         }))
         .catch(err => dispatch({
           type: Actions.MARK_ALL_TODOS,
+          payload: err,
+          error: true,
+        }));
+  },
+
+  markTodo(id, complete) {
+    return dispatch =>
+      fetch(`${SERVER_URL}/todos/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          todo: { complete },
+        }),
+      })
+        .then(({ todo }) => dispatch({
+          type: Actions.MARK_TODO,
+          payload: { todo },
+        }))
+        .catch(err => dispatch({
+          type: Actions.MARK_TODO,
           payload: err,
           error: true,
         }));

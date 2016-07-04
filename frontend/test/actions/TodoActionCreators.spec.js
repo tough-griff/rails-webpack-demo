@@ -1,9 +1,7 @@
-import expect from 'expect.js';
 import fetchMock from 'fetch-mock';
-import sinon from 'sinon';
 
 import mockStore from '../support/mockStore';
-import { behavesLikeAsyncAction } from '../support/sharedBehaviors';
+import { behavesLikeAsyncActionCreator } from '../support/sharedBehaviors';
 import TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {
@@ -39,7 +37,8 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'POST', { todo: { label } });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'ADD_TODO');
   });
 
   describe('.clearCompleteTodos()', function () {
@@ -55,7 +54,8 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'DELETE', { todos });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'CLEAR_COMPLETE_TODOS');
   });
 
   describe('.deleteTodo()', function () {
@@ -71,7 +71,8 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'DELETE', { todo: { id } });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'DELETE_TODO');
   });
 
   describe('.editTodo()', function () {
@@ -88,7 +89,8 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'PATCH', { todo: { id, label } });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'EDIT_TODO');
   });
 
   describe('.fetchAllTodos()', function () {
@@ -104,24 +106,26 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'GET', { todos });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'FETCH_ALL_TODOS');
   });
 
-  describe('.markTodo()', function () {
+  describe('.fetchTodo()', function () {
     const id = 5;
-    const isComplete = true;
+    const todo = { id, label: 'Hello, world' };
     const url = `/api/todos/${id}`;
-    const subject = TodoActionCreators.markTodo(id, isComplete);
+    const subject = TodoActionCreators.fetchTodo(id);
     const expectedAction = {
-      type: 'MARK_TODO',
-      payload: { todo: { id, isComplete } },
+      type: 'FETCH_TODO',
+      payload: { todo },
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'PATCH', { todo: { id, isComplete } });
+      fetchMock.reMock(url, 'GET', { todo });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'FETCH_TODO');
   });
 
   describe('.markAllTodos()', function () {
@@ -138,7 +142,26 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'PATCH', { todos });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'MARK_ALL_TODOS');
+  });
+
+  describe('.markTodo()', function () {
+    const id = 5;
+    const isComplete = true;
+    const url = `/api/todos/${id}`;
+    const subject = TodoActionCreators.markTodo(id, isComplete);
+    const expectedAction = {
+      type: 'MARK_TODO',
+      payload: { todo: { id, isComplete } },
+    };
+
+    before(function stubApi() {
+      fetchMock.reMock(url, 'PATCH', { todo: { id, isComplete } });
+    });
+
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+      .withErrorHandlingFor(url, 'MARK_TODO');
   });
 
   describe('.moveTodo()', function () {
@@ -156,6 +179,7 @@ describe('TodoActionCreators', function () {
       fetchMock.reMock(url, 'PATCH', { todos });
     });
 
-    behavesLikeAsyncAction(subject, url, expectedAction);
+    behavesLikeAsyncActionCreator(subject, url, expectedAction)
+     .withErrorHandlingFor(url, 'MOVE_TODO');
   });
 });

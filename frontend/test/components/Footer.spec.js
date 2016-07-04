@@ -1,6 +1,3 @@
-import expect from 'expect.js';
-import sinon from 'sinon';
-
 import setup from '../support/componentSetup';
 import Footer from '../../js/components/Footer';
 
