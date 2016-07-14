@@ -48,7 +48,12 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = ENV["HTTPS"].present?
+  if ENV["HTTPS"].present?
+    config.force_ssl = true
+    config.ssl_options = { hsts: { subdomains: true } }
+  else
+    config.force_ssl = false
+  end
 
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.

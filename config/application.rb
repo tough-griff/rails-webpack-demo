@@ -16,9 +16,6 @@ module RailsWebpackDemo
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     config.i18n.default_locale = :en
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
-
     # Use Rack::Deflater middleware to compress HTML/JSON responses.
     # see http://robots.thoughtbot.com/content-compression-with-rack-deflater
     config.middleware.use Rack::Deflater
