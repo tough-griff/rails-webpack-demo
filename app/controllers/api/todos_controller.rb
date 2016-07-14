@@ -57,7 +57,7 @@ module Api
 
     def clear_complete
       Todo.transaction do
-        @todos = Todo.destroy_all(complete: true)
+        @todos = Todo.where(complete: true).destroy_all
       end
 
       render json: @todos

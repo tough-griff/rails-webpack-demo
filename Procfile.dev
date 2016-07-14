@@ -1,3 +1,3 @@
 web: bundle exec passenger start --port=$PORT --max-pool-size=$MAX_POOL_SIZE
-mailcatcher: bundle exec mailcatcher --smtp-port=$MAILCATCHER_PORT --foreground
+mailcatcher: mailcatcher --smtp-port=$MAILCATCHER_PORT --foreground
 webpack-server: npm start

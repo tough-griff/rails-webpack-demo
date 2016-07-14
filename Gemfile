@@ -16,7 +16,6 @@ group :development do
   gem "annotate"
   gem "foreman", require: false
   gem "haml_lint", require: false
-  gem "mailcatcher", require: false
   gem "rubocop", require: false
   gem "scss_lint", require: false
   gem "spring-commands-rspec"
