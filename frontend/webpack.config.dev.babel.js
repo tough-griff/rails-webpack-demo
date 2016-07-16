@@ -5,9 +5,9 @@ import webpack from 'webpack';
 
 import entries from './entries';
 
-const appHost = process.env.APP_HOST || 'lvh.me';
-const nodePort = process.env.NODE_PORT || '5050';
-const serverPath = `//${appHost}:${nodePort}`;
+export const appHost = process.env.APP_HOST || 'lvh.me';
+export const nodePort = process.env.NODE_PORT || '5050';
+export const serverPath = `//${appHost}:${nodePort}`;
 const webpackHmrEntry = `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`;
 
 // Prepend the webpack HMR entry point to all defined entry points.

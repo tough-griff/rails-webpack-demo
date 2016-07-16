@@ -6,13 +6,13 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import config from './webpack.config.dev.babel';
+import config, {
+  appHost, nodePort, serverPath,
+} from './webpack.config.dev.babel';
 
 const app = express();
 const compiler = webpack(config);
 const isHttps = !!process.env.HTTPS;
-const appHost = process.env.APP_HOST || 'lvh.me';
-const nodePort = process.env.NODE_PORT || '5050';
 
 // Set the `Access-Control-Allow-Origin: *` header.
 app.use(cors());
@@ -43,6 +43,6 @@ server.listen(nodePort, appHost, err => {
     return;
   }
 
-  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}://${appHost}:${nodePort}.`);
+  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}:${serverPath}.`);
 });
 /* eslint-enable no-console */
