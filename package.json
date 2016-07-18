@@ -3,16 +3,9 @@
   "version": "0.0.1",
   "description": "Starter configuration for a Rails project using webpack for JavaScript assets",
   "repository": "tough-griff/rails-webpack-demo",
-  "bugs": {
-    "url": "https://github.com/tough-griff/rails-webpack-demo/issues"
-  },
-  "homepage": "https://github.com/tough-griff/rails-webpack-demo#readme",
   "author": "Griffin Yourick",
   "license": "MIT",
-  "keywords": [
-    "rails",
-    "webpack"
-  ],
+  "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack --config=frontend/webpack.config.prod.babel.js",
     "postbuild": "rimraf app/assets/javascripts/*.style.bundle.*",
@@ -26,8 +19,8 @@
     "webpack-server": "babel-node frontend/webpackServer.js"
   },
   "engines": {
-    "node": "5.x",
-    "npm": "3.x"
+    "node": ">= 4",
+    "npm": ">= 3"
   },
   "dependencies": {
     "babel-polyfill": "^6.9.1",

@@ -1,5 +1,5 @@
 - provide(:head) do
-  = style_tag "app.style.bundle"
+  = webpack_style_tag "app"
 
 %section.todoapp#app
 %footer.info
@@ -8,4 +8,4 @@
     Created by
     = link_to "Griffin Yourick", "https://github.com/tough-griff"
 
-= javascript_include_tag "app.bundle"
+= webpack_js_tag "app"

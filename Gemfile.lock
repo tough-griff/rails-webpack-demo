@@ -1,3 +1,10 @@
+PATH
+  remote: vendor/gems/webpack-rails
+  specs:
+    webpack-rails (1.0.0.rc1)
+      non-stupid-digest-assets (~> 1.0)
+      system-bang (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -304,6 +311,7 @@ DEPENDENCIES
   spring-commands-rspec
   system-bang (~> 1.0.0)
   travis
+  webpack-rails (~> 1.0.0.rc1)!
 
 RUBY VERSION
    ruby 2.3.1p112

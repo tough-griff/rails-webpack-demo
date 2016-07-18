@@ -1,0 +1,3 @@
+[submodule "vendor/gems/webpack-rails"]
+	path = vendor/gems/webpack-rails
+	url = https://github.com/tough-griff/webpack-rails-rb.git

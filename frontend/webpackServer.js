@@ -31,8 +31,8 @@ let server = app;
 if (isHttps) {
   // configure https express server for securely serving assets.
   server = https.createServer({
-    key: fs.readFileSync(process.env.SSL_CERTIFICATE_KEY),
     cert: fs.readFileSync(process.env.SSL_CERTIFICATE),
+    key: fs.readFileSync(process.env.SSL_CERTIFICATE_KEY),
   }, app);
 }
 

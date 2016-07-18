@@ -6,6 +6,7 @@ import devConfig from './webpack.config.dev.babel';
 import entries from './entries';
 
 const prodConfig = merge(devConfig, {
+  bail: true,
   debug: false,
   devtool: 'source-map',
   entry: entries,
@@ -24,19 +25,25 @@ const prodConfig = merge(devConfig, {
     publicPath: '/assets',
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify('production') },
     }),
-    new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
+        screw_ie8: true,
         warnings: false,
+      },
+      mangle: {
+        screw_ie8: true,
       },
       output: {
         comments: false,
+        screw_ie8: true,
       },
     }),
+    new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
   ],
 });
 

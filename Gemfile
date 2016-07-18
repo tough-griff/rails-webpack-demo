@@ -10,6 +10,7 @@ gem "passenger",                "~> 5.0.29"
 gem "pg",                       "~> 0.18.4"
 gem "rack-timeout",             "~> 0.4.2"
 gem "system-bang",              "~> 1.0.0"
+gem "webpack-rails",            "~> 1.0.0.rc1", path: "vendor/gems/webpack-rails"
 
 group :development do
   gem "annotate"

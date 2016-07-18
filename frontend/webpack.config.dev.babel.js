@@ -8,7 +8,8 @@ import entries from './entries';
 export const appHost = process.env.APP_HOST || 'lvh.me';
 export const nodePort = process.env.NODE_PORT || '5050';
 export const serverPath = `//${appHost}:${nodePort}`;
-const webpackHmrEntry = `webpack-hot-middleware/client?path=${serverPath}/__webpack_hmr`;
+const webpackHmrPath = require.resolve('webpack-hot-middleware/client');
+const webpackHmrEntry = `${webpackHmrPath}?path=${serverPath}/__webpack_hmr`;
 
 // Prepend the webpack HMR entry point to all defined entry points.
 const devEntries = mapValues(entries, entry =>
@@ -41,12 +42,11 @@ const devConfig = {
     publicPath: `${serverPath}/assets/javascripts/`,
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify('development') },
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],
