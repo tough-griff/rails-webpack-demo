@@ -54,7 +54,7 @@ describe('todos()', function () {
       });
 
       expect(result).to.equal(state);
-      expect(consoleStub.calledOnce).to.be(true);
+      expect(consoleStub).to.have.been.calledOnce();
     });
   });
 
@@ -90,7 +90,7 @@ describe('todos()', function () {
     it('removes todos where isComplete = true', function () {
       const result = todos(state, action);
       expect(result.size).to.equal(1);
-      expect(result.every(todo => !todo.get('isComplete'))).to.be(true);
+      expect(result.every(todo => !todo.get('isComplete'))).to.be.true();
     });
   });
 
@@ -105,7 +105,7 @@ describe('todos()', function () {
     it('removes the correct todo', function () {
       const result = todos(state, action);
       expect(result.size).to.equal(1);
-      expect(result.every(todo => todo.get('id') !== 2)).to.be(true);
+      expect(result.every(todo => todo.get('id') !== 2)).to.be.true();
     });
   });
 
@@ -146,7 +146,7 @@ describe('todos()', function () {
     it('sets todoList to the new fetched todos', function () {
       const result = todos(state, action);
       expect(result.size).to.equal(4);
-      expect(result.every(todo => todo.get('label') === 'Fetched me!')).to.be(true);
+      expect(result.every(todo => todo.get('label') === 'Fetched me!')).to.be.true();
     });
   });
 
@@ -196,7 +196,7 @@ describe('todos()', function () {
 
     it('modifies all todos', function () {
       const result = todos(state, action);
-      expect(result.every(todo => todo.get('isComplete'))).to.be(true);
+      expect(result.every(todo => todo.get('isComplete'))).to.be.true();
     });
   });
 
@@ -213,7 +213,7 @@ describe('todos()', function () {
 
     it('modifies the correct todo', function () {
       const result = todos(state, action).find(todo => todo.get('id') === 2);
-      expect(result.get('isComplete')).to.be(true);
+      expect(result.get('isComplete')).to.be.true();
     });
   });
 

@@ -34,7 +34,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'POST', { todo: { label } });
+      fetchMock.restore().post(url, { todo: { label } });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -51,7 +51,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'DELETE', { todos });
+      fetchMock.restore().delete(url, { todos });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -68,7 +68,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'DELETE', { todo: { id } });
+      fetchMock.restore().delete(url, { todo: { id } });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -86,7 +86,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'PATCH', { todo: { id, label } });
+      fetchMock.restore().patch(url, { todo: { id, label } });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -103,7 +103,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'GET', { todos });
+      fetchMock.restore().get(url, { todos });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -121,7 +121,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'GET', { todo });
+      fetchMock.restore().get(url, { todo });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -139,7 +139,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'PATCH', { todos });
+      fetchMock.restore().patch(url, { todos });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -157,7 +157,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'PATCH', { todo: { id, isComplete } });
+      fetchMock.restore().patch(url, { todo: { id, isComplete } });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)
@@ -176,7 +176,7 @@ describe('TodoActionCreators', function () {
     };
 
     before(function stubApi() {
-      fetchMock.reMock(url, 'PATCH', { todos });
+      fetchMock.restore().patch(url, { todos });
     });
 
     behavesLikeAsyncActionCreator(subject, url, expectedAction)

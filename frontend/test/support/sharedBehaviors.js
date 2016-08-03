@@ -1,12 +1,21 @@
 import fetchMock from 'fetch-mock';
 import castArray from 'lodash/castArray';
 import each from 'lodash/each';
-import some from 'lodash/some';
 
 import mockStore from './mockStore';
 
 /**
  * Assert that a given action creator behaves correctly.
+ */
+export function behavesLikeActionCreator(subject, expectedActions) {
+  it('dispatches the correct action(s)', function () {
+    mockStore.dispatch(subject);
+    expect(mockStore.getActions()).to.eql(castArray(expectedActions));
+  });
+}
+
+/**
+ * Assert that a given asynchronous (i.e. fetch) action creator behaves correctly.
  */
 export function behavesLikeAsyncActionCreator(subject, urls, expectedActions) {
   it('returns a thunk', function () {
@@ -17,7 +26,7 @@ export function behavesLikeAsyncActionCreator(subject, urls, expectedActions) {
     mockStore.dispatch(subject);
 
     each(castArray(urls), url => {
-      expect(fetchMock.called(url)).to.be(true);
+      expect(fetchMock.called(url)).to.be.true();
     });
   });
 
@@ -37,18 +46,21 @@ export function behavesLikeAsyncActionCreator(subject, urls, expectedActions) {
         const error = 'AN ERROR';
 
         before(function mockApiResponse() {
-          fetchMock.reMock(url, { error });
+          fetchMock.restore().mock(url, {
+            status: 500,
+            body: { error },
+          });
         });
 
         it('dispatches the error', function () {
           return mockStore.dispatch(subject).then(() => {
             const actions = mockStore.getActions();
 
-            expect(some(actions, {
+            expect(actions).to.include.something.that.eqls({
               type: actionType,
               payload: new Error('AN ERROR'),
               error: true,
-            })).to.be(true);
+            });
           });
         });
       });

@@ -8,20 +8,6 @@ function getCSRFToken() {
 }
 
 /**
- * Response handler which rejects fetch requests on any non-2xx response.
- * @see {https://github.com/tough-griff/fetch-check-http-status}
- */
-function checkStatus(response) {
-  const { status } = response;
-
-  if (status >= 200 && status < 300) return response;
-
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-}
-
-/**
  * Parse the response's JSON.
  */
 function parseJSON(response) {
@@ -52,7 +38,6 @@ export default function fetch(url, config) {
   })(config);
 
   return global.fetch(url, fetchConfig)
-    .then(checkStatus)
     .then(parseJSON)
     .then(checkJSON);
 }

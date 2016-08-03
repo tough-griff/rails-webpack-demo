@@ -93,9 +93,9 @@ export default class Todo extends Component {
             onChange={this.onChange}
             type="checkbox"
           />
-          <label onDoubleClick={this.onDoubleClick}>
+          <span className="label" onDoubleClick={this.onDoubleClick}>
             {label}
-          </label>
+          </span>
           <button className="destroy" onClick={this.onClick} />
         </div>
         {this.renderInput()}

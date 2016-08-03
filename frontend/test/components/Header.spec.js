@@ -28,9 +28,9 @@ describe('<Header />', function () {
   describe('#onSave()', function () {
     it('calls addTodo correctly', function () {
       textInput.props.onSave('');
-      expect(props.addTodo.called).to.be(false);
+      expect(props.addTodo).not.to.have.been.called();
       textInput.props.onSave('Example');
-      expect(props.addTodo.calledWith('Example')).to.be(true);
+      expect(props.addTodo).to.have.been.calledWith('Example');
     });
   });
 });

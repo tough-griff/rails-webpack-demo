@@ -43,8 +43,14 @@ $green: #5dc2af;
       margin-top: -2px;
     }
 
-    label {
+    .label {
       cursor: move;
+      display: block;
+      line-height: 1.2;
+      margin-left: 45px;
+      padding: 15px 60px 15px 15px;
+      transition: color 0.4s;
+      word-break: break-all;
     }
   }
 }

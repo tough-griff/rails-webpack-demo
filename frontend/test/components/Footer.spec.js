@@ -30,7 +30,7 @@ describe('<Footer />', function () {
     const button = output.props.children[2];
 
     it('does not render the clear complete button', function () {
-      expect(button).to.be(null);
+      expect(button).to.be.null();
     });
   });
 
@@ -50,7 +50,7 @@ describe('<Footer />', function () {
     describe('#onClick()', function () {
       it('calls clearCompleteTodos', function () {
         button.props.onClick();
-        expect(props.clearCompleteTodos.calledOnce).to.be(true);
+        expect(props.clearCompleteTodos).to.have.been.calledOnce();
       });
     });
   });

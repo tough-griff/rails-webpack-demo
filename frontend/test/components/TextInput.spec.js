@@ -17,7 +17,7 @@ describe('<TextInput />', function () {
 
   it('renders correctly', function () {
     expect(output.type).to.equal('input');
-    expect(output.props.autoFocus).to.be(true);
+    expect(output.props.autoFocus).to.be.true();
     expect(output.props.className).to.equal(props.className);
     expect(output.props.onBlur).to.be.a('function');
     expect(output.props.onChange).to.be.a('function');
@@ -33,7 +33,7 @@ describe('<TextInput />', function () {
     });
 
     it('calls onSave correctly', function () {
-      expect(props.onSave.called).to.be(true);
+      expect(props.onSave).to.have.been.calledOnce();
     });
 
     it('sets the state correctly', function () {
@@ -53,9 +53,9 @@ describe('<TextInput />', function () {
   describe('#onKeyDown()', function () {
     it('calls onSave correctly', function () {
       output.props.onKeyDown({ keyCode: 10 });
-      expect(props.onSave.called).to.be(false);
+      expect(props.onSave).not.to.have.been.called();
       output.props.onKeyDown({ keyCode: 13 });
-      expect(props.onSave.called).to.be(true);
+      expect(props.onSave).to.have.been.calledOnce();
     });
   });
 });
