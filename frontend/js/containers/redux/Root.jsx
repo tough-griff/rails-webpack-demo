@@ -1,9 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { browserHistory, Router } from 'react-router';
 
 import routes from '../../routes';
+import { storeShape } from '../../shapes';
 
+/**
+ * Root element which mounts a redux provider and react router.
+ */
 function Root({ store }) {
   return (
     <Provider store={store}>
@@ -13,7 +17,7 @@ function Root({ store }) {
 }
 
 Root.propTypes = {
-  store: PropTypes.object.isRequired,
+  store: storeShape.isRequired,
 };
 
 export default Root;

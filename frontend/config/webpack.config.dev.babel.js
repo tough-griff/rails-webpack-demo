@@ -17,7 +17,7 @@ const devEntries = mapValues(entries, entry =>
 );
 
 const devConfig = {
-  context: __dirname,
+  context: path.resolve(__dirname, '..'),
   debug: true,
   devtool: 'cheap-module-eval-source-map',
   entry: devEntries,
@@ -37,7 +37,7 @@ const devConfig = {
     }],
   },
   output: {
-    path: path.resolve(__dirname, '..', 'app', 'assets', 'javascripts'),
+    path: path.resolve(__dirname, '..', '..', 'app', 'assets', 'javascripts'),
     filename: '[name].bundle.js',
     publicPath: `${serverPath}/assets/javascripts/`,
   },

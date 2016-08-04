@@ -10,5 +10,9 @@ module.exports = {
   rules: {
     'func-names': 'off',
     'prefer-arrow-callback': 'off',
+
+    'import/no-extraneous-dependencies': ['error', {
+      'devDependencies': true,
+    }],
   }
 }
