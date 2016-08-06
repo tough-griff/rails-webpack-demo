@@ -26,11 +26,10 @@
     "babel-polyfill": "^6.9.1",
     "camel-case": "^3.0.0",
     "classnames": "^2.2.5",
-    "constant-mirror": "^1.1.1",
-    "fetch-check-http-status": "^2.0.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.14.1",
+    "pluralize": "^3.0.0",
     "react": "^15.3.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
@@ -38,7 +37,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0",
+    "redux-saga": "^0.11.0",
     "todomvc-app-css": "^2.0.6"
   },
   "devDependencies": {

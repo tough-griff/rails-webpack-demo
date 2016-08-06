@@ -15,57 +15,50 @@ export function behavesLikeActionCreator(subject, expectedActions) {
 }
 
 /**
- * Assert that a given asynchronous (i.e. fetch) action creator behaves correctly.
+ * Assert that an API client function makes the correct request and returns the
+ * expected result.
  */
-export function behavesLikeAsyncActionCreator(subject, urls, expectedActions) {
-  it('returns a thunk', function () {
-    expect(subject).to.be.a('function');
+export function behavesLikeApiClient(subject, args, urls, expectedValue) {
+  let result;
+
+  before(function evaluateSubject() {
+    result = subject(...args);
   });
 
   it('makes the correct web request(s)', function () {
-    mockStore.dispatch(subject);
-
     each(castArray(urls), url => {
       expect(fetchMock.called(url)).to.be.true();
     });
   });
 
-  it('dispatches the correct action(s)', function () {
-    return mockStore.dispatch(subject).then(() => {
-      expect(mockStore.getActions()).to.eql(castArray(expectedActions));
+  it('returns the correct value', function () {
+    return result.then(returnValue => {
+      expect(returnValue).to.eql(expectedValue);
+    });
+  });
+}
+
+/**
+ * Assert that a reducer handles basic behaviors consistently.
+ */
+export function behavesLikeReducer(reducer, initialState) {
+  it('exposes a function', function () {
+    expect(reducer).to.be.a('function');
+  });
+
+  context('with no state argument', function () {
+    const result = reducer(undefined, {});
+
+    it('returns the initial state', function () {
+      expect(result).to.eql(initialState);
     });
   });
 
-  return {
-    /**
-     * Assert that the action handler being tested handles error responses
-     * correctly.
-     */
-    withErrorHandlingFor(url, actionType) {
-      context('when receiving an error response', function () {
-        const error = 'AN ERROR';
+  context('with no valid action type', function () {
+    const result = reducer(initialState, { type: 'NONSENSE' });
 
-        before(function mockApiResponse() {
-          fetchMock.restore().mock(url, {
-            status: 500,
-            body: { error },
-          });
-        });
-
-        it('dispatches the error', function () {
-          return mockStore.dispatch(subject).then(() => {
-            const actions = mockStore.getActions();
-
-            expect(actions).to.include.something.that.eqls({
-              type: actionType,
-              payload: new Error('AN ERROR'),
-              error: true,
-            });
-          });
-        });
-      });
-
-      return this;
-    },
-  };
+    it('passes state through', function () {
+      expect(result).to.equal(initialState);
+    });
+  });
 }

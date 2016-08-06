@@ -1,9 +1,10 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './reducers';
 
 export default function configureStore(initialState) {
+  const saga = createSagaMiddleware();
   let devToolsStoreEnhancer = f => f;
 
   // Enable devtools in development environment.
@@ -15,7 +16,7 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk),
+      applyMiddleware(saga),
       devToolsStoreEnhancer,
     ),
   );
@@ -29,5 +30,8 @@ export default function configureStore(initialState) {
     });
   }
 
-  return store;
+  return {
+    runSaga: saga.run,
+    ...store,
+  };
 }

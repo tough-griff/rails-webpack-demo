@@ -16,6 +16,7 @@ const FILTERS = {
 export default class TodoList extends Component {
   static propTypes = {
     actions: todoActionsShape.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
   };
@@ -56,6 +57,20 @@ export default class TodoList extends Component {
     )(todos);
   }
 
+  renderLoadingIndicator() {
+    if (!this.props.isLoading) return null;
+
+    return (
+      <li className="loading">
+        <div className="view">
+          <span className="label">
+            Loading&hellip;
+          </span>
+        </div>
+      </li>
+    );
+  }
+
   renderTodo = (todo) => {
     const { deleteTodo, editTodo, markTodo, moveTodo } = this.props.actions;
 
@@ -91,6 +106,7 @@ export default class TodoList extends Component {
         {this.renderToggle(completeCount)}
         <ul className="todo-list">
           {this.renderListItems()}
+          {this.renderLoadingIndicator()}
         </ul>
         {this.renderFooter(completeCount)}
       </section>

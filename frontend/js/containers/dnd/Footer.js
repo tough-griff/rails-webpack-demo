@@ -1,6 +1,5 @@
 import { DropTarget } from 'react-dnd';
 
-import DnD from '../../constants/DnD';
 import Footer from '../../components/Footer';
 
 const target = {
@@ -22,4 +21,4 @@ function collect(connect, monitor) {
   };
 }
 
-export default DropTarget(DnD.TODO, target, collect)(Footer);
+export default DropTarget('DND__TODO', target, collect)(Footer);

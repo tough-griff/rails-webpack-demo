@@ -8,7 +8,7 @@ describe('<Footer />', function () {
     completeCount: 0,
     connectDropTarget: el => el,
     incompleteCount: 0,
-    isOver: false,
+    isOver: true,
     maxIndex: 0,
     moveTodo: sinon.stub(),
     todosFilter: 'all',
@@ -52,30 +52,6 @@ describe('<Footer />', function () {
         button.props.onClick();
         expect(props.clearCompleteTodos).to.have.been.calledOnce();
       });
-    });
-  });
-
-  context('with a zero incomplete count', function () {
-    const count = output.props.children[0];
-
-    it('renders the text "No"', function () {
-      const countText = count.props.children[0].props.children;
-
-      expect(countText).to.equal('No');
-    });
-  });
-
-  context('with a nonzero incomplete count', function () {
-    const incompleteCount = 2;
-    const { output: incompleteOutput } = setup(Footer, {
-      ...props, incompleteCount,
-    });
-    const count = incompleteOutput.props.children[0];
-
-    it('renders the incomplete count', function () {
-      const countText = count.props.children[0].props.children;
-
-      expect(countText).to.equal(incompleteCount);
     });
   });
 });

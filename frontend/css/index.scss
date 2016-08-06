@@ -4,6 +4,8 @@
 // Variables
 $white: #fff;
 $green: #5dc2af;
+$text-default: #4d4d4d;
+$text-light: #d9d9d9;
 
 // Use pointer cursor for buttons
 .destroy,
@@ -35,8 +37,21 @@ $green: #5dc2af;
     position: relative;
     z-index: 1;
 
+    &.completed .label {
+      color: $text-light;
+      text-decoration: line-through;
+    }
+
     &.dragging {
       opacity: .25;
+    }
+
+    &.loading .label {
+      color: $text-light;
+      cursor: default;
+      margin: 0;
+      padding: 15px;
+      text-align: center;
     }
 
     &.over {

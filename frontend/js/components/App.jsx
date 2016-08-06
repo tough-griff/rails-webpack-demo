@@ -11,6 +11,7 @@ import { todoActionsShape, todoShape } from '../shapes';
 export default class App extends Component {
   static propTypes = {
     actions: todoActionsShape.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
   };
@@ -20,7 +21,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { actions, location, todos } = this.props;
+    const { actions, isLoading, location, todos } = this.props;
     const { addTodo, fetchAllTodos } = actions;
     const todosFilter = location.pathname.replace('/', '');
 
@@ -32,6 +33,7 @@ export default class App extends Component {
         />
         <TodoList
           actions={actions}
+          isLoading={isLoading}
           todosFilter={todosFilter}
           todos={todos}
         />

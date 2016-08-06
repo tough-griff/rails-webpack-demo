@@ -27,6 +27,16 @@ describe('<TextInput />', function () {
     expect(output.props.value).to.equal(props.value);
   });
 
+  context('with no provided value', function () {
+    const { output: nilValueOutput } = setup(TextInput, {
+      ...props, value: null,
+    });
+
+    it('renders correctly', function () {
+      expect(nilValueOutput.props.value).to.equal('');
+    });
+  });
+
   describe('#onBlur()', function () {
     beforeEach(function () {
       output.props.onBlur();

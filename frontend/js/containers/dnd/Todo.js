@@ -1,7 +1,6 @@
 import { DragSource, DropTarget } from 'react-dnd';
 import { compose } from 'redux';
 
-import DnD from '../../constants/DnD';
 import Todo from '../../components/Todo';
 
 const target = {
@@ -40,6 +39,6 @@ function sourceCollect(connect, monitor) {
 }
 
 export default compose(
-  DropTarget(DnD.TODO, target, targetCollect),
-  DragSource(DnD.TODO, source, sourceCollect),
+  DropTarget('DND__TODO', target, targetCollect),
+  DragSource('DND__TODO', source, sourceCollect),
 )(Todo);

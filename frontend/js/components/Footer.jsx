@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import pluralize from 'pluralize';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
@@ -40,13 +41,9 @@ export default class Footer extends Component {
   }
 
   renderTodoCount() {
-    const { incompleteCount } = this.props;
-    const incompleteWord = incompleteCount || 'No';
-    const itemWord = (incompleteCount === 1) ? 'task' : 'tasks';
-
     return (
       <span className="todo-count">
-        <strong>{incompleteWord}</strong> {itemWord} remaining
+        {pluralize('task', this.props.incompleteCount, true)} remaining.
       </span>
     );
   }

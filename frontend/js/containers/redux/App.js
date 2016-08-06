@@ -6,6 +6,7 @@ import TodoActionCreators from '../../actions/TodoActionCreators';
 
 function mapStateToProps(state) {
   return {
+    ...state.application.toJS(),
     todos: state.todos.toJS(),
   };
 }

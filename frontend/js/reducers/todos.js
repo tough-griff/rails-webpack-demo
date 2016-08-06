@@ -20,11 +20,11 @@ export function createTodoList(newTodos) {
 
 // Define reducer functions to handle each potential action.
 const REDUCERS = {
-  addTodo(state, { todo }) {
+  addTodoEnd(state, { todo }) {
     return state.push(new Todo(todo));
   },
 
-  clearCompleteTodos(state, { todos: removedTodos }) {
+  clearCompleteTodosEnd(state, { todos: removedTodos }) {
     const removed = createTodoList(removedTodos);
 
     // Removes todos where the ID is present in the removedTodos list.
@@ -33,11 +33,11 @@ const REDUCERS = {
     );
   },
 
-  deleteTodo(state, { todo: { id } }) {
+  deleteTodoEnd(state, { todo: { id } }) {
     return state.filterNot(todo => todo.get('id') === id);
   },
 
-  editTodo(state, { todo: { id, label } }) {
+  editTodoEnd(state, { todo: { id, label } }) {
     return state.map(todo => (
       (todo.get('id') === id)
         ? todo.set('label', label)
@@ -45,11 +45,11 @@ const REDUCERS = {
     ));
   },
 
-  fetchAllTodos(state, { todos: allTodos }) {
+  fetchAllTodosEnd(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 
-  fetchTodo(state, { todo }) {
+  fetchTodoEnd(state, { todo }) {
     const newTodo = new Todo(todo);
     const index = state.findIndex(t => t.get('id') === newTodo.get('id'));
 
@@ -58,11 +58,11 @@ const REDUCERS = {
       : state.push(newTodo);
   },
 
-  markAllTodos(state, { todos: allTodos }) {
+  markAllTodosEnd(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 
-  markTodo(state, { todo: { id, isComplete } }) {
+  markTodoEnd(state, { todo: { id, isComplete } }) {
     return state.map(todo => (
       (todo.get('id') === id)
         ? todo.set('isComplete', isComplete)
@@ -70,25 +70,17 @@ const REDUCERS = {
     ));
   },
 
-  moveTodo(state, { todos: allTodos }) {
+  moveTodoEnd(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 };
-
-// Define the default, initial state.
-const initialState = new List();
 
 /**
  * If the action type corresponds to a handler in REDUCERS, return a
  * reduction of the state. If no corresponding action is found, simply pass
  * the state through.
  */
-export default function todos(state = initialState, { error, payload, type }) {
-  if (error) {
-    console.error(`${type}: ${payload}`); // eslint-disable-line no-console
-    return state;
-  }
-
+export default function todos(state = new List(), { payload, type }) {
   const reducer = REDUCERS[camelCase(type)];
 
   return (reducer) ? reducer(state, payload) : state;
