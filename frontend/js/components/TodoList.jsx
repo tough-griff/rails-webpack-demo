@@ -1,5 +1,6 @@
 import { flow, filter, map, maxBy, sortBy } from 'lodash/fp';
 import React, { Component, PropTypes } from 'react';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { Footer, Todo } from '../containers/dnd';
 import { todoActionsShape, todoShape } from '../shapes';
@@ -61,13 +62,15 @@ export default class TodoList extends Component {
     if (!this.props.isLoading) return null;
 
     return (
-      <li className="loading">
-        <div className="view">
-          <span className="label">
-            Loading&hellip;
-          </span>
-        </div>
-      </li>
+      <ul className="todo-list">
+        <li className="loading" key="loding-indicator">
+          <div className="view">
+            <span className="label">
+              Loading&hellip;
+            </span>
+          </div>
+        </li>
+      </ul>
     );
   }
 
@@ -104,10 +107,16 @@ export default class TodoList extends Component {
     return (
       <section className="main">
         {this.renderToggle(completeCount)}
-        <ul className="todo-list">
+        <CSSTransitionGroup
+          className="todo-list"
+          component="ul"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}
+          transitionName="fade-in"
+        >
           {this.renderListItems()}
-          {this.renderLoadingIndicator()}
-        </ul>
+        </CSSTransitionGroup>
+        {this.renderLoadingIndicator()}
         {this.renderFooter(completeCount)}
       </section>
     );
