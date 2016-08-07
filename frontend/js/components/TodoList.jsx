@@ -62,15 +62,9 @@ export default class TodoList extends Component {
     if (!this.props.isLoading) return null;
 
     return (
-      <ul className="todo-list">
-        <li className="loading" key="loding-indicator">
-          <div className="view">
-            <span className="label">
-              Loading&hellip;
-            </span>
-          </div>
-        </li>
-      </ul>
+      <div className="loading-indicator">
+        Loading&hellip;
+      </div>
     );
   }
 
