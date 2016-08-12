@@ -1,5 +1,5 @@
 import { DragSource, DropTarget } from 'react-dnd';
-import { compose } from 'redux';
+import { compose } from 'lodash/fp';
 
 import Todo from '../../components/Todo';
 

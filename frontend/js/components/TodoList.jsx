@@ -18,12 +18,9 @@ export default class TodoList extends Component {
   static propTypes = {
     actions: todoActionsShape.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
+    onToggleAll: PropTypes.func.isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
-  };
-
-  onToggle = (evt) => {
-    this.props.actions.markAllTodos(evt.target.checked);
+    todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
   };
 
   renderFooter(completeCount) {
@@ -51,11 +48,23 @@ export default class TodoList extends Component {
   renderListItems() {
     const { todosFilter, todos } = this.props;
 
-    return flow(
+    const listItems = flow(
       filter(FILTERS[todosFilter]),
       sortBy('index'),
       map(this.renderTodo),
     )(todos);
+
+    return (
+      <CSSTransitionGroup
+        className="todo-list"
+        component="ul"
+        transitionEnterTimeout={250}
+        transitionLeaveTimeout={250}
+        transitionName="fade-in"
+      >
+        {listItems}
+      </CSSTransitionGroup>
+    );
   }
 
   renderLoadingIndicator() {
@@ -84,11 +93,13 @@ export default class TodoList extends Component {
   };
 
   renderToggle(completeCount) {
+    const { onToggleAll, todos } = this.props;
+
     return (
       <input
-        checked={completeCount === this.props.todos.length}
+        checked={completeCount === todos.length}
         className="toggle-all"
-        onChange={this.onToggle}
+        onChange={onToggleAll}
         type="checkbox"
       />
     );
@@ -101,15 +112,7 @@ export default class TodoList extends Component {
     return (
       <section className="main">
         {this.renderToggle(completeCount)}
-        <CSSTransitionGroup
-          className="todo-list"
-          component="ul"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
-          transitionName="fade-in"
-        >
-          {this.renderListItems()}
-        </CSSTransitionGroup>
+        {this.renderListItems()}
         {this.renderLoadingIndicator()}
         {this.renderFooter(completeCount)}
       </section>

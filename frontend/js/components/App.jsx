@@ -1,43 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import Header from './Header';
-import TodoList from './TodoList';
-import { todoActionsShape, todoShape } from '../shapes';
+import HeaderContainer from '../containers/redux/HeaderContainer';
+import TodoListContainer from '../containers/redux/TodoListContainer';
 
 /**
  * Top-level application component. Holds all other application components, and
  * receives props from the router.
  */
-export default class App extends Component {
-  static propTypes = {
-    actions: todoActionsShape.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    location: PropTypes.object.isRequired,
-    todos: PropTypes.arrayOf(todoShape).isRequired,
-  };
+function App({ location }) {
+  const todosFilter = location.pathname.replace('/', '');
 
-  componentWillMount() {
-    this.props.actions.fetchAllTodos();
-  }
-
-  render() {
-    const { actions, isLoading, location, todos } = this.props;
-    const { addTodo, fetchAllTodos } = actions;
-    const todosFilter = location.pathname.replace('/', '');
-
-    return (
-      <section className="todoapp">
-        <Header
-          addTodo={addTodo}
-          fetchAllTodos={fetchAllTodos}
-        />
-        <TodoList
-          actions={actions}
-          isLoading={isLoading}
-          todosFilter={todosFilter}
-          todos={todos}
-        />
-      </section>
-    );
-  }
+  return (
+    <section className="todoapp">
+      <HeaderContainer />
+      <TodoListContainer todosFilter={todosFilter} />
+    </section>
+  );
 }
+
+App.propTypes = {
+  location: PropTypes.object.isRequired,
+};
+
+export default App;

@@ -2,7 +2,7 @@ import fetchMock from 'fetch-mock';
 
 import mockStore from '../support/mockStore';
 import { behavesLikeActionCreator } from '../support/sharedBehaviors';
-import TodoActionCreators from '../../js/actions/TodoActionCreators';
+import * as TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {
   before(function stubGetElementsByTagName() {

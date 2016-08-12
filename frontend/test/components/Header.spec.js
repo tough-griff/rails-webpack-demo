@@ -4,8 +4,8 @@ import TextInput from '../../js/components/TextInput';
 
 describe('<Header />', function () {
   const props = {
-    addTodo: sinon.stub(),
-    fetchAllTodos: sinon.stub(),
+    onDoubleClick: sinon.stub(),
+    onSave: sinon.stub(),
   };
 
   const { output } = setup(Header, props);
@@ -16,21 +16,12 @@ describe('<Header />', function () {
     expect(output.props.className).to.equal('header');
 
     expect(h1.type).to.equal('h1');
-    expect(h1.props.onDoubleClick).to.equal(props.fetchAllTodos);
+    expect(h1.props.onDoubleClick).to.equal(props.onDoubleClick);
     expect(h1.props.children).to.equal('Todos');
 
     expect(textInput.type).to.equal(TextInput);
     expect(textInput.props.className).to.equal('new-todo');
-    expect(textInput.props.onSave).to.be.a('function');
+    expect(textInput.props.onSave).to.equal(props.onSave);
     expect(textInput.props.placeholder).to.equal('What needs to be done?');
-  });
-
-  describe('#onSave()', function () {
-    it('calls addTodo correctly', function () {
-      textInput.props.onSave('');
-      expect(props.addTodo).not.to.have.been.called();
-      textInput.props.onSave('Example');
-      expect(props.addTodo).to.have.been.calledWith('Example');
-    });
   });
 });
