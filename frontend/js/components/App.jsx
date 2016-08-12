@@ -26,7 +26,7 @@ export default class App extends Component {
     const todosFilter = location.pathname.replace('/', '');
 
     return (
-      <div>
+      <section className="todoapp">
         <Header
           addTodo={addTodo}
           fetchAllTodos={fetchAllTodos}
@@ -37,7 +37,7 @@ export default class App extends Component {
           todosFilter={todosFilter}
           todos={todos}
         />
-      </div>
+      </section>
     );
   }
 }

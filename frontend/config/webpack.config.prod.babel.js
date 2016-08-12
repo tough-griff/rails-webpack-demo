@@ -5,6 +5,20 @@ import webpack from 'webpack';
 import devConfig from './webpack.config.dev.babel';
 import entries from './entries';
 
+const uglifyConfig = {
+  compressor: {
+    screw_ie8: true,
+    warnings: false,
+  },
+  mangle: {
+    screw_ie8: true,
+  },
+  output: {
+    comments: false,
+    screw_ie8: true,
+  },
+};
+
 const prodConfig = merge(devConfig, {
   bail: true,
   debug: false,
@@ -30,19 +44,7 @@ const prodConfig = merge(devConfig, {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false,
-      },
-      mangle: {
-        screw_ie8: true,
-      },
-      output: {
-        comments: false,
-        screw_ie8: true,
-      },
-    }),
+    new webpack.optimize.UglifyJsPlugin(uglifyConfig),
     new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
   ],
 });

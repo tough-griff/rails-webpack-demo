@@ -37,8 +37,9 @@ const devConfig = {
     }],
   },
   output: {
-    path: path.resolve(__dirname, '..', '..', 'app', 'assets', 'javascripts'),
     filename: '[name].bundle.js',
+    path: path.resolve(__dirname, '..', '..', 'app', 'assets', 'javascripts'),
+    pathinfo: true,
     publicPath: `${serverPath}/assets/javascripts/`,
   },
   plugins: [
@@ -46,7 +47,6 @@ const devConfig = {
       'process.env': { NODE_ENV: JSON.stringify('development') },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],
