@@ -1,18 +1,21 @@
 import fetch from '../utils/fetch';
 
-const SERVER_URL = '/api';
-const todosPath = `${SERVER_URL}/todos`;
-const todoPath = id => `${SERVER_URL}/todos/${id}`;
+const SERVER_PATH = '/api';
+const markAllTodosPath = () => `${SERVER_PATH}/todos/mark_all`;
+const moveTodosPath = () => `${SERVER_PATH}/todos/move`;
+const clearCompleteTodosPath = () => `${SERVER_PATH}/todos/clear_complete`;
+const todosPath = () => `${SERVER_PATH}/todos`;
+const todoPath = id => `${SERVER_PATH}/todos/${id}`;
 
 const TodoApi = {
   index() {
-    return fetch(todosPath, {
+    return fetch(todosPath(), {
       method: 'GET',
     }).then(res => res.todos);
   },
 
   create(todo) {
-    return fetch(todosPath, {
+    return fetch(todosPath(), {
       method: 'POST',
       body: JSON.stringify({ todo }),
     }).then(res => res.todo);
@@ -38,21 +41,21 @@ const TodoApi = {
   },
 
   markAll(complete) {
-    return fetch(`${SERVER_URL}/todos/mark_all`, {
+    return fetch(markAllTodosPath(), {
       method: 'PATCH',
       body: JSON.stringify({ complete }),
     }).then(res => res.todos);
   },
 
   move(at, to) {
-    return fetch(`${SERVER_URL}/todos/move`, {
+    return fetch(moveTodosPath(), {
       method: 'PATCH',
       body: JSON.stringify({ at, to }),
     }).then(res => res.todos);
   },
 
   clearComplete() {
-    return fetch(`${SERVER_URL}/todos/clear_complete`, {
+    return fetch(clearCompleteTodosPath(), {
       method: 'DELETE',
     }).then(res => res.todos);
   },

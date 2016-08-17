@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import App from '../dnd/App';
-import TodoActionCreators from '../../actions/TodoActionCreators';
+import * as TodoActionCreators from '../../actions/TodoActionCreators';
 
 function mapStateToProps(state) {
   return {

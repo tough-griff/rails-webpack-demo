@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga';
+import { takeEvery, takeLatest } from 'redux-saga';
 import { call, fork, put } from 'redux-saga/effects';
 
 import todoSaga, {
@@ -236,16 +236,16 @@ describe('todoSaga() handlers', function () {
 
     it('forks the correct action handlers', function () {
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'ADD_TODO', addTodo)
+        fork(takeEvery, 'ADD_TODO', addTodo)
       );
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'CLEAR_COMPLETE_TODOS', clearCompleteTodos)
+        fork(takeEvery, 'CLEAR_COMPLETE_TODOS', clearCompleteTodos)
       );
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'DELETE_TODO', deleteTodo)
+        fork(takeEvery, 'DELETE_TODO', deleteTodo)
       );
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'EDIT_TODO', editTodo)
+        fork(takeEvery, 'EDIT_TODO', editTodo)
       );
       expect(generator.next().value).to.eql(
         fork(takeLatest, 'FETCH_ALL_TODOS', fetchAllTodos)
@@ -257,10 +257,10 @@ describe('todoSaga() handlers', function () {
         fork(takeLatest, 'MARK_ALL_TODOS', markAllTodos)
       );
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'MARK_TODO', markTodo)
+        fork(takeEvery, 'MARK_TODO', markTodo)
       );
       expect(generator.next().value).to.eql(
-        fork(takeLatest, 'MOVE_TODO', moveTodo)
+        fork(takeEvery, 'MOVE_TODO', moveTodo)
       );
     });
   });
