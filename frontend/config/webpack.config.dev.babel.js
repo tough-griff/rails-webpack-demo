@@ -1,9 +1,10 @@
 import castArray from 'lodash/castArray';
 import mapValues from 'lodash/mapValues';
-import path from 'path';
 import webpack from 'webpack';
+import validate from 'webpack-validator';
 
 import entries from './entries';
+import paths from './paths';
 
 export const appHost = process.env.APP_HOST || 'lvh.me';
 export const nodePort = process.env.NODE_PORT || '5050';
@@ -17,7 +18,6 @@ const devEntries = mapValues(entries, entry =>
 );
 
 const devConfig = {
-  context: path.resolve(__dirname, '..'),
   debug: true,
   devtool: 'cheap-module-eval-source-map',
   entry: devEntries,
@@ -25,20 +25,25 @@ const devConfig = {
     preLoaders: [{
       loader: 'eslint',
       test: /\.jsx?$/,
-      exclude: /node_modules/,
+      include: paths.src,
     }],
     loaders: [{
       loader: 'babel',
       test: /\.jsx?$/,
-      exclude: /node_modules/,
+      include: paths.src,
     }, {
       loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
       test: /\.scss$/,
+      include: [paths.src, paths.modules],
+    }, {
+      loader: 'json',
+      test: /\.json$/,
+      include: [paths.src, paths.modules],
     }],
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, '..', '..', 'app', 'assets', 'javascripts'),
+    path: paths.build,
     pathinfo: true,
     publicPath: `${serverPath}/assets/javascripts/`,
   },
@@ -54,4 +59,9 @@ const devConfig = {
   },
 };
 
-export default devConfig;
+export default validate(devConfig, {
+  rules: {
+    'loader-enforce-include-or-exclude': true,
+    'loader-prefer-include': true,
+  },
+});

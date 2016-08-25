@@ -1,4 +1,0 @@
-{
-  "app": ["babel-polyfill", "isomorphic-fetch", "./js/index"],
-  "app.style": "./css/index.scss"
-}

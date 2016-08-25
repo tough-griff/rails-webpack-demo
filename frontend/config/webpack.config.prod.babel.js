@@ -1,9 +1,11 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import merge from 'lodash/merge';
 import webpack from 'webpack';
+import merge from 'webpack-merge';
+import validate from 'webpack-validator';
 
 import devConfig from './webpack.config.dev.babel';
 import entries from './entries';
+import paths from './paths';
 
 const uglifyConfig = {
   compressor: {
@@ -19,24 +21,21 @@ const uglifyConfig = {
   },
 };
 
-const prodConfig = merge(devConfig, {
+const prodConfig = merge.smart(devConfig, {
   bail: true,
   debug: false,
   devtool: 'source-map',
   entry: entries,
   module: {
-    preLoaders: null,
+    preLoaders: [],
     loaders: [{
-      loader: 'babel',
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-    }, {
       loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap'),
       test: /\.scss$/,
+      include: [paths.src, paths.modules],
     }],
   },
   output: {
-    publicPath: '/assets',
+    publicPath: '/assets/',
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -49,4 +48,9 @@ const prodConfig = merge(devConfig, {
   ],
 });
 
-export default prodConfig;
+export default validate(prodConfig, {
+  rules: {
+    'loader-enforce-include-or-exclude': true,
+    'loader-prefer-include': true,
+  },
+});
