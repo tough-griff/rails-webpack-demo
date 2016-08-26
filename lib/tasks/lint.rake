@@ -23,5 +23,5 @@ unless Rails.env.production?
   end
 
   desc "Runs all linters across the repository"
-  task lint: %w(lint:haml_lint lint:rubocop lint:scss_lint lint:js)
+  task lint: %i(lint:haml_lint lint:rubocop lint:scss_lint lint:js)
 end
