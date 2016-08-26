@@ -25,7 +25,6 @@ const prodConfig = merge.smart(devConfig, {
   bail: true,
   debug: false,
   devtool: 'source-map',
-  entry: entries,
   module: {
     preLoaders: [],
     loaders: [{
@@ -37,16 +36,19 @@ const prodConfig = merge.smart(devConfig, {
   output: {
     publicPath: '/assets/',
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify('production') },
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(uglifyConfig),
-    new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
-  ],
 });
+
+// Overwrite, don't merge, the `entry` and `plugins` options.
+prodConfig.entry = entries;
+prodConfig.plugins = [
+  new webpack.DefinePlugin({
+    'process.env': { NODE_ENV: JSON.stringify('production') },
+  }),
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.UglifyJsPlugin(uglifyConfig),
+  new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
+];
 
 export default validate(prodConfig, {
   rules: {
