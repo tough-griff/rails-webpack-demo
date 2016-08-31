@@ -1,6 +1,5 @@
+import { ENTER } from 'key-code';
 import React, { Component, PropTypes } from 'react';
-
-const ENTER_KEY_CODE = 13;
 
 /**
  * General purpose text input component.
@@ -31,7 +30,7 @@ export default class TextInput extends Component {
   };
 
   onKeyDown = (evt) => {
-    if (evt.keyCode !== ENTER_KEY_CODE) return;
+    if (evt.keyCode !== ENTER) return;
     this.onBlur();
   };
 

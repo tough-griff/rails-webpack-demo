@@ -27,6 +27,7 @@
     "camel-case": "^3.0.0",
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
+    "key-code": "0.0.1",
     "lodash": "^4.15.0",
     "pluralize": "^3.0.0",
     "react": "^15.3.1",
