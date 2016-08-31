@@ -14,7 +14,7 @@ RSpec.describe Api::TodosController, type: :controller do
     end
 
     it "assigns the correct todos" do
-      expect(assigns(:todos)).to eq(Todo.first(3).sort_by(&:index))
+      expect(assigns(:todos)).to eq(Todo.first(3))
     end
 
     it "renders the correct JSON response" do
@@ -69,7 +69,7 @@ RSpec.describe Api::TodosController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns the correct todos" do
+    it "assigns the correct todo" do
       expect(assigns(:todo)).to eq(Todo.first)
     end
 

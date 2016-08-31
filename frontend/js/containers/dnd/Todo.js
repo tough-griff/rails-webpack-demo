@@ -12,8 +12,7 @@ const target = {
   },
 
   drop(props, monitor) {
-    const { index, moveTodo } = props;
-    moveTodo(monitor.getItem().index, index);
+    props.onDrop(monitor.getItem().index);
   },
 };
 

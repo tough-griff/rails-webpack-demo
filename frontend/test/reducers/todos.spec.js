@@ -32,7 +32,7 @@ describe('todos()', function () {
 
     it('appends a new todo', function () {
       const result = todos(state, action);
-      expect(result.size).to.equal(3);
+      expect(result).to.have.property('size', 3);
       expect(result.last().get('label')).to.equal('New');
     });
   });
@@ -49,7 +49,7 @@ describe('todos()', function () {
 
     it('removes todos where isComplete = true', function () {
       const result = todos(state, action);
-      expect(result.size).to.equal(1);
+      expect(result).to.have.property('size', 1);
       expect(result.every(todo => !todo.get('isComplete'))).to.be.true();
     });
   });
@@ -64,7 +64,7 @@ describe('todos()', function () {
 
     it('removes the correct todo', function () {
       const result = todos(state, action);
-      expect(result.size).to.equal(1);
+      expect(result).to.have.property('size', 1);
       expect(result.every(todo => todo.get('id') !== 2)).to.be.true();
     });
   });
@@ -105,7 +105,7 @@ describe('todos()', function () {
 
     it('sets todoList to the new fetched todos', function () {
       const result = todos(state, action);
-      expect(result.size).to.equal(4);
+      expect(result).to.have.property('size', 4);
       expect(result.every(todo => todo.get('label') === 'Fetched me!')).to.be.true();
     });
   });
@@ -119,7 +119,7 @@ describe('todos()', function () {
 
       it('correctly replaces the todo', function () {
         const result = todos(state, action);
-        expect(result.size).to.equal(3);
+        expect(result).to.have.property('size', 3);
         expect(result.last().get('label')).to.equal('Fetched me!');
       });
     });
@@ -132,7 +132,7 @@ describe('todos()', function () {
 
       it('correctly replaces the todo', function () {
         const result = todos(state, action);
-        expect(result.size).to.equal(2);
+        expect(result).to.have.property('size', 2);
         expect(result.last().get('label')).to.equal('Fetched me!');
       });
     });

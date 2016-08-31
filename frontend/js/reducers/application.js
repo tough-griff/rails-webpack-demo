@@ -1,11 +1,26 @@
 import camelCase from 'camel-case';
 import { List, Record } from 'immutable';
 
+let alertCounter = 0;
+
 // Define an Immutable.js Application Record.
 export const Application = new Record({
+  alerts: new List(),
   isLoading: false,
-  errors: new List(),
 });
+
+// Define an Immutable.js Alert Record.
+export class Alert extends Record({ clientId: 0, message: '', type: 'info' }) {
+  /**
+   * Initialize each Alert with an incrementing `clientId`.
+   */
+  constructor(props = {}) {
+    super({
+      clientId: ++alertCounter,
+      ...props,
+    });
+  }
+}
 
 // Define reducer functions to handle each potential action.
 const REDUCERS = {
@@ -17,9 +32,29 @@ const REDUCERS = {
     return state.set('isLoading', false);
   },
 
-  addTodoErr(state, payload) {
+  addTodoErr(state, { message }) {
     return state.set('isLoading', false)
-      .update('errors', errors => errors.push(payload));
+      .update('alerts', alerts =>
+        alerts.push(new Alert({ message, type: 'error' }))
+      );
+  },
+
+  clearCompleteTodosErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  deleteTodoErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  editTodoErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
   },
 
   fetchAllTodos(state, _payload) {
@@ -30,9 +65,42 @@ const REDUCERS = {
     return state.set('isLoading', false);
   },
 
-  fetchAllTodosErr(state, payload) {
+  fetchAllTodosErr(state, { message }) {
     return state.set('isLoading', false)
-      .update('errors', errors => errors.push(payload));
+      .update('alerts', alerts =>
+        alerts.push(new Alert({ message, type: 'error' }))
+      );
+  },
+
+  fetchTodoErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  markAllTodosErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  markTodoErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  moveTodoErr(state, { message }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type: 'error' }))
+    );
+  },
+
+  // Alert handlers
+  clearAlert(state, { clientId }) {
+    return state.update('alerts', alerts =>
+      alerts.filterNot(alert => alert.get('clientId') === clientId)
+    );
   },
 };
 

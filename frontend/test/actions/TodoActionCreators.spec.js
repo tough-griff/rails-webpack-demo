@@ -20,11 +20,7 @@ describe('TodoActionCreators', function () {
     document.getElementsByTagName.restore();
   });
 
-  it('exposes an object', function () {
-    expect(TodoActionCreators).to.be.an('object');
-  });
-
-  describe('.addTodo()', function () {
+  describe('addTodo()', function () {
     const label = 'label';
     const subject = TodoActionCreators.addTodo(label);
     const expectedAction = {
@@ -35,7 +31,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.clearCompleteTodos()', function () {
+  describe('clearCompleteTodos()', function () {
     const subject = TodoActionCreators.clearCompleteTodos();
     const expectedAction = {
       type: 'CLEAR_COMPLETE_TODOS',
@@ -44,7 +40,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.deleteTodo()', function () {
+  describe('deleteTodo()', function () {
     const id = 5;
     const subject = TodoActionCreators.deleteTodo(id);
     const expectedAction = {
@@ -55,7 +51,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.editTodo()', function () {
+  describe('editTodo()', function () {
     const id = 5;
     const label = 'fake todo';
     const subject = TodoActionCreators.editTodo(id, label);
@@ -67,7 +63,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.fetchAllTodos()', function () {
+  describe('fetchAllTodos()', function () {
     const subject = TodoActionCreators.fetchAllTodos();
     const expectedAction = {
       type: 'FETCH_ALL_TODOS',
@@ -76,7 +72,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.fetchTodo()', function () {
+  describe('fetchTodo()', function () {
     const id = 5;
     const subject = TodoActionCreators.fetchTodo(id);
     const expectedAction = {
@@ -87,7 +83,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.markAllTodos()', function () {
+  describe('markAllTodos()', function () {
     const complete = true;
     const subject = TodoActionCreators.markAllTodos(complete);
     const expectedAction = {
@@ -98,7 +94,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.markTodo()', function () {
+  describe('markTodo()', function () {
     const id = 5;
     const complete = true;
     const subject = TodoActionCreators.markTodo(id, complete);
@@ -110,7 +106,7 @@ describe('TodoActionCreators', function () {
     behavesLikeActionCreator(subject, expectedAction);
   });
 
-  describe('.moveTodo()', function () {
+  describe('moveTodo()', function () {
     const at = 5;
     const to = 8;
     const subject = TodoActionCreators.moveTodo(at, to);

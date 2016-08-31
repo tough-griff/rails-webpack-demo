@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 
-import HeaderContainer from '../containers/redux/HeaderContainer';
-import TodoListContainer from '../containers/redux/TodoListContainer';
+import AlertList from '../containers/redux/AlertList';
+import Header from '../containers/redux/Header';
+import TodoList from '../containers/redux/TodoList';
 
 /**
  * Top-level application component. Holds all other application components, and
@@ -12,8 +13,9 @@ function App({ location }) {
 
   return (
     <section className="todoapp">
-      <HeaderContainer />
-      <TodoListContainer todosFilter={todosFilter} />
+      <Header />
+      <TodoList todosFilter={todosFilter} />
+      <AlertList />
     </section>
   );
 }

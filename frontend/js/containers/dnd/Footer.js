@@ -8,8 +8,7 @@ const target = {
   },
 
   drop(props, monitor) {
-    const { moveTodo, maxIndex } = props;
-    moveTodo(monitor.getItem().index, maxIndex + 1);
+    props.onDrop(monitor.getItem().index);
   },
 };
 

@@ -2,8 +2,9 @@ import { flow, filter, map, maxBy, sortBy } from 'lodash/fp';
 import React, { Component, PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
-import { Footer, Todo } from '../containers/dnd';
-import { todoActionsShape, todoShape } from '../shapes';
+import Footer from '../containers/redux/Footer';
+import Todo from '../containers/redux/Todo';
+import { todoShape } from '../shapes';
 
 const FILTERS = {
   all: () => true,
@@ -13,19 +14,25 @@ const FILTERS = {
 
 /**
  * Displays the list of todos, as well as the toggle all checkbox.
+ *
+ * @todo could we move some of the logic in this component to `mapStateToProps`
+ *   in the container? Perhaps the `Footer` container?
  */
 export default class TodoList extends Component {
   static propTypes = {
-    actions: todoActionsShape.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    onMount: PropTypes.func.isRequired,
     onToggleAll: PropTypes.func.isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
     todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
   };
 
+  componentDidMount() {
+    this.props.onMount();
+  }
+
   renderFooter(completeCount) {
-    const { actions, todosFilter, todos } = this.props;
-    const { clearCompleteTodos, moveTodo } = actions;
+    const { todosFilter, todos } = this.props;
     const { length } = todos;
 
     if (!length) return null;
@@ -35,12 +42,10 @@ export default class TodoList extends Component {
 
     return (
       <Footer
-        clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
         todosFilter={todosFilter}
         incompleteCount={incompleteCount}
         maxIndex={maxIndex}
-        moveTodo={moveTodo}
       />
     );
   }
@@ -51,7 +56,7 @@ export default class TodoList extends Component {
     const listItems = flow(
       filter(FILTERS[todosFilter]),
       sortBy('index'),
-      map(this.renderTodo),
+      map(todo => <Todo key={`todo-${todo.id}`} {...todo} />),
     )(todos);
 
     return (
@@ -60,7 +65,7 @@ export default class TodoList extends Component {
         component="ul"
         transitionEnterTimeout={250}
         transitionLeaveTimeout={250}
-        transitionName="fade-in"
+        transitionName="fade"
       >
         {listItems}
       </CSSTransitionGroup>
@@ -76,21 +81,6 @@ export default class TodoList extends Component {
       </div>
     );
   }
-
-  renderTodo = (todo) => {
-    const { deleteTodo, editTodo, markTodo, moveTodo } = this.props.actions;
-
-    return (
-      <Todo
-        key={`todo-${todo.id}`}
-        deleteTodo={deleteTodo}
-        editTodo={editTodo}
-        markTodo={markTodo}
-        moveTodo={moveTodo}
-        {...todo}
-      />
-    );
-  };
 
   renderToggle(completeCount) {
     const { onToggleAll, todos } = this.props;
