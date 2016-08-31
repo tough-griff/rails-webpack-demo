@@ -4,13 +4,13 @@ import Footer from '../../js/components/Footer';
 describe('<Footer />', function () {
   const props = {
     canDrop: false,
-    clearCompleteTodos: sinon.stub(),
     completeCount: 0,
     connectDropTarget: el => el,
     incompleteCount: 0,
     isOver: true,
     maxIndex: 0,
-    moveTodo: sinon.stub(),
+    onClick: sinon.stub(),
+    onDrop: sinon.stub(),
     todosFilter: 'all',
   };
 
@@ -45,13 +45,6 @@ describe('<Footer />', function () {
       expect(button.props.className).to.equal('clear-completed');
       expect(button.props.onClick).to.be.a('function');
       expect(button.props.children).to.equal('Clear complete');
-    });
-
-    describe('#onClick()', function () {
-      it('calls clearCompleteTodos', function () {
-        button.props.onClick();
-        expect(props.clearCompleteTodos).to.have.been.calledOnce();
-      });
     });
   });
 });

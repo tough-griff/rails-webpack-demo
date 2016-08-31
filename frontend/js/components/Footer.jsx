@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import cx from 'classnames';
 import pluralize from 'pluralize';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
@@ -7,33 +7,31 @@ import { Link } from 'react-router';
  * Manages routing using ReactRouter.Link, as well as renders a
  * 'Clear complete' button and complete tasks counter.
  *
- * @note: we pass `todosFilter` to this component to trigger a re-render when the
- * todosFilter changes. This allows `Link`'s `activeClassName` to work correctly.
+ * @todo we pass `todosFilter` to this component to trigger a re-render when the
+ *   todosFilter changes. This allows `Link`'s `activeClassName` to work
+ *   correctly. Is this always necessary?
  */
 export default class Footer extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
-    clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
     incompleteCount: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
-    moveTodo: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onDrop: PropTypes.func.isRequired,
     todosFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
   };
 
-  onClick = (_evt) => {
-    this.props.clearCompleteTodos();
-  };
-
   renderClearButton() {
-    if (!this.props.completeCount) return null;
+    const { completeCount, onClick } = this.props;
+    if (!completeCount) return null;
 
     return (
       <button
         className="clear-completed"
-        onClick={this.onClick}
+        onClick={onClick}
       >
         Clear complete
       </button>
@@ -50,12 +48,12 @@ export default class Footer extends Component {
 
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
-    const classes = classnames('footer', {
+    const className = cx('footer', {
       over: isOver && canDrop,
     });
 
     return connectDropTarget(
-      <footer className={classes}>
+      <footer className={className}>
         {this.renderTodoCount()}
         <ul className="filters">
           <li><Link activeClassName="selected" to="all">All</Link></li>

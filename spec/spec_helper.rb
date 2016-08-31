@@ -20,7 +20,9 @@ if ENV["COVERAGE"]
   require "simplecov"
 
   SimpleCov.start do
-    add_filter "/support/"
+    add_filter "/config"
+    add_filter "/spec/"
+    add_filter "/vendor/"
   end
 end
 

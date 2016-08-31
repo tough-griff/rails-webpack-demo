@@ -1,5 +1,5 @@
 import { DragSource, DropTarget } from 'react-dnd';
-import { compose } from 'redux';
+import { compose } from 'lodash/fp';
 
 import Todo from '../../components/Todo';
 
@@ -12,8 +12,7 @@ const target = {
   },
 
   drop(props, monitor) {
-    const { index, moveTodo } = props;
-    moveTodo(monitor.getItem().index, index);
+    props.onDrop(monitor.getItem().index);
   },
 };
 

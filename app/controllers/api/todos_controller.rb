@@ -5,7 +5,7 @@ module Api
     before_action :find_todo, only: %i(show update destroy)
 
     def index
-      @todos = Todo.order(:index)
+      @todos = Todo.all
       render json: @todos
     end
 
@@ -44,14 +44,14 @@ module Api
         Todo.find_each { |todo| todo.update!(complete: params.require(:complete)) }
       end
 
-      @todos = Todo.order(:index)
+      @todos = Todo.all
       render json: @todos
     end
 
     def move
       todos_service.move(params.require(:at), params.require(:to))
 
-      @todos = Todo.order(:index)
+      @todos = Todo.all
       render json: @todos
     end
 

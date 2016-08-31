@@ -1,0 +1,34 @@
+@mixin alert($color) {
+  background-color: lighten($color, 45%);
+  color: $color;
+
+  &:hover {
+    color: darken($color, 10%);
+  }
+}
+
+.alert {
+  margin-top: 10px;
+  padding: 10px;
+
+  &.info {
+    @include alert($blue);
+  }
+
+  &.error {
+    @include alert($red);
+  }
+}
+
+.alert-list {
+  bottom: 0;
+  list-style: none;
+  margin: 0 15px 15px 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+
+  > li {
+    cursor: pointer;
+  }
+}

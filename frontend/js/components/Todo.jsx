@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import cx from 'classnames';
 import React, { Component, PropTypes } from 'react';
 
 import TextInput from './TextInput';
@@ -11,48 +11,30 @@ export default class Todo extends Component {
     canDrop: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-    deleteTodo: PropTypes.func.isRequired,
-    editTodo: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
     isComplete: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
     isOver: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
-    markTodo: PropTypes.func.isRequired,
-    moveTodo: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onDrop: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
   };
 
   state = {
     isEditing: false,
   };
 
-  onChange = (_evt) => {
-    const { id, isComplete, markTodo } = this.props;
-
-    markTodo(id, !isComplete);
-  };
-
-  onClick = (_evt) => {
-    const { deleteTodo, id } = this.props;
-
-    deleteTodo(id);
-  };
-
-  onDoubleClick = (_evt) => {
+  onDoubleClick = () => {
     this.setState({
       isEditing: true,
     });
   };
 
-  onSave = (newLabel) => {
-    const { deleteTodo, editTodo, id, label } = this.props;
-
-    if (newLabel.length) {
-      if (newLabel !== label) editTodo(id, newLabel);
-    } else {
-      deleteTodo(id);
-    }
+  onSave = (label) => {
+    this.props.onSave(label);
 
     this.setState({
       isEditing: false,
@@ -74,10 +56,10 @@ export default class Todo extends Component {
   render() {
     const {
       canDrop, connectDragSource, connectDropTarget, isComplete, isDragging,
-      isOver, label,
+      isOver, label, onChange, onClick,
     } = this.props;
 
-    const classes = classnames({
+    const className = cx('todo', {
       completed: isComplete,
       dragging: isDragging,
       over: isOver && canDrop,
@@ -85,18 +67,18 @@ export default class Todo extends Component {
     });
 
     return connectDragSource(connectDropTarget(
-      <li className={classes}>
+      <li className={className}>
         <div className="view">
           <input
             checked={isComplete}
             className="toggle"
-            onChange={this.onChange}
+            onChange={onChange}
             type="checkbox"
           />
           <span className="label" onDoubleClick={this.onDoubleClick}>
             {label}
           </span>
-          <button className="destroy" onClick={this.onClick} />
+          <button className="destroy" onClick={onClick} />
         </div>
         {this.renderInput()}
       </li>
