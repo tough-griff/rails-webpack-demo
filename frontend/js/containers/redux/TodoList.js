@@ -5,9 +5,13 @@ import TodoList from '../dnd/TodoList';
 import * as TodoActionCreators from '../../actions/TodoActionCreators';
 
 function mapStateToProps(state) {
+  const todosFilter = state.routing.locationBeforeTransitions.pathname
+    .replace('/', '');
+
   return {
     ...state.application.toJS(),
     todos: state.todos.toJS(),
+    todosFilter,
   };
 }
 

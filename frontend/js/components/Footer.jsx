@@ -56,9 +56,9 @@ export default class Footer extends Component {
       <footer className={className}>
         {this.renderTodoCount()}
         <ul className="filters">
-          <li><Link activeClassName="selected" to="all">All</Link></li>
-          <li><Link activeClassName="selected" to="active">Active</Link></li>
-          <li><Link activeClassName="selected" to="completed">Completed</Link></li>
+          <li><Link activeClassName="selected" to="/all">All</Link></li>
+          <li><Link activeClassName="selected" to="/active">Active</Link></li>
+          <li><Link activeClassName="selected" to="/completed">Completed</Link></li>
         </ul>
         {this.renderClearButton()}
       </footer>
