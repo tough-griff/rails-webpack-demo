@@ -1,4 +1,6 @@
-import { merge } from 'lodash/fp';
+import { has, merge } from 'lodash/fp';
+
+const hasError = has('meta.error');
 
 /**
  * Extracts the CSRF token from the page's meta tags.
@@ -15,11 +17,11 @@ function parseJSON(response) {
 }
 
 /**
- * Check the JSON response and throw if the response includes a top level
- * `error` key.
+ * Check the JSON response and throw if the response includes a `meta.error`
+ * key.
  */
 function checkJSON(json) {
-  if (json.error) throw new Error(json.error);
+  if (hasError(json)) throw new Error(json.meta.error.join('; '));
 
   return json;
 }

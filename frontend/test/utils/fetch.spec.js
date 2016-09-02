@@ -60,7 +60,9 @@ describe('fetch()', function () {
         status: 200,
         body: {
           hello: 'world',
-          error: 'something went wrong',
+          meta: {
+            error: ['something went wrong'],
+          },
         },
       });
     });

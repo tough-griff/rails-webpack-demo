@@ -70,11 +70,11 @@ module Api
     end
 
     def render_todo_errors
-      render json: { todo: @todo, error: @todo.errors.full_messages }, status: 422
+      render json: @todo, meta: { error: @todo.errors.full_messages }, status: 422
     end
 
     def render_destroy_todo_errors
-      render json: { todo: @todo, error: ["Unable to destroy todo with ID #{@todo.id}: #{@todo.label}"] }, status: 500
+      render json: @todo, meta: { error: ["Unable to destroy todo #{@todo.id}"] }, status: 500
     end
 
     def todo_params

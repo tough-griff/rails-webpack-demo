@@ -3,6 +3,13 @@ require "rails_helper"
 RSpec.describe Api::TodosController, type: :controller do
   let(:json_response) { JSON(response.body) }
 
+  # JSON Response Shapes
+  let(:todo_shape) do
+    hash_including("id", "index", "label", "createdAt", "updatedAt", "isComplete")
+  end
+  let(:todos_shape) { array_including(todo_shape) }
+  let(:error_shape) { array_including(an_instance_of(String)) }
+
   describe "GET #index" do
     before do
       create_list(:todo, 3)
@@ -13,12 +20,8 @@ RSpec.describe Api::TodosController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns the correct todos" do
-      expect(assigns(:todos)).to eq(Todo.first(3))
-    end
-
     it "renders the correct JSON response" do
-      expect(json_response).to include("todos")
+      expect(json_response).to include("todos" => todos_shape)
     end
   end
 
@@ -31,7 +34,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         post :create, todo: attributes_for(:todo)
-        expect(json_response).to include("todo")
+        expect(json_response).to include("todo" => todo_shape)
       end
 
       it "creates a new todo" do
@@ -49,7 +52,10 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         post :create, todo: attributes_for(:todo, :invalid)
-        expect(json_response).to include("error", "todo")
+        expect(json_response).to include(
+          "meta" => { "error" => error_shape },
+          "todo" => todo_shape,
+        )
       end
 
       it "does not create a new todo" do
@@ -69,12 +75,8 @@ RSpec.describe Api::TodosController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns the correct todo" do
-      expect(assigns(:todo)).to eq(Todo.first)
-    end
-
     it "renders the correct JSON response" do
-      expect(json_response).to include("todo")
+      expect(json_response).to include("todo" => todo_shape)
     end
   end
 
@@ -89,7 +91,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         patch :update, id: todo.id, todo: attributes_for(:todo, label: "New label")
-        expect(json_response).to include("todo")
+        expect(json_response).to include("todo" => todo_shape)
       end
 
       it "updates the todo's label" do
@@ -115,7 +117,10 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         patch :update, id: todo.id, todo: attributes_for(:todo, :invalid)
-        expect(json_response).to include("error", "todo")
+        expect(json_response).to include(
+          "meta" => { "error" => error_shape },
+          "todo" => todo_shape,
+        )
       end
 
       it "updates the todo" do
@@ -137,7 +142,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         delete :destroy, id: todo.id
-        expect(json_response).to include("todo")
+        expect(json_response).to include("todo" => todo_shape)
       end
 
       it "deletes the todo" do
@@ -160,7 +165,10 @@ RSpec.describe Api::TodosController, type: :controller do
 
       it "renders the correct JSON response" do
         delete :destroy, id: todo.id
-        expect(json_response).to include("error", "todo")
+        expect(json_response).to include(
+          "meta" => { "error" => error_shape },
+          "todo" => todo_shape,
+        )
       end
 
       it "does not delete the todo" do
@@ -181,7 +189,7 @@ RSpec.describe Api::TodosController, type: :controller do
     end
 
     it "renders the correct JSON response" do
-      expect(json_response).to include("todos")
+      expect(json_response).to include("todos" => todos_shape)
     end
 
     it "marks all todos as completed" do
@@ -190,6 +198,7 @@ RSpec.describe Api::TodosController, type: :controller do
   end
 
   describe "PATCH #move" do
+    let!(:todos) { create_list(:todo, 2) }
     let(:todos_service) { double(:todos_service) }
 
     before do
@@ -204,7 +213,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
     it "renders the correct JSON response" do
       patch :move, at: 2, to: 1
-      expect(json_response).to include("todos")
+      expect(json_response).to include("todos" => todos_shape)
     end
 
     it "delegates to the appropriate service" do
@@ -224,7 +233,7 @@ RSpec.describe Api::TodosController, type: :controller do
 
     it "renders the correct JSON response" do
       delete :clear_complete
-      expect(json_response).to include("todos")
+      expect(json_response).to include("todos" => todos_shape)
     end
 
     it "deletes all completed todos" do

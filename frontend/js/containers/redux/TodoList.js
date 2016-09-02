@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import TodoList from '../dnd/TodoList';
 import * as TodoActionCreators from '../../actions/TodoActionCreators';
@@ -9,7 +8,7 @@ function mapStateToProps(state) {
     .replace('/', '');
 
   return {
-    ...state.application.toJS(),
+    isLoading: state.application.toJS().isLoading,
     todos: state.todos.toJS(),
     todosFilter,
   };
@@ -17,8 +16,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(TodoActionCreators, dispatch),
-
     onMount: () => dispatch(TodoActionCreators.fetchAllTodos()),
 
     onToggleAll: (evt) => {
