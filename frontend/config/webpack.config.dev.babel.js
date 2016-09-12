@@ -1,3 +1,4 @@
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import castArray from 'lodash/castArray';
 import mapValues from 'lodash/mapValues';
 import webpack from 'webpack';
@@ -52,6 +53,7 @@ const devConfig = {
       'process.env': { NODE_ENV: JSON.stringify('development') },
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new CaseSensitivePathsPlugin(),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],

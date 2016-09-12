@@ -15,7 +15,7 @@ Alert.propTypes = {
   clientId: PropTypes.number.isRequired,
   message: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(['error', 'info']).isRequired,
+  type: PropTypes.oneOf(['error', 'notice']).isRequired,
 };
 
 export default Alert;

@@ -36,7 +36,6 @@ export default class TextInput extends Component {
 
   render() {
     const { className, placeholder } = this.props;
-    const { value } = this.state;
 
     return (
       <input
@@ -47,7 +46,7 @@ export default class TextInput extends Component {
         onKeyDown={this.onKeyDown}
         placeholder={placeholder}
         type="text"
-        value={value}
+        value={this.state.value}
       />
     );
   }

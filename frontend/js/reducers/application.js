@@ -10,14 +10,15 @@ export const Application = new Record({
 });
 
 // Define an Immutable.js Alert Record.
-export class Alert extends Record({ clientId: 0, message: '', type: 'info' }) {
+export class Alert extends Record({ clientId: 0, message: '', type: 'notice' }) {
   /**
    * Initialize each Alert with an incrementing `clientId`.
    */
-  constructor(props = {}) {
+  constructor({ message, type = 'notice' }) {
     super({
       clientId: ++alertCounter,
-      ...props,
+      message,
+      type,
     });
   }
 }
@@ -97,6 +98,12 @@ const REDUCERS = {
   },
 
   // Alert handlers
+  addAlert(state, { message, type }) {
+    return state.update('alerts', alerts =>
+      alerts.push(new Alert({ message, type }))
+    );
+  },
+
   clearAlert(state, { clientId }) {
     return state.update('alerts', alerts =>
       alerts.filterNot(alert => alert.get('clientId') === clientId)

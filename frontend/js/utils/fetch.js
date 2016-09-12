@@ -1,4 +1,4 @@
-import { has, merge } from 'lodash/fp';
+import { castArray, has, merge } from 'lodash/fp';
 
 const hasError = has('meta.error');
 
@@ -21,7 +21,7 @@ function parseJSON(response) {
  * key.
  */
 function checkJSON(json) {
-  if (hasError(json)) throw new Error(json.meta.error.join('; '));
+  if (hasError(json)) throw new Error(castArray(json.meta.error).join('; '));
 
   return json;
 }

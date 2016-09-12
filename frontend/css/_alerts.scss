@@ -7,27 +7,26 @@
   }
 }
 
-.alert {
-  margin-top: 10px;
-  padding: 10px;
-
-  &.info {
-    @include alert($blue);
-  }
-
-  &.error {
-    @include alert($red);
-  }
-}
-
 .alert-list {
   bottom: 15px;
   list-style: none;
+  margin: 0;
   padding: 0;
   position: fixed;
   right: 15px;
 
-  > li {
+  > .alert {
     cursor: pointer;
+    margin-top: 10px;
+    padding: 10px;
+    width: 250px;
+
+    &.notice {
+      @include alert($blue);
+    }
+
+    &.error {
+      @include alert($red);
+    }
   }
 }
