@@ -19,12 +19,8 @@ function Root({ store }) {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <Route component={App}>
-          <Route path="all" />
-          <Route path="active" />
-          <Route path="completed" />
-          <Redirect from="/" to="/all" />
-        </Route>
+        <Route path="/:filter" component={App} />
+        <Redirect from="/" to="/all" />
       </Router>
     </Provider>
   );
