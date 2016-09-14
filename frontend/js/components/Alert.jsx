@@ -1,6 +1,8 @@
 import cx from 'classnames';
 import React, { PropTypes } from 'react';
 
+import { alertPropTypes } from '../shapes';
+
 function Alert({ message, onClick, type }) {
   const className = cx('alert', type);
 
@@ -12,10 +14,8 @@ function Alert({ message, onClick, type }) {
 }
 
 Alert.propTypes = {
-  clientId: PropTypes.number.isRequired,
-  message: PropTypes.string.isRequired,
+  ...alertPropTypes,
   onClick: PropTypes.func.isRequired,
-  type: PropTypes.oneOf(['error', 'notice']).isRequired,
 };
 
 export default Alert;

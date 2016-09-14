@@ -2,21 +2,19 @@ import cx from 'classnames';
 import React, { Component, PropTypes } from 'react';
 
 import TextInput from './TextInput';
+import { todoPropTypes } from '../shapes';
 
 /**
  * Represents a single todo item in a todo list.
  */
 export default class Todo extends Component {
   static propTypes = {
+    ...todoPropTypes,
     canDrop: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired,
-    index: PropTypes.number.isRequired,
-    isComplete: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
     isOver: PropTypes.bool.isRequired,
-    label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
     onDrop: PropTypes.func.isRequired,
