@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { browserHistory, Router } from 'react-router';
+import { browserHistory, Redirect, Route, Router } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import rootSaga from '../../sagas';
-import routes from '../../routes';
-import { storeShape } from '../../shapes';
+import App from '../components/App';
+import rootSaga from '../sagas';
+import { storeShape } from '../shapes';
 
 /**
  * Root element which mounts a redux provider, react router, and starts our
@@ -18,7 +18,14 @@ function Root({ store }) {
 
   return (
     <Provider store={store}>
-      <Router history={history} routes={routes} />
+      <Router history={history}>
+        <Route component={App}>
+          <Route path="all" />
+          <Route path="active" />
+          <Route path="completed" />
+          <Redirect from="/" to="/all" />
+        </Route>
+      </Router>
     </Provider>
   );
 }

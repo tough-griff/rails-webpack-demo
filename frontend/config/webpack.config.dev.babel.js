@@ -12,10 +12,11 @@ export const nodePort = process.env.NODE_PORT || '5050';
 export const serverPath = `//${appHost}:${nodePort}`;
 const webpackHmrPath = require.resolve('webpack-hot-middleware/client');
 const webpackHmrEntry = `${webpackHmrPath}?path=${serverPath}/__webpack_hmr`;
+const reactHotLoaderEntry = require.resolve('react-hot-loader/patch');
 
 // Prepend the webpack HMR entry point to all defined entry points.
 const devEntries = mapValues(entries, entry =>
-  [webpackHmrEntry, ...castArray(entry)]
+  [webpackHmrEntry, reactHotLoaderEntry, ...castArray(entry)]
 );
 
 const devConfig = {

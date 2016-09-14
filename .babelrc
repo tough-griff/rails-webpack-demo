@@ -1,9 +1,4 @@
 {
   "presets": ["es2015", "es2016", "stage-1", "react"],
-  "plugins": ["lodash", "transform-runtime"],
-  "env": {
-    "development": {
-      "presets": ["react-hmre"]
-    }
-  }
+  "plugins": ["lodash", "transform-runtime", "react-hot-loader/babel"]
 }
