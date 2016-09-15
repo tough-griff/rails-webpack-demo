@@ -1,5 +1,6 @@
 import setup from '../support/componentSetup';
 import Footer from '../../js/components/Footer';
+import ClearButton from '../../js/components/ClearButton';
 
 describe('<Footer />', function () {
   const props = {
@@ -41,10 +42,8 @@ describe('<Footer />', function () {
     const button = completeOutput.props.children[2];
 
     it('renders the clear complete button', function () {
-      expect(button.type).to.equal('button');
-      expect(button.props.className).to.equal('clear-completed');
+      expect(button.type).to.equal(ClearButton);
       expect(button.props.onClick).to.be.a('function');
-      expect(button.props.children).to.equal('Clear complete');
     });
   });
 });

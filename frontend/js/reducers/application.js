@@ -1,7 +1,7 @@
 import camelCase from 'camel-case';
 import { List, Record } from 'immutable';
 
-let alertCounter = 0;
+let clientIdCounter = 0;
 
 // Define an Immutable.js Application Record.
 export const Application = new Record({
@@ -10,17 +10,21 @@ export const Application = new Record({
 });
 
 // Define an Immutable.js Alert Record.
-export class Alert extends Record({ clientId: 0, message: '', type: 'notice' }) {
-  /**
-   * Initialize each Alert with an incrementing `clientId`.
-   */
-  constructor({ message, type = 'notice' }) {
-    super({
-      clientId: ++alertCounter,
-      message,
-      type,
-    });
-  }
+export const Alert = new Record({
+  clientId: 0,
+  message: '',
+  type: 'error',
+});
+
+/**
+ * Returns a properly initialized Alert record.
+ */
+export function createAlert({ clientId, message, type } = {}) {
+  return new Alert({
+    clientId: clientId || clientIdCounter++,
+    message: message || 'An error occurred',
+    type: type || 'error',
+  });
 }
 
 // Define reducer functions to handle each potential action.
@@ -36,25 +40,25 @@ const REDUCERS = {
   addTodoErr(state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
-        alerts.push(new Alert({ message, type: 'error' }))
+        alerts.push(createAlert({ message }))
       );
   },
 
   clearCompleteTodosErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   deleteTodoErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   editTodoErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
@@ -69,38 +73,38 @@ const REDUCERS = {
   fetchAllTodosErr(state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
-        alerts.push(new Alert({ message, type: 'error' }))
+        alerts.push(createAlert({ message }))
       );
   },
 
   fetchTodoErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   markAllTodosErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   markTodoErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   moveTodoErr(state, { message }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type: 'error' }))
+      alerts.push(createAlert({ message }))
     );
   },
 
   // Alert handlers
   addAlert(state, { message, type }) {
     return state.update('alerts', alerts =>
-      alerts.push(new Alert({ message, type }))
+      alerts.push(createAlert({ message, type }))
     );
   },
 

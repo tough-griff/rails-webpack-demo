@@ -2,7 +2,7 @@ import { each } from 'lodash';
 import { List } from 'immutable';
 
 import { behavesLikeReducer } from '../support/sharedBehaviors';
-import application, { Alert, Application } from '../../js/reducers/application';
+import application, { Application, createAlert } from '../../js/reducers/application';
 
 describe('application()', function () {
   let state = new Application();
@@ -111,8 +111,8 @@ describe('application()', function () {
 
     before(function setState() {
       state = state.set('alerts', new List([
-        new Alert(),
-        new Alert({ clientId }),
+        createAlert(),
+        createAlert({ clientId }),
       ]));
     });
 
