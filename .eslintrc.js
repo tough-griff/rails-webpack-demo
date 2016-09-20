@@ -14,6 +14,7 @@ module.exports = {
       'newlines-between': 'always',
     }],
 
+    'react/no-unused-prop-types': ['error', { skipShapeProps: true }],
     'react/prefer-stateless-function': 'warn',
   },
 }

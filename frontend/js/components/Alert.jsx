@@ -7,8 +7,11 @@ function Alert({ message, onClick, type }) {
   const className = cx('alert', type);
 
   return (
-    <li className={className} onClick={onClick}>
-      {message}
+    <li className={className}>
+      <span className="message">{message}</span>
+      <button className="close" onClick={onClick}>
+        &times;
+      </button>
     </li>
   );
 }

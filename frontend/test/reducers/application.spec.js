@@ -92,7 +92,7 @@ describe('application()', function () {
       'MOVE_TODO__ERR',
     ];
 
-    each(actionTypes, type => {
+    each(actionTypes, (type) => {
       context(`with action type "${type}"`, function () {
         const action = { type, payload: 'Error' };
 

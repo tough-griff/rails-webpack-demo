@@ -37,7 +37,7 @@ if (isHttps) {
 }
 
 /* eslint-disable no-console */
-server.listen(nodePort, appHost, err => {
+server.listen(nodePort, appHost, (err) => {
   if (err) {
     console.log(err);
     return;

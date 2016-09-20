@@ -26,13 +26,13 @@ export function behavesLikeApiClient(subject, args, urls, expectedValue) {
   });
 
   it('makes the correct web request(s)', function () {
-    each(castArray(urls), url => {
+    each(castArray(urls), (url) => {
       expect(fetchMock.called(url)).to.be.true();
     });
   });
 
   it('returns the correct value', function () {
-    return result.then(returnValue => {
+    return result.then((returnValue) => {
       expect(returnValue).to.eql(expectedValue);
     });
   });

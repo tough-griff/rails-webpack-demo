@@ -20,8 +20,10 @@ export const Alert = new Record({
  * Returns a properly initialized Alert record.
  */
 export function createAlert({ clientId, message, type } = {}) {
+  if (!clientId) clientIdCounter += 1;
+
   return new Alert({
-    clientId: clientId || clientIdCounter++,
+    clientId: clientId || clientIdCounter,
     message: message || 'An error occurred',
     type: type || 'error',
   });

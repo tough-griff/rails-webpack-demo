@@ -46,7 +46,7 @@ describe('fetch()', function () {
 
   it('parses JSON correctly', function (done) {
     fetch(url, { method: 'GET' })
-      .then(json => {
+      .then((json) => {
         expect(json).to.have.property('hello', 'world');
         done();
       });
@@ -69,10 +69,10 @@ describe('fetch()', function () {
 
     it('parses JSON correctly', function () {
       return fetch(errorUrl, { method: 'GET' })
-        .then(json => {
+        .then((json) => {
           expect(json).not.to.have.property('hello', 'world');
         })
-        .catch(err => {
+        .catch((err) => {
           expect(err).to.match(/something went wrong/);
         });
     });

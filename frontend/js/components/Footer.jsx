@@ -26,9 +26,15 @@ function Footer({
         {pluralize('task', incompleteCount, true)} remaining.
       </span>
       <ul className="filters">
-        <li><Link activeClassName="selected" to="/all">All</Link></li>
-        <li><Link activeClassName="selected" to="/active">Active</Link></li>
-        <li><Link activeClassName="selected" to="/completed">Completed</Link></li>
+        <li className="filter">
+          <Link activeClassName="selected" to="/all">All</Link>
+        </li>
+        <li className="filter">
+          <Link activeClassName="selected" to="/active">Active</Link>
+        </li>
+        <li className="filter">
+          <Link activeClassName="selected" to="/completed">Completed</Link>
+        </li>
       </ul>
       {clearButton}
     </footer>
