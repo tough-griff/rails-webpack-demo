@@ -9,7 +9,9 @@ import paths from './paths';
 
 export const appHost = process.env.APP_HOST || 'lvh.me';
 export const nodePort = process.env.NODE_PORT || '5050';
-export const serverPath = `//${appHost}:${nodePort}`;
+export const isHttps = !!process.env.HTTPS;
+const protocol = `http${(isHttps) ? 's' : ''}`;
+export const serverPath = `${protocol}://${appHost}:${nodePort}`;
 const webpackHmrPath = require.resolve('webpack-hot-middleware/client');
 const webpackHmrEntry = `${webpackHmrPath}?path=${serverPath}/__webpack_hmr`;
 const reactHotLoaderEntry = require.resolve('react-hot-loader/patch');
