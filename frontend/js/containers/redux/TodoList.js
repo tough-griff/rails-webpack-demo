@@ -2,11 +2,15 @@ import { connect } from 'react-redux';
 
 import TodoList from '../dnd/TodoList';
 import * as TodoActionCreators from '../../actions/TodoActionCreators';
+import * as selectors from '../../selectors';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   return {
+    completeCount: selectors.getCompleteCount(state),
+    count: selectors.getCount(state),
     isLoading: state.application.toJS().isLoading,
-    todos: state.todos.toJS(),
+    maxIndex: selectors.getMaxIndex(state),
+    todos: selectors.getFilteredTodos(state, props),
   };
 }
 

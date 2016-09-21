@@ -8,4 +8,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(AlertList);
+export default connect(mapStateToProps)(AlertList);

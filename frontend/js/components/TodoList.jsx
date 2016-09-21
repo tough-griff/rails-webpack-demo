@@ -1,4 +1,4 @@
-import { flow, filter, map, maxBy, sortBy } from 'lodash/fp';
+import { map } from 'lodash/fp';
 import React, { Component, PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -6,21 +6,15 @@ import Footer from '../containers/redux/Footer';
 import Todo from '../containers/redux/Todo';
 import { todoShape } from '../shapes';
 
-const FILTERS = {
-  all: () => true,
-  active: todo => !todo.isComplete,
-  completed: todo => todo.isComplete,
-};
-
 /**
  * Displays the list of todos, as well as the toggle all checkbox.
- *
- * @todo could we move some of the logic in this component to `mapStateToProps`
- *   in the container? Perhaps the `Footer` container?
  */
 export default class TodoList extends Component {
   static propTypes = {
+    completeCount: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    maxIndex: PropTypes.number.isRequired,
     onMount: PropTypes.func.isRequired,
     onToggleAll: PropTypes.func.isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
@@ -31,33 +25,25 @@ export default class TodoList extends Component {
     this.props.onMount();
   }
 
-  renderFooter(completeCount) {
-    const { todosFilter, todos } = this.props;
-    const { length } = todos;
+  renderFooter() {
+    const { completeCount, count, maxIndex, todosFilter } = this.props;
 
-    if (!length) return null;
-
-    const incompleteCount = length - completeCount;
-    const { index: maxIndex } = maxBy('index')(todos);
+    if (!count) return null;
 
     return (
       <Footer
         completeCount={completeCount}
-        todosFilter={todosFilter}
-        incompleteCount={incompleteCount}
+        count={count}
         maxIndex={maxIndex}
+        todosFilter={todosFilter}
       />
     );
   }
 
   renderListItems() {
-    const { todosFilter, todos } = this.props;
-
-    const listItems = flow(
-      filter(FILTERS[todosFilter]),
-      sortBy('index'),
-      map(todo => <Todo key={`todo-${todo.id}`} {...todo} />),
-    )(todos);
+    const listItems = map(todo =>
+      <Todo key={`todo-${todo.id}`} {...todo} />
+    )(this.props.todos);
 
     return (
       <CSSTransitionGroup
@@ -82,12 +68,12 @@ export default class TodoList extends Component {
     );
   }
 
-  renderToggle(completeCount) {
-    const { onToggleAll, todos } = this.props;
+  renderToggle() {
+    const { completeCount, count, onToggleAll } = this.props;
 
     return (
       <input
-        checked={completeCount === todos.length}
+        checked={completeCount === count}
         className="toggle-all"
         onChange={onToggleAll}
         type="checkbox"
@@ -96,15 +82,12 @@ export default class TodoList extends Component {
   }
 
   render() {
-    const { todos } = this.props;
-    const { length: completeCount } = filter('isComplete')(todos);
-
     return (
       <section className="main">
-        {this.renderToggle(completeCount)}
+        {this.renderToggle()}
         {this.renderListItems()}
         {this.renderLoadingIndicator()}
-        {this.renderFooter(completeCount)}
+        {this.renderFooter()}
       </section>
     );
   }

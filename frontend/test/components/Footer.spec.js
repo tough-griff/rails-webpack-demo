@@ -7,7 +7,7 @@ describe('<Footer />', function () {
     canDrop: false,
     completeCount: 0,
     connectDropTarget: el => el,
-    incompleteCount: 0,
+    count: 0,
     isOver: true,
     maxIndex: 0,
     onClick: sinon.stub(),
@@ -37,7 +37,7 @@ describe('<Footer />', function () {
 
   context('with a nonzero complete count', function () {
     const { output: completeOutput } = setup(Footer, {
-      ...props, completeCount: 2,
+      ...props, completeCount: 1, count: 2,
     });
     const button = completeOutput.props.children[2];
 

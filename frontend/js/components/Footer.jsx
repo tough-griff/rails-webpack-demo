@@ -10,7 +10,7 @@ import ClearButton from './ClearButton';
  * button and complete tasks counter.
  */
 function Footer({
-  canDrop, completeCount, connectDropTarget, incompleteCount, isOver, onClick,
+  canDrop, completeCount, connectDropTarget, count, isOver, onClick,
 }) {
   const className = cx('footer', {
     over: isOver && canDrop,
@@ -23,7 +23,7 @@ function Footer({
   return connectDropTarget(
     <footer className={className}>
       <span className="todo-count">
-        {pluralize('task', incompleteCount, true)} remaining.
+        {pluralize('task', count - completeCount, true)} remaining.
       </span>
       <ul className="filters">
         <li className="filter">
@@ -48,7 +48,7 @@ Footer.propTypes = {
   canDrop: PropTypes.bool.isRequired,
   completeCount: PropTypes.number.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
   isOver: PropTypes.bool.isRequired,
   maxIndex: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
