@@ -6,4 +6,10 @@ module ApplicationHelper
       csrf_meta_tags,
     ].join("\n").html_safe
   end
+
+  def title
+    return "RailsWebpackDemo" if Rails.env.production?
+
+    "RailsWebpackDemo (#{Rails.env.capitalize})"
+  end
 end
