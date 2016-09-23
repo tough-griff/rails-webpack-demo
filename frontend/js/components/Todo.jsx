@@ -51,10 +51,29 @@ export default class Todo extends Component {
     );
   }
 
+  renderView() {
+    const { isComplete, label, onChange, onClick } = this.props;
+
+    return (
+      <div className="view">
+        <input
+          checked={isComplete}
+          className="toggle"
+          onChange={onChange}
+          type="checkbox"
+        />
+        <span className="label" onDoubleClick={this.onDoubleClick}>
+          {label}
+        </span>
+        <button className="destroy" onClick={onClick} />
+      </div>
+    );
+  }
+
   render() {
     const {
       canDrop, connectDragSource, connectDropTarget, isComplete, isDragging,
-      isOver, label, onChange, onClick,
+      isOver,
     } = this.props;
 
     const className = cx('todo', {
@@ -66,18 +85,7 @@ export default class Todo extends Component {
 
     return connectDragSource(connectDropTarget(
       <li className={className}>
-        <div className="view">
-          <input
-            checked={isComplete}
-            className="toggle"
-            onChange={onChange}
-            type="checkbox"
-          />
-          <span className="label" onDoubleClick={this.onDoubleClick}>
-            {label}
-          </span>
-          <button className="destroy" onClick={onClick} />
-        </div>
+        {this.renderView()}
         {this.renderInput()}
       </li>
     ));

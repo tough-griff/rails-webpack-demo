@@ -2,15 +2,35 @@ import { connect } from 'react-redux';
 
 import Footer from '../dnd/Footer';
 import { clearCompleteTodos, moveTodo } from '../../actions/TodoActionCreators';
+import { getMaxIndex } from '../../selectors';
 
-function mapDispatchToProps(dispatch, props) {
+
+function mapStateToProps(state) {
+  return {
+    maxIndex: getMaxIndex(state),
+  };
+}
+
+function mapDispatchToProps(dispatch) {
   return {
     onClick: () => dispatch(clearCompleteTodos()),
 
-    onDrop: (droppedIndex) => {
-      dispatch(moveTodo(droppedIndex, props.maxIndex + 1));
+    onDrop: (at, to) => {
+      dispatch(moveTodo(at, to));
     },
   };
 }
 
-export default connect(null, mapDispatchToProps)(Footer);
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  return {
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+
+    onDrop: (droppedIndex) => {
+      dispatchProps.onDrop(droppedIndex, stateProps.maxIndex + 1);
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Footer);

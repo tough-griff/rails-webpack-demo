@@ -1,25 +1,24 @@
 import { connect } from 'react-redux';
 
 import TodoList from '../dnd/TodoList';
-import * as TodoActionCreators from '../../actions/TodoActionCreators';
-import * as selectors from '../../selectors';
+import { fetchAllTodos, markAllTodos } from '../../actions/TodoActionCreators';
+import { getCompleteCount, getCount, getFilteredTodos } from '../../selectors';
 
 function mapStateToProps(state, props) {
   return {
-    completeCount: selectors.getCompleteCount(state),
-    count: selectors.getCount(state),
+    completeCount: getCompleteCount(state),
+    count: getCount(state),
     isLoading: state.application.toJS().isLoading,
-    maxIndex: selectors.getMaxIndex(state),
-    todos: selectors.getFilteredTodos(state, props),
+    todos: getFilteredTodos(state, props),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onMount: () => dispatch(TodoActionCreators.fetchAllTodos()),
+    onMount: () => dispatch(fetchAllTodos()),
 
     onToggleAll: (evt) => {
-      dispatch(TodoActionCreators.markAllTodos(evt.target.checked));
+      dispatch(markAllTodos(evt.target.checked));
     },
   };
 }

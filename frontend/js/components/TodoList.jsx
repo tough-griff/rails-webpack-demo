@@ -14,7 +14,6 @@ export default class TodoList extends Component {
     completeCount: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    maxIndex: PropTypes.number.isRequired,
     onMount: PropTypes.func.isRequired,
     onToggleAll: PropTypes.func.isRequired,
     todos: PropTypes.arrayOf(todoShape).isRequired,
@@ -26,7 +25,7 @@ export default class TodoList extends Component {
   }
 
   renderFooter() {
-    const { completeCount, count, maxIndex, todosFilter } = this.props;
+    const { completeCount, count, todosFilter } = this.props;
 
     if (!count) return null;
 
@@ -34,7 +33,6 @@ export default class TodoList extends Component {
       <Footer
         completeCount={completeCount}
         count={count}
-        maxIndex={maxIndex}
         todosFilter={todosFilter}
       />
     );
