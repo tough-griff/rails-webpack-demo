@@ -3,14 +3,14 @@ ruby "2.3.1"
 
 gem "rails", "4.2.6"
 
-gem "active_model_serializers", "~> 0.10.0"
+gem "active_model_serializers", "~> 0.10.2"
 gem "haml-rails",               "~> 0.9.0"
 gem "non-stupid-digest-assets", "~> 1.0.8"
-gem "passenger",                "~> 5.0.29"
-gem "pg",                       "~> 0.18.4"
+gem "passenger",                "~> 5.0.30"
+gem "pg",                       "~> 0.19.0"
 gem "rack-timeout",             "~> 0.4.2"
 gem "system-bang",              "~> 1.0.0"
-gem "webpack-rails",            "~> 1.0.0.rc3", path: "vendor/gems/webpack-rails"
+gem "webpack-rails",            "~> 1.0.0.rc", path: "vendor/gems/webpack-rails"
 
 group :development do
   gem "annotate"
