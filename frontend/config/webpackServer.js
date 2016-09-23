@@ -7,11 +7,12 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import config, {
-  appHost, nodePort, isHttps, serverPath,
+  appHost, nodePort, serverPath,
 } from './webpack.config.dev.babel';
 
 const app = express();
 const compiler = webpack(config);
+const isHttps = !!process.env.HTTPS;
 
 // Set the `Access-Control-Allow-Origin: *` header.
 app.use(cors());
@@ -42,6 +43,6 @@ server.listen(nodePort, appHost, (err) => {
     return;
   }
 
-  console.log(`Webpack server listening at ${serverPath}.`);
+  console.log(`Webpack server listening at http${(isHttps) ? 's' : ''}:${serverPath}.`);
 });
 /* eslint-enable no-console */
