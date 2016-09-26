@@ -8,23 +8,22 @@ import configureStore from './configureStore';
 const rootEl = document.getElementById('react-app');
 const store = configureStore();
 
-render(
-  <AppContainer>
-    <Root store={store} />
-  </AppContainer>,
-  rootEl,
-);
+function renderApp(App) {
+  if (!rootEl) return;
+
+  render(
+    <AppContainer>
+      <App store={store} />
+    </AppContainer>,
+    rootEl,
+  );
+}
+
+renderApp(Root);
 
 // Enable Webpack hot module replacement using react-hot-loader.
-if (process.env.NODE_ENV === 'development' && module.hot) {
+if (module.hot) {
   module.hot.accept('./containers/Root', () => {
-    const NextRoot = require('./containers/Root').default;
-
-    render(
-      <AppContainer>
-        <NextRoot store={store} />
-      </AppContainer>,
-      rootEl,
-    );
+    renderApp(require('./containers/Root').default);
   });
 }
