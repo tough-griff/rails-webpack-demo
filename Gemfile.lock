@@ -1,7 +1,7 @@
 PATH
   remote: vendor/gems/webpack-rails
   specs:
-    webpack-rails (1.0.0.rc5)
+    webpack-rails (1.0.0.rc6)
       non-stupid-digest-assets (~> 1.0)
       system-bang (~> 1.0)
 
