@@ -105,6 +105,20 @@ describe('application()', function () {
   });
 
   // Alert handlers
+  context('when action type "ADD_ALERT"', function () {
+    const action = {
+      type: 'ADD_ALERT',
+      payload: { message: 'info', type: 'info' },
+    };
+
+    it('appends an alert', function () {
+      const result = application(state, action).get('alerts');
+      expect(result).to.have.property('size', 1);
+      expect(result.first()).to.have.property('message', 'info');
+      expect(result.first()).to.have.property('type', 'info');
+    });
+  });
+
   context('when action type "CLEAR_ALERT"', function () {
     const clientId = 12345;
     const action = { type: 'CLEAR_ALERT', payload: { clientId } };
