@@ -5,7 +5,6 @@ gem "rails", "5.0.0.1"
 
 gem "active_model_serializers", "~> 0.10.2"
 gem "haml-rails",               "~> 0.9.0"
-gem "non-stupid-digest-assets", "~> 1.0.8"
 gem "passenger",                "~> 5.0.30"
 gem "pg",                       "~> 0.19.0"
 gem "rack-timeout",             "~> 0.4.2"

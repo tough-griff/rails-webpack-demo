@@ -1,8 +1,7 @@
 PATH
   remote: vendor/gems/webpack-rails
   specs:
-    webpack-rails (1.0.0.rc6)
-      non-stupid-digest-assets (~> 1.0)
+    webpack-rails (1.0.0.rc7)
       system-bang (~> 1.0)
 
 GEM
@@ -132,8 +131,6 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
-    non-stupid-digest-assets (1.0.8)
-      sprockets (>= 2.0)
     parser (2.3.1.4)
       ast (~> 2.2)
     passenger (5.0.30)
@@ -277,7 +274,6 @@ DEPENDENCIES
   foreman
   haml-rails (~> 0.9.0)
   haml_lint
-  non-stupid-digest-assets (~> 1.0.8)
   passenger (~> 5.0.30)
   pg (~> 0.19.0)
   pry-byebug
