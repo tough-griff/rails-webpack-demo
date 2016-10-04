@@ -35,7 +35,7 @@ const devConfig = {
       include: paths.src,
     }, {
       loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
-      test: /\.scss$/,
+      test: /\.s?css$/,
       include: [paths.src, paths.modules],
     }, {
       loader: 'json',

@@ -27,8 +27,8 @@ const prodConfig = merge.smart(devConfig, {
   devtool: 'source-map',
   module: {
     loaders: [{
-      loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap'),
-      test: /\.scss$/,
+      loader: ExtractTextPlugin.extract(['css?sourceMap', 'sass?sourceMap']),
+      test: /\.s?css$/,
       include: [paths.src, paths.modules],
     }],
   },
