@@ -1,7 +1,5 @@
 import { castArray, has, merge } from 'lodash/fp';
 
-const hasError = has('meta.error');
-
 /**
  * Extracts the CSRF token from the page's meta tags.
  */
@@ -10,9 +8,14 @@ function getCSRFToken() {
 }
 
 /**
- * Parse the response's JSON.
+ * Parse the response's JSON. If we didn't receive a JSON response from the
+ * server, we throw an error.
  */
 function parseJSON(response) {
+  if (!response.headers.get('Content-Type').includes('application/json')) {
+    throw new Error('Received an unexpected response from the server');
+  }
+
   return response.json();
 }
 
@@ -21,7 +24,9 @@ function parseJSON(response) {
  * key.
  */
 function checkJSON(json) {
-  if (hasError(json)) throw new Error(castArray(json.meta.error).join('; '));
+  if (has('meta.error')(json)) {
+    throw new Error(castArray(json.meta.error).join('; '));
+  }
 
   return json;
 }

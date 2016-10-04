@@ -13,8 +13,8 @@ describe('application()', function () {
     const action = { type: 'ADD_TODO' };
 
     it('toggles loading: true', function () {
-      const result = application(state, action).get('isLoading');
-      expect(result).to.be.true();
+      const result = application(state, action);
+      expect(result).to.have.property('isLoading');
     });
   });
 
@@ -26,8 +26,8 @@ describe('application()', function () {
     });
 
     it('toggles loading: false', function () {
-      const result = application(state, action).get('isLoading');
-      expect(result).to.be.false();
+      const result = application(state, action);
+      expect(result).to.have.property('isLoading', false);
     });
   });
 
@@ -40,8 +40,8 @@ describe('application()', function () {
 
     it('toggles loading: false, appends an error', function () {
       const result = application(state, action);
-      expect(result.get('isLoading')).to.be.false();
-      expect(result.get('alerts')).to.have.property('size', 1);
+      expect(result).to.have.property('isLoading', false);
+      expect(result.get('alerts')).to.have.size(1);
     });
   });
 
@@ -49,8 +49,8 @@ describe('application()', function () {
     const action = { type: 'FETCH_ALL_TODOS' };
 
     it('toggles loading: true', function () {
-      const result = application(state, action).get('isLoading');
-      expect(result).to.be.true();
+      const result = application(state, action);
+      expect(result).to.have.property('isLoading', true);
     });
   });
 
@@ -62,8 +62,8 @@ describe('application()', function () {
     });
 
     it('toggles loading: false', function () {
-      const result = application(state, action).get('isLoading');
-      expect(result).to.be.false();
+      const result = application(state, action);
+      expect(result).to.have.property('isLoading', false);
     });
   });
 
@@ -76,8 +76,8 @@ describe('application()', function () {
 
     it('toggles loading: false, appends an error', function () {
       const result = application(state, action);
-      expect(result.get('isLoading')).to.be.false();
-      expect(result.get('alerts')).to.have.property('size', 1);
+      expect(result).to.have.property('isLoading', false);
+      expect(result.get('alerts')).to.have.size(1);
     });
   });
 
@@ -98,7 +98,7 @@ describe('application()', function () {
 
         it('appends an error', function () {
           const result = application(state, action).get('alerts');
-          expect(result).to.have.property('size', 1);
+          expect(result).to.have.size(1);
         });
       });
     });
@@ -113,7 +113,7 @@ describe('application()', function () {
 
     it('appends an alert', function () {
       const result = application(state, action).get('alerts');
-      expect(result).to.have.property('size', 1);
+      expect(result).to.have.size(1);
       expect(result.first()).to.have.property('message', 'info');
       expect(result.first()).to.have.property('type', 'info');
     });
@@ -132,7 +132,7 @@ describe('application()', function () {
 
     it('removes the correct alert', function () {
       const result = application(state, action).get('alerts');
-      expect(result).to.have.property('size', 1);
+      expect(result).to.have.size(1);
       expect(result.every(alert => alert.get('clientId') !== clientId))
         .to.be.true();
     });

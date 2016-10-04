@@ -3,6 +3,8 @@ import fetchMock from 'fetch-mock';
 import { behavesLikeApiClient } from '../support/sharedBehaviors';
 import Api from '../../js/api/TodoApi';
 
+const headers = { 'Content-Type': 'application/json' };
+
 describe('TodoApi', function () {
   before(function stubGetElementsByTagName() {
     sinon.stub(document, 'getElementsByTagName').returns({
@@ -19,7 +21,7 @@ describe('TodoApi', function () {
     const todos = [{ label: 'fake1' }, { label: 'fake2' }];
 
     before(function stubApi() {
-      fetchMock.restore().get(url, { todos });
+      fetchMock.restore().get(url, { body: { todos }, headers });
     });
 
     behavesLikeApiClient(Api.index, [], url, todos);
@@ -30,7 +32,7 @@ describe('TodoApi', function () {
     const todo = { label: 'fake1' };
 
     before(function stubApi() {
-      fetchMock.restore().post(url, { todo });
+      fetchMock.restore().post(url, { body: { todo }, headers });
     });
 
     behavesLikeApiClient(Api.create, [todo], url, todo);
@@ -41,7 +43,7 @@ describe('TodoApi', function () {
     const todo = { id: 4 };
 
     before(function stubApi() {
-      fetchMock.restore().get(url, { todo });
+      fetchMock.restore().get(url, { body: { todo }, headers });
     });
 
     behavesLikeApiClient(Api.show, [4], url, todo);
@@ -52,7 +54,7 @@ describe('TodoApi', function () {
     const todo = { id: 4, label: 'new label' };
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { todo });
+      fetchMock.restore().patch(url, { body: { todo }, headers });
     });
 
     behavesLikeApiClient(Api.update, [4, { label: 'new label' }], url, todo);
@@ -63,7 +65,7 @@ describe('TodoApi', function () {
     const todo = { id: 4 };
 
     before(function stubApi() {
-      fetchMock.restore().delete(url, { todo });
+      fetchMock.restore().delete(url, { body: { todo }, headers });
     });
 
     behavesLikeApiClient(Api.destroy, [4], url, todo);
@@ -74,7 +76,7 @@ describe('TodoApi', function () {
     const todos = [{ complete: true }, { complete: true }];
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { todos });
+      fetchMock.restore().patch(url, { body: { todos }, headers });
     });
 
     behavesLikeApiClient(Api.markAll, [true], url, todos);
@@ -85,7 +87,7 @@ describe('TodoApi', function () {
     const todos = [{ index: 2 }, { index: 1 }];
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { todos });
+      fetchMock.restore().patch(url, { body: { todos }, headers });
     });
 
     behavesLikeApiClient(Api.move, [1, 2], url, todos);
@@ -96,7 +98,7 @@ describe('TodoApi', function () {
     const todos = [{ label: 'fake1', complete: false }];
 
     before(function stubApi() {
-      fetchMock.restore().delete(url, { todos });
+      fetchMock.restore().delete(url, { body: { todos }, headers });
     });
 
     behavesLikeApiClient(Api.clearComplete, [], url, todos);
