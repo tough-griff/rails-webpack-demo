@@ -21,7 +21,7 @@ const devEntries = mapValues(entries, entry =>
 
 const devConfig = {
   debug: true,
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-source-map',
   entry: devEntries,
   module: {
     preLoaders: [{
