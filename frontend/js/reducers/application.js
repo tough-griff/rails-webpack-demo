@@ -1,5 +1,6 @@
-import camelCase from 'camel-case';
 import { List, Record } from 'immutable';
+
+import createReducer from '../utils/createReducer';
 
 let clientIdCounter = 0;
 
@@ -117,13 +118,4 @@ const REDUCERS = {
   },
 };
 
-/**
- * If the action type corresponds to a handler in REDUCERS, return a
- * reduction of the state. If no corresponding action is found, simply pass
- * the state through.
- */
-export default function application(state = new Application(), { payload, type }) {
-  const reducer = REDUCERS[camelCase(type)];
-
-  return (reducer) ? reducer(state, payload) : state;
-}
+export default createReducer(new Application(), REDUCERS);

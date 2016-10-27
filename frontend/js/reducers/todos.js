@@ -1,5 +1,6 @@
-import camelCase from 'camel-case';
 import { List, Record, Seq } from 'immutable';
+
+import createReducer from '../utils/createReducer';
 
 // Define an Immutable.js Todo Record.
 export const Todo = new Record({
@@ -77,13 +78,4 @@ const REDUCERS = {
   },
 };
 
-/**
- * If the action type corresponds to a handler in REDUCERS, return a
- * reduction of the state. If no corresponding action is found, simply pass
- * the state through.
- */
-export default function todos(state = new List(), { payload, type }) {
-  const reducer = REDUCERS[camelCase(type)];
-
-  return (reducer) ? reducer(state, payload) : state;
-}
+export default createReducer(new List(), REDUCERS);

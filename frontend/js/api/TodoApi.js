@@ -13,55 +13,47 @@ function take(key) {
 
 const TodoApi = {
   index() {
-    return fetch(todosPath(), {
-      method: 'GET',
-    }).then(take('todos'));
+    return fetch.get(todosPath())
+      .then(take('todos'));
   },
 
   create(todo) {
-    return fetch(todosPath(), {
-      method: 'POST',
+    return fetch.post(todosPath(), {
       body: JSON.stringify({ todo }),
     }).then(take('todo'));
   },
 
   show(id) {
-    return fetch(todoPath(id), {
-      method: 'GET',
-    }).then(take('todo'));
+    return fetch.get(todoPath(id))
+      .then(take('todo'));
   },
 
   update(id, todo) {
-    return fetch(todoPath(id), {
-      method: 'PATCH',
+    return fetch.patch(todoPath(id), {
       body: JSON.stringify({ todo }),
     }).then(take('todo'));
   },
 
   destroy(id) {
-    return fetch(todoPath(id), {
-      method: 'DELETE',
-    }).then(take('todo'));
+    return fetch.delete(todoPath(id))
+      .then(take('todo'));
   },
 
   markAll(complete) {
-    return fetch(markAllTodosPath(), {
-      method: 'PATCH',
+    return fetch.patch(markAllTodosPath(), {
       body: JSON.stringify({ complete }),
     }).then(take('todos'));
   },
 
   move(at, to) {
-    return fetch(moveTodosPath(), {
-      method: 'PATCH',
+    return fetch.patch(moveTodosPath(), {
       body: JSON.stringify({ at, to }),
     }).then(take('todos'));
   },
 
   clearComplete() {
-    return fetch(clearCompleteTodosPath(), {
-      method: 'DELETE',
-    }).then(take('todos'));
+    return fetch.delete(clearCompleteTodosPath())
+      .then(take('todos'));
   },
 };
 

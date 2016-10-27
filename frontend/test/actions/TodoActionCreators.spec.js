@@ -5,19 +5,9 @@ import { behavesLikeActionCreator } from '../support/sharedBehaviors';
 import * as TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {
-  before(function stubGetElementsByTagName() {
-    sinon.stub(document, 'getElementsByTagName').returns({
-      'csrf-token': { content: 'FAKE_CSRF_TOKEN' },
-    });
-  });
-
   afterEach(function resetMocks() {
     fetchMock.reset();
     mockStore.clearActions();
-  });
-
-  after(function restoreGetElementsByTagName() {
-    document.getElementsByTagName.restore();
   });
 
   describe('addTodo()', function () {

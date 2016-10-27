@@ -34,7 +34,7 @@ function checkJSON(json) {
 /**
  * Allow actions to use a default `fetch` configuration.
  */
-export default function fetch(url, config) {
+function fetch(url, config) {
   const fetchConfig = merge({
     credentials: 'same-origin',
     headers: {
@@ -48,3 +48,22 @@ export default function fetch(url, config) {
     .then(parseJSON)
     .then(checkJSON);
 }
+
+// Convenience methods for individual HTTP methods.
+fetch.get = function fetchGet(url, config) {
+  return fetch(url, merge({ method: 'GET' })(config));
+};
+
+fetch.post = function fetchPost(url, config) {
+  return fetch(url, merge({ method: 'POST' })(config));
+};
+
+fetch.patch = function fetchPatch(url, config) {
+  return fetch(url, merge({ method: 'PATCH' })(config));
+};
+
+fetch.delete = function fetchDelete(url, config) {
+  return fetch(url, merge({ method: 'delete' })(config));
+};
+
+export default fetch;

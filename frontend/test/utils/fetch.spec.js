@@ -45,11 +45,10 @@ describe('fetch()', function () {
       .to.have.been.calledWithExactly('meta');
   });
 
-  it('parses JSON correctly', function (done) {
-    fetch(url, { method: 'GET' })
+  it('parses JSON correctly', function () {
+    return fetch(url, { method: 'GET' })
       .then((json) => {
         expect(json).to.have.property('hello', 'world');
-        done();
       });
   });
 
