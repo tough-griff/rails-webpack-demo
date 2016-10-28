@@ -12,7 +12,13 @@ import { storeShape } from '../shapes';
  * root saga.
  */
 function Root({ store }) {
-  const history = syncHistoryWithStore(browserHistory, store);
+  // Configure react-router to work with redux-immutable.
+  // see https://github.com/gajus/redux-immutable#using-with-react-router-redux
+  const history = syncHistoryWithStore(browserHistory, store, {
+    selectLocationState(state) {
+      return state.get('routing').toJS();
+    },
+  });
 
   store.runSaga(rootSaga);
 

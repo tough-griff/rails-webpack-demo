@@ -1,5 +1,3 @@
-import camelCase from 'camel-case';
-
 /**
  * Reducer factory.
  */
@@ -10,7 +8,7 @@ export default function createReducer(initialState, actionReducers) {
    * the state through.
    */
   return (state = initialState, { payload, type }) => {
-    const reducer = actionReducers[camelCase(type)];
+    const reducer = actionReducers[type];
 
     return (reducer) ? reducer(state, payload) : state;
   };

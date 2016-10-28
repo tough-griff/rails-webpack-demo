@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 
 import AlertList from '../../components/AlertList';
+import { getAlerts } from '../../selectors/applicationSelectors';
 
 function mapStateToProps(state) {
   return {
-    alerts: state.application.get('alerts').toJS(),
+    alerts: getAlerts(state),
   };
 }
 

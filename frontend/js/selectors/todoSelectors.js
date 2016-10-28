@@ -7,12 +7,14 @@ const FILTERS = {
   completed: todo => todo.isComplete,
 };
 
-const getTodos = state => state.todos.toJS();
-const getTodosFilter = (_state, props) => props.todosFilter;
+const getTodos = createSelector(
+  state => state.get('todos'),
+  todos => todos.toJS(),
+);
 
 export const getFilteredTodos = createSelector(
   getTodos,
-  getTodosFilter,
+  (_state, props) => props.todosFilter,
   (todos, todosFilter) => flow(
     filter(FILTERS[todosFilter]),
     sortBy('index'),

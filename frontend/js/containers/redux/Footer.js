@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Footer from '../dnd/Footer';
 import { clearCompleteTodos, moveTodo } from '../../actions/TodoActionCreators';
-import { getMaxIndex } from '../../selectors';
+import { getMaxIndex } from '../../selectors/todoSelectors';
 
 
 function mapStateToProps(state) {

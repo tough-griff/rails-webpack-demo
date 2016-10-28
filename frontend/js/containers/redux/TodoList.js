@@ -2,13 +2,14 @@ import { connect } from 'react-redux';
 
 import TodoList from '../dnd/TodoList';
 import { fetchAllTodos, markAllTodos } from '../../actions/TodoActionCreators';
-import { getCompleteCount, getCount, getFilteredTodos } from '../../selectors';
+import { getIsLoading } from '../../selectors/applicationSelectors';
+import { getCompleteCount, getCount, getFilteredTodos } from '../../selectors/todoSelectors';
 
 function mapStateToProps(state, props) {
   return {
     completeCount: getCompleteCount(state),
     count: getCount(state),
-    isLoading: state.application.toJS().isLoading,
+    isLoading: getIsLoading(state),
     todos: getFilteredTodos(state, props),
   };
 }

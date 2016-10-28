@@ -23,11 +23,11 @@ export function createTodoList(newTodos) {
 
 // Define reducer functions to handle each potential action.
 const REDUCERS = {
-  addTodoEnd(state, { todo }) {
+  ADD_TODO__END(state, { todo }) {
     return state.push(new Todo(todo));
   },
 
-  clearCompleteTodosEnd(state, { todos: removedTodos }) {
+  CLEAR_COMPLETE_TODOS__END(state, { todos: removedTodos }) {
     const removed = createTodoList(removedTodos);
 
     // Removes todos where the ID is present in the removedTodos list.
@@ -36,23 +36,21 @@ const REDUCERS = {
     );
   },
 
-  deleteTodoEnd(state, { todo: { id } }) {
+  DELETE_TODO__END(state, { todo: { id } }) {
     return state.filterNot(todo => todo.get('id') === id);
   },
 
-  editTodoEnd(state, { todo: { id, label } }) {
-    return state.map(todo => (
-      (todo.get('id') === id)
-        ? todo.set('label', label)
-        : todo
-    ));
+  EDIT_TODO__END(state, { todo: { id, label } }) {
+    const index = state.findIndex(t => t.get('id') === id);
+
+    return state.update(index, todo => todo.set('label', label));
   },
 
-  fetchAllTodosEnd(state, { todos: allTodos }) {
+  FETCH_ALL_TODOS__END(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 
-  fetchTodoEnd(state, { todo }) {
+  FETCH_TODO__END(state, { todo }) {
     const newTodo = new Todo(todo);
     const index = state.findIndex(t => t.get('id') === newTodo.get('id'));
 
@@ -61,19 +59,17 @@ const REDUCERS = {
       : state.push(newTodo);
   },
 
-  markAllTodosEnd(state, { todos: allTodos }) {
+  MARK_ALL_TODOS__END(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 
-  markTodoEnd(state, { todo: { id, isComplete } }) {
-    return state.map(todo => (
-      (todo.get('id') === id)
-        ? todo.set('isComplete', isComplete)
-        : todo
-    ));
+  MARK_TODO__END(state, { todo: { id, isComplete } }) {
+    const index = state.findIndex(t => t.get('id') === id);
+
+    return state.update(index, todo => todo.set('isComplete', isComplete));
   },
 
-  moveTodoEnd(state, { todos: allTodos }) {
+  MOVE_TODO__END(state, { todos: allTodos }) {
     return createTodoList(allTodos);
   },
 };

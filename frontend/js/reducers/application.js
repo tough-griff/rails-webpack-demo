@@ -32,86 +32,86 @@ export function createAlert({ clientId, message, type } = {}) {
 
 // Define reducer functions to handle each potential action.
 const REDUCERS = {
-  addTodo(state, _payload) {
+  ADD_TODO(state, _payload) {
     return state.set('isLoading', true);
   },
 
-  addTodoEnd(state, _payload) {
+  ADD_TODO__END(state, _payload) {
     return state.set('isLoading', false);
   },
 
-  addTodoErr(state, { message }) {
+  ADD_TODO__ERR(state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
         alerts.push(createAlert({ message }))
       );
   },
 
-  clearCompleteTodosErr(state, { message }) {
+  CLEAR_COMPLETE_TODOS__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  deleteTodoErr(state, { message }) {
+  DELETE_TODO__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  editTodoErr(state, { message }) {
+  EDIT_TODO__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  fetchAllTodos(state, _payload) {
+  FETCH_ALL_TODOS(state, _payload) {
     return state.set('isLoading', true);
   },
 
-  fetchAllTodosEnd(state, _payload) {
+  FETCH_ALL_TODOS__END(state, _payload) {
     return state.set('isLoading', false);
   },
 
-  fetchAllTodosErr(state, { message }) {
+  FETCH_ALL_TODOS__ERR(state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
         alerts.push(createAlert({ message }))
       );
   },
 
-  fetchTodoErr(state, { message }) {
+  FETCH_TODO__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  markAllTodosErr(state, { message }) {
+  MARK_ALL_TODOS__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  markTodoErr(state, { message }) {
+  MARK_TODO__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  moveTodoErr(state, { message }) {
+  MOVE_TODO__ERR(state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
   // Alert handlers
-  addAlert(state, { message, type }) {
+  ADD_ALERT(state, { message, type }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message, type }))
     );
   },
 
-  clearAlert(state, { clientId }) {
+  CLEAR_ALERT(state, { clientId }) {
     return state.update('alerts', alerts =>
       alerts.filterNot(alert => alert.get('clientId') === clientId)
     );

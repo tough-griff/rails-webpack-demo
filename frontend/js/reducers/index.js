@@ -1,7 +1,7 @@
-import { routerReducer as routing } from 'react-router-redux';
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 
 import application from './application';
+import routing from './routing';
 import todos from './todos';
 
 export default combineReducers({

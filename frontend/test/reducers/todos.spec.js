@@ -117,7 +117,7 @@ describe('todos()', function () {
         payload: { todo: { id: 3, label: 'Fetched me!' } },
       };
 
-      it('correctly replaces the todo', function () {
+      it('correctly appends the todo', function () {
         const result = todos(state, action);
         expect(result).to.have.size(3);
         expect(result.last()).to.have.property('label', 'Fetched me!');

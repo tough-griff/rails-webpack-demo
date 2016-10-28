@@ -1,9 +1,10 @@
+import { Map } from 'immutable';
 import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './reducers';
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState = new Map()) {
   const saga = createSagaMiddleware();
   let devToolsStoreEnhancer = f => f;
 
