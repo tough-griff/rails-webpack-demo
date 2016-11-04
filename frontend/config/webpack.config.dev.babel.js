@@ -1,6 +1,7 @@
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import castArray from 'lodash/castArray';
 import mapValues from 'lodash/mapValues';
+import WatchMissingPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 import webpack from 'webpack';
 import validate from 'webpack-validator';
 
@@ -43,6 +44,11 @@ const devConfig = {
       include: [paths.src, paths.modules],
     }],
   },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
   output: {
     filename: '[name].bundle.js',
     path: paths.build,
@@ -55,6 +61,7 @@ const devConfig = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
+    new WatchMissingPlugin(paths.modules),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],

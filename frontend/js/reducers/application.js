@@ -13,7 +13,7 @@ export const Application = new Record({
 // Define an Immutable.js Alert Record.
 export const Alert = new Record({
   clientId: 0,
-  message: '',
+  message: 'An error occurred',
   type: 'error',
 });
 

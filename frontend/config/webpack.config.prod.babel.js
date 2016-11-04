@@ -1,5 +1,6 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import merge from 'webpack-merge';
 import validate from 'webpack-validator';
 
@@ -8,7 +9,7 @@ import entries from './entries';
 import paths from './paths';
 
 const uglifyConfig = {
-  compressor: {
+  compress: {
     screw_ie8: true,
     warnings: false,
   },
@@ -47,6 +48,11 @@ prodConfig.plugins = [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.UglifyJsPlugin(uglifyConfig),
   new ExtractTextPlugin('../stylesheets/[name].bundle.css'),
+  new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    generateStatsFile: true,
+    openAnalyzer: false,
+  }),
 ];
 
 export default validate(prodConfig, {
