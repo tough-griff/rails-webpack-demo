@@ -4,26 +4,30 @@ import { AppContainer } from 'react-hot-loader';
 
 import Root from './containers/Root';
 import configureStore from './configureStore';
+import '../css/index.scss';
 
-const rootEl = document.getElementById('react-app');
 const store = configureStore();
 
-function renderApp(App) {
-  if (!rootEl) return;
+function renderApp(App, node) {
+  if (!node) return;
 
   render(
     <AppContainer>
       <App store={store} />
     </AppContainer>,
-    rootEl,
+    node,
   );
 }
 
-renderApp(Root);
+document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('react-app');
 
-// Enable Webpack hot module replacement using react-hot-loader.
-if (module.hot) {
-  module.hot.accept('./containers/Root', () => {
-    renderApp(require('./containers/Root').default);
-  });
-}
+  renderApp(Root, node);
+
+  // Enable Webpack hot module replacement using react-hot-loader.
+  if (module.hot) {
+    module.hot.accept('./containers/Root', () => {
+      renderApp(require('./containers/Root').default, node);
+    });
+  }
+});

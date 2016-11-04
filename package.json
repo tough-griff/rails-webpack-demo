@@ -9,7 +9,6 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "NODE_ENV=production webpack --config=frontend/config/webpack.config.prod.babel.js",
-    "postbuild": "rimraf app/assets/javascripts/*.style.bundle.*",
     "check": "npm run lint && npm run test",
     "clean": "rimraf app/assets/{javascripts,stylesheets}",
     "lint": "eslint --ext=.js,.jsx frontend/",
