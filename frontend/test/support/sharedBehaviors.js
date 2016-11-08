@@ -1,6 +1,4 @@
-import fetchMock from 'fetch-mock';
 import castArray from 'lodash/castArray';
-import each from 'lodash/each';
 
 import mockStore from './mockStore';
 
@@ -18,24 +16,16 @@ export function behavesLikeActionCreator(subject, expectedActions) {
  * Assert that an API client function makes the correct request and returns the
  * expected result.
  */
-export function behavesLikeApiClient(subject, args, urls, expectedValue) {
-  let result;
-
-  before(function evaluateSubject() {
-    result = subject(...args);
-  });
-
-  it('makes the correct web request(s)', function () {
-    each(castArray(urls), (url) => {
-      expect(fetchMock.called(url)).to.be.true();
-    });
-  });
-
-  it('returns the correct value', function () {
-    return result.then((returnValue) => {
-      expect(returnValue).to.eql(expectedValue);
-    });
-  });
+export function behavesLikeApiCall(subject, ...args) {
+  return {
+    returning(expectedValue) {
+      it('returns the correct value', function () {
+        return subject(...args).then((returnValue) => {
+          expect(returnValue).to.eql(expectedValue);
+        });
+      });
+    },
+  };
 }
 
 /**

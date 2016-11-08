@@ -1,19 +1,16 @@
-import fetchMock from 'fetch-mock';
+import moxios from 'moxios';
 
-import { behavesLikeApiClient } from '../support/sharedBehaviors';
+import { behavesLikeApiCall } from '../support/sharedBehaviors';
 import Api from '../../js/api/TodoApi';
-
-const headers = { 'Content-Type': 'application/json' };
+import client from '../../js/utils/apiClient';
 
 describe('TodoApi', function () {
-  before(function stubGetElementsByTagName() {
-    sinon.stub(document, 'getElementsByTagName').returns({
-      'csrf-token': { content: 'FAKE_CSRF_TOKEN' },
-    });
+  beforeEach(function installMoxios() {
+    moxios.install(client);
   });
 
-  after(function restoreGetElementsByTagName() {
-    document.getElementsByTagName.restore();
+  afterEach(function uninstallMoxios() {
+    moxios.uninstall(client);
   });
 
   describe('.index()', function () {
@@ -21,10 +18,10 @@ describe('TodoApi', function () {
     const todos = [{ label: 'fake1' }, { label: 'fake2' }];
 
     before(function stubApi() {
-      fetchMock.restore().get(url, { body: { todos }, headers });
+      moxios.stubRequest(url, { response: { todos } });
     });
 
-    behavesLikeApiClient(Api.index, [], url, todos);
+    behavesLikeApiCall(Api.index).returning(todos);
   });
 
   describe('.create()', function () {
@@ -32,10 +29,10 @@ describe('TodoApi', function () {
     const todo = { label: 'fake1' };
 
     before(function stubApi() {
-      fetchMock.restore().post(url, { body: { todo }, headers });
+      moxios.stubRequest(url, { response: { todo } });
     });
 
-    behavesLikeApiClient(Api.create, [todo], url, todo);
+    behavesLikeApiCall(Api.create, todo).returning(todo);
   });
 
   describe('.show()', function () {
@@ -43,10 +40,10 @@ describe('TodoApi', function () {
     const todo = { id: 4 };
 
     before(function stubApi() {
-      fetchMock.restore().get(url, { body: { todo }, headers });
+      moxios.stubRequest(url, { response: { todo } });
     });
 
-    behavesLikeApiClient(Api.show, [4], url, todo);
+    behavesLikeApiCall(Api.show, 4).returning(todo);
   });
 
   describe('.update()', function () {
@@ -54,10 +51,10 @@ describe('TodoApi', function () {
     const todo = { id: 4, label: 'new label' };
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { body: { todo }, headers });
+      moxios.stubRequest(url, { response: { todo } });
     });
 
-    behavesLikeApiClient(Api.update, [4, { label: 'new label' }], url, todo);
+    behavesLikeApiCall(Api.update, 4, { label: 'new label' }).returning(todo);
   });
 
   describe('.destroy()', function () {
@@ -65,10 +62,10 @@ describe('TodoApi', function () {
     const todo = { id: 4 };
 
     before(function stubApi() {
-      fetchMock.restore().delete(url, { body: { todo }, headers });
+      moxios.stubRequest(url, { response: { todo } });
     });
 
-    behavesLikeApiClient(Api.destroy, [4], url, todo);
+    behavesLikeApiCall(Api.destroy, 4).returning(todo);
   });
 
   describe('.markAll()', function () {
@@ -76,10 +73,10 @@ describe('TodoApi', function () {
     const todos = [{ complete: true }, { complete: true }];
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { body: { todos }, headers });
+      moxios.stubRequest(url, { response: { todos } });
     });
 
-    behavesLikeApiClient(Api.markAll, [true], url, todos);
+    behavesLikeApiCall(Api.markAll, true).returning(todos);
   });
 
   describe('.move()', function () {
@@ -87,10 +84,10 @@ describe('TodoApi', function () {
     const todos = [{ index: 2 }, { index: 1 }];
 
     before(function stubApi() {
-      fetchMock.restore().patch(url, { body: { todos }, headers });
+      moxios.stubRequest(url, { response: { todos } });
     });
 
-    behavesLikeApiClient(Api.move, [1, 2], url, todos);
+    behavesLikeApiCall(Api.move, 1, 2).returning(todos);
   });
 
   describe('.clearComplete()', function () {
@@ -98,9 +95,9 @@ describe('TodoApi', function () {
     const todos = [{ label: 'fake1', complete: false }];
 
     before(function stubApi() {
-      fetchMock.restore().delete(url, { body: { todos }, headers });
+      moxios.stubRequest(url, { response: { todos } });
     });
 
-    behavesLikeApiClient(Api.clearComplete, [], url, todos);
+    behavesLikeApiCall(Api.clearComplete).returning(todos);
   });
 });

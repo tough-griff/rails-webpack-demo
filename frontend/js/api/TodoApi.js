@@ -1,4 +1,4 @@
-import fetch from '../utils/fetch';
+import client from '../utils/apiClient';
 
 const SERVER_PATH = '/api';
 const markAllTodosPath = () => `${SERVER_PATH}/todos/mark_all`;
@@ -8,51 +8,47 @@ const todosPath = () => `${SERVER_PATH}/todos`;
 const todoPath = id => `${SERVER_PATH}/todos/${id}`;
 
 function take(key) {
-  return res => res[key];
+  return res => res.data[key];
 }
 
 const TodoApi = {
   index() {
-    return fetch.get(todosPath())
+    return client.get(todosPath())
       .then(take('todos'));
   },
 
   create(todo) {
-    return fetch.post(todosPath(), {
-      body: JSON.stringify({ todo }),
-    }).then(take('todo'));
+    return client.post(todosPath(), { todo })
+      .then(take('todo'));
   },
 
   show(id) {
-    return fetch.get(todoPath(id))
+    return client.get(todoPath(id))
       .then(take('todo'));
   },
 
   update(id, todo) {
-    return fetch.patch(todoPath(id), {
-      body: JSON.stringify({ todo }),
-    }).then(take('todo'));
+    return client.patch(todoPath(id), { todo })
+      .then(take('todo'));
   },
 
   destroy(id) {
-    return fetch.delete(todoPath(id))
+    return client.delete(todoPath(id))
       .then(take('todo'));
   },
 
   markAll(complete) {
-    return fetch.patch(markAllTodosPath(), {
-      body: JSON.stringify({ complete }),
-    }).then(take('todos'));
+    return client.patch(markAllTodosPath(), { complete })
+      .then(take('todos'));
   },
 
   move(at, to) {
-    return fetch.patch(moveTodosPath(), {
-      body: JSON.stringify({ at, to }),
-    }).then(take('todos'));
+    return client.patch(moveTodosPath(), { at, to })
+      .then(take('todos'));
   },
 
   clearComplete() {
-    return fetch.delete(clearCompleteTodosPath())
+    return client.delete(clearCompleteTodosPath())
       .then(take('todos'));
   },
 };

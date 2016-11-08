@@ -1,12 +1,9 @@
-import fetchMock from 'fetch-mock';
-
 import mockStore from '../support/mockStore';
 import { behavesLikeActionCreator } from '../support/sharedBehaviors';
 import * as TodoActionCreators from '../../js/actions/TodoActionCreators';
 
 describe('TodoActionCreators', function () {
   afterEach(function resetMocks() {
-    fetchMock.reset();
     mockStore.clearActions();
   });
 
