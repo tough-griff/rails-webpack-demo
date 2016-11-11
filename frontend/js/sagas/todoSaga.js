@@ -1,5 +1,5 @@
 import { takeEvery, takeLatest } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 import Api from '../api/TodoApi';
 
@@ -89,13 +89,13 @@ export function* moveTodo({ payload }) {
 }
 
 export default function* todoSaga() {
-  yield fork(takeEvery, 'ADD_TODO', addTodo);
-  yield fork(takeEvery, 'CLEAR_COMPLETE_TODOS', clearCompleteTodos);
-  yield fork(takeEvery, 'DELETE_TODO', deleteTodo);
-  yield fork(takeEvery, 'EDIT_TODO', editTodo);
-  yield fork(takeLatest, 'FETCH_ALL_TODOS', fetchAllTodos);
-  yield fork(takeLatest, 'FETCH_TODO', fetchTodo);
-  yield fork(takeLatest, 'MARK_ALL_TODOS', markAllTodos);
-  yield fork(takeEvery, 'MARK_TODO', markTodo);
-  yield fork(takeEvery, 'MOVE_TODO', moveTodo);
+  yield takeEvery('ADD_TODO', addTodo);
+  yield takeEvery('CLEAR_COMPLETE_TODOS', clearCompleteTodos);
+  yield takeEvery('DELETE_TODO', deleteTodo);
+  yield takeEvery('EDIT_TODO', editTodo);
+  yield takeLatest('FETCH_ALL_TODOS', fetchAllTodos);
+  yield takeLatest('FETCH_TODO', fetchTodo);
+  yield takeLatest('MARK_ALL_TODOS', markAllTodos);
+  yield takeEvery('MARK_TODO', markTodo);
+  yield takeEvery('MOVE_TODO', moveTodo);
 }

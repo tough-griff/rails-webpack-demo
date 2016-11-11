@@ -1,5 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga';
-import { call, fork, put } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 
 import todoSaga, {
   addTodo,
@@ -235,32 +234,32 @@ describe('todoSaga() handlers', function () {
     const generator = todoSaga();
 
     it('forks the correct action handlers', function () {
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'ADD_TODO', addTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(ADD_TODO, addTodo)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'CLEAR_COMPLETE_TODOS', clearCompleteTodos)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(CLEAR_COMPLETE_TODOS, clearCompleteTodos)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'DELETE_TODO', deleteTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(DELETE_TODO, deleteTodo)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'EDIT_TODO', editTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(EDIT_TODO, editTodo)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeLatest, 'FETCH_ALL_TODOS', fetchAllTodos)
+      expect(generator.next().value.name).to.eql(
+        'takeLatest(FETCH_ALL_TODOS, fetchAllTodos)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeLatest, 'FETCH_TODO', fetchTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeLatest(FETCH_TODO, fetchTodo)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeLatest, 'MARK_ALL_TODOS', markAllTodos)
+      expect(generator.next().value.name).to.eql(
+        'takeLatest(MARK_ALL_TODOS, markAllTodos)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'MARK_TODO', markTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(MARK_TODO, markTodo)'
       );
-      expect(generator.next().value).to.eql(
-        fork(takeEvery, 'MOVE_TODO', moveTodo)
+      expect(generator.next().value.name).to.eql(
+        'takeEvery(MOVE_TODO, moveTodo)'
       );
     });
   });

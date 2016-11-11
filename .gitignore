@@ -15,8 +15,7 @@
 *.log
 
 # JS and misc build process.
-/app/assets/javascripts
-/app/assets/stylesheets
+/app/assets
 /node_modules
 /public/assets
 
