@@ -12,24 +12,33 @@ const client = axios.create({
   },
 });
 
+const hasMetaError = has('meta.error');
+
 /**
  * Checks a response's data for `meta.error` and returns a rejected promise if
- * found.
+ * found. Otherwise, returns the second argument.
  */
-function checkForMetaErr(response) {
-  if (!has('meta.error')(response.data)) return null;
+function checkResponse(response, returnVal = response) {
+  const { config, data } = response;
+  if (!hasMetaError(data)) return returnVal;
 
-  const error = new Error(castArray(response.data.meta.error).join('; '));
-  error.config = response.config;
+  const error = new Error(castArray(data.meta.error).join('; '));
+  error.config = config;
   error.response = response;
   return Promise.reject(error);
 }
 
 // Check the response data for `meta.error` keys and reject when present.
-//   `meta.error` keys take priority over status codes for displaying an error.
+// `meta.error` keys take priority over status codes for displaying an error.
 client.interceptors.response.use(
-  response => checkForMetaErr(response) || response,
-  error => checkForMetaErr(error.response) || Promise.reject(error),
+  // Response interceptor
+  checkResponse,
+
+  // Error interceptor
+  (error) => {
+    const reject = Promise.reject(error);
+    return error.response ? checkResponse(error.response, reject) : reject;
+  },
 );
 
 export default client;

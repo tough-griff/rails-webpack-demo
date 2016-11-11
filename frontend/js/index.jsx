@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader';
 
 import Root from './containers/Root';
 import configureStore from './configureStore';
-import '../css/index.scss';
 
 const store = configureStore();
 
