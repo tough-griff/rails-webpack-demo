@@ -16,11 +16,13 @@ const hasMetaError = has('meta.error');
 
 /**
  * Checks a response's data for `meta.error` and returns a rejected promise if
- * found. Otherwise, returns the second argument.
+ * found. The second argument is a function which returns the early exit value.
+ * This allows promises to reject lazily, so you do not get uncaught initialized
+ * rejections.
  */
-function checkResponse(response, returnVal = response) {
+function checkResponse(response, returnFunc = () => response) {
   const { config, data } = response;
-  if (!hasMetaError(data)) return returnVal;
+  if (!hasMetaError(data)) return returnFunc();
 
   const error = new Error(castArray(data.meta.error).join('; '));
   error.config = config;
@@ -36,8 +38,8 @@ client.interceptors.response.use(
 
   // Error interceptor
   (error) => {
-    const reject = Promise.reject(error);
-    return error.response ? checkResponse(error.response, reject) : reject;
+    const reject = () => Promise.reject(error);
+    return error.response ? checkResponse(error.response, reject) : reject();
   },
 );
 
