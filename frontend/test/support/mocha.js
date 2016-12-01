@@ -11,7 +11,7 @@ const HTML = `
 <!DOCTYPE html>
 <html>
   <head>
-    // <meta name="csrf-token" content="FAKE_CSRF_TOKEN" />
+    <meta name="csrf-token" content="FAKE_CSRF_TOKEN" />
   </head>
   <body></body>
 </html>

@@ -3,7 +3,6 @@ module.exports = {
     mocha: true
   },
   globals: {
-    chai: true,
     expect: true,
     sinon: true,
   },

@@ -1,6 +1,6 @@
 import { PropTypes } from 'react';
 
-const todoPropTypes = {
+export const todoPropTypes = {
   createdAt: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
@@ -9,7 +9,4 @@ const todoPropTypes = {
   updatedAt: PropTypes.string.isRequired,
 };
 
-const todoShape = PropTypes.shape(todoPropTypes);
-
-export default todoShape;
-export { todoPropTypes };
+export default PropTypes.shape(todoPropTypes);
