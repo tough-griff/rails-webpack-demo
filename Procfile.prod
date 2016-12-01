@@ -1,3 +1,1 @@
 web: bundle exec passenger start --port=$PORT --max-pool-size=$MAX_POOL_SIZE --ssl --ssl-certificate=$SSL_CERTIFICATE --ssl-certificate-key=$SSL_CERTIFICATE_KEY --ssl-port=$SSL_PORT
-mailcatcher: mailcatcher --smtp-port=$MAILCATCHER_PORT --foreground
-webpack-server: npm start

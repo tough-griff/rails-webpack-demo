@@ -6,13 +6,16 @@
 
 Run `foreman start -f Procfile.dev` to start up a development environment.
 
-Run `RAILS_ENV=production bundle exec rake build && foreman start -e .env.prod`
+Browse to http://lvh.me:3000 or https://lvh.me:5000 if `SSL=true`
+
+#### Simulating Production
+Run `bundle exec rake webpack:build && foreman start -f Procfile.prod -e .env.prod`
 to simulate a production environment (still using the development database).
 
 ## SSL Setup (on OS X)
 #### Self-signed certificate
-First, we need to create a self-signed SSL certificate.
-I used the following configuration file:
+To use SSL in development we need to create a self-signed SSL certificate. This
+one is configured as a wildcard cert for `*.lvh.me`.
 
 *cert.cnf*
 ```
@@ -47,75 +50,6 @@ cat lvh.me.key lvh.me.crt > lvh.me.pem
 cp lvh.me.* /usr/local/etc/
 ```
 
-
-#### HTTPS Proxy
-Then, we configure `pound` to redirect HTTP requests to HTTPS requests for the *lvh.me* domain.
-
-*/usr/local/etc/pound.cfg*
-```
-Alive 10
-
-# http://lvh.me
-ListenHTTP
-  Address 127.0.0.1
-  Port    80
-  xHTTP   1
-
-  Service
-    BackEnd
-      Address 127.0.0.1
-      Port    5000
-    End
-  End
-End
-
-# https://lvh.me
-ListenHTTPS
-  Address 127.0.0.1
-  Port    443
-  xHTTP   1
-  Cert    "/usr/local/etc/lvh.me.pem"
-  AddHeader "X-Forwarded-Proto: https"
-
-  Service
-    BackEnd
-      Address 127.0.0.1
-      Port    5000
-    End
-  End
-End
-
-```
-
-*/Library/LaunchDaemons/homebrew.mxcl.pound.plist*
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>Label</key>
-    <string>homebrew.mxcl.pound.plist</string>
-    <key>ProgramArguments</key>
-    <array>
-      <string>/usr/local/sbin/pound</string>
-      <string>-f</string>
-      <string>/usr/local/etc/pound.cfg</string>
-    </array>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>WatchPaths</key>
-    <array/>
-    <key>QueueDirectories</key>
-    <array/>
-  </dict>
-</plist>
-```
-
-And finally, run the following:
-```sh
-brew install pound
-sudo chown root /Library/LaunchDaemons/homebrew.mxcl.pound.plist
-sudo chgrp wheel /Library/LaunchDaemons/homebrew.mxcl.pound.plist
-sudo chmod 644 /Library/LaunchDaemons/homebrew.mxcl.pound.plist
-sudo launchctl load /Library/LaunchDaemons/homebrew.mxcl.pound.plist
-```
+**Please note:** You may want to add `lvh.me` to your */etc/hosts* file, but
+`lvh.me` already redirects to `127.0.0.1`. Adding it to your hosts file just
+eliminates the need to hit DNS.
