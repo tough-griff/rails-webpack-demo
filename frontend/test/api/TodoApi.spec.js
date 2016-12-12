@@ -1,17 +1,12 @@
 import moxios from 'moxios';
 
 import { behavesLikeApiCall } from '../support/sharedBehaviors';
+import { withMoxios } from '../support/sharedContexts';
 import Api from '../../js/api/TodoApi';
 import client from '../../js/utils/apiClient';
 
 describe('TodoApi', function () {
-  beforeEach(function installMoxios() {
-    moxios.install(client);
-  });
-
-  afterEach(function uninstallMoxios() {
-    moxios.uninstall(client);
-  });
+  withMoxios(client);
 
   describe('.index()', function () {
     const url = '/api/todos';
