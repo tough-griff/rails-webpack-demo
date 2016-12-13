@@ -14,7 +14,6 @@ module.exports = {
       objects: 'always-multiline',
     }],
     'global-require': 'off',
-    'new-cap': ['warn', { newIsCap: true, capIsNew: false }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
     // Import plugin rules.
@@ -24,7 +23,6 @@ module.exports = {
     }],
 
     // React plugin rules.
-    'react/no-unused-prop-types': ['error', { skipShapeProps: true }],
     'react/prefer-stateless-function': 'warn',
   },
 }
