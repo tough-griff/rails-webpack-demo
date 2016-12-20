@@ -10,4 +10,8 @@ export default combineReducers({
   todos,
 });
 
-export { todos };
+export {
+  application,
+  routing,
+  todos,
+};

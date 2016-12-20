@@ -1,21 +1,8 @@
-import { List, Record } from 'immutable';
-
+import Alert from '../records/Alert';
+import Application from '../records/Application';
 import createReducer from '../utils/createReducer';
 
 let clientIdCounter = 0;
-
-// Define an Immutable.js Application Record.
-export const Application = new Record({
-  alerts: new List(),
-  isLoading: false,
-});
-
-// Define an Immutable.js Alert Record.
-export const Alert = new Record({
-  clientId: 0,
-  message: 'An error occurred',
-  type: 'error',
-});
 
 /**
  * Returns a properly initialized Alert record.

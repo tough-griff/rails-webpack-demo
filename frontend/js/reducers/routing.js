@@ -7,7 +7,7 @@ import createReducer from '../utils/createReducer';
 
 export const Routing = new Record({
   locationBeforeTransitions: null,
-});
+}, 'Routing');
 
 const REDUCERS = {
   [LOCATION_CHANGE](state, payload) {

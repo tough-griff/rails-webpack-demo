@@ -1,24 +1,15 @@
-import { List, Record, Seq } from 'immutable';
+import { map } from 'lodash/fp';
+import { List } from 'immutable';
 
+import Todo from '../records/Todo';
 import createReducer from '../utils/createReducer';
-
-// Define an Immutable.js Todo Record.
-export const Todo = new Record({
-  createdAt: '1970-01-01T00:00:00.000Z',
-  id: 0,
-  index: 0,
-  isComplete: false,
-  label: 'todo',
-  updatedAt: '1970-01-01T00:00:00.000Z',
-});
 
 /**
  * Returns a new Immutable.js List of Todo Records.
  */
-export function createTodoList(newTodos) {
-  return new Seq(newTodos)
-    .map(todo => new Todo(todo))
-    .toList();
+export function createTodoList(todos) {
+  const todoRecords = map(t => new Todo(t))(todos);
+  return new List(todoRecords);
 }
 
 // Define reducer functions to handle each potential action.
@@ -27,10 +18,10 @@ const REDUCERS = {
     return state.push(new Todo(todo));
   },
 
-  CLEAR_COMPLETE_TODOS__END(state, { todos: removedTodos }) {
-    const removed = createTodoList(removedTodos);
+  CLEAR_COMPLETE_TODOS__END(state, { todos }) {
+    const removed = createTodoList(todos);
 
-    // Removes todos where the ID is present in the removedTodos list.
+    // Removes todos where the ID is present in the todos list.
     return state.filterNot(todo =>
       removed.some(removedTodo => removedTodo.get('id') === todo.get('id'))
     );
@@ -46,8 +37,8 @@ const REDUCERS = {
     return state.update(index, todo => todo.set('label', label));
   },
 
-  FETCH_ALL_TODOS__END(state, { todos: allTodos }) {
-    return createTodoList(allTodos);
+  FETCH_ALL_TODOS__END(state, { todos }) {
+    return createTodoList(todos);
   },
 
   FETCH_TODO__END(state, { todo }) {
@@ -59,8 +50,8 @@ const REDUCERS = {
       : state.push(newTodo);
   },
 
-  MARK_ALL_TODOS__END(state, { todos: allTodos }) {
-    return createTodoList(allTodos);
+  MARK_ALL_TODOS__END(state, { todos }) {
+    return createTodoList(todos);
   },
 
   MARK_TODO__END(state, { todo: { id, isComplete } }) {
@@ -69,8 +60,8 @@ const REDUCERS = {
     return state.update(index, todo => todo.set('isComplete', isComplete));
   },
 
-  MOVE_TODO__END(state, { todos: allTodos }) {
-    return createTodoList(allTodos);
+  MOVE_TODO__END(state, { todos }) {
+    return createTodoList(todos);
   },
 };
 
