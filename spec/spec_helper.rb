@@ -23,6 +23,7 @@ if ENV["COVERAGE"]
     add_filter "/config"
     add_filter "/spec/"
     add_filter "/vendor/"
+    coverage_dir "coverage/ruby"
   end
 end
 

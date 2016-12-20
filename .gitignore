@@ -8,6 +8,7 @@
 /.bundle
 
 # Ignore all log files and temp files.
+/.nyc_output
 /coverage
 /log
 /spec/.example_status

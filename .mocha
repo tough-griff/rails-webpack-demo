@@ -1,0 +1,3 @@
+--compilers js:babel-register
+--require ./frontend/test/support/mocha
+--recursive
