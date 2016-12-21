@@ -1,60 +1,62 @@
+import * as Actions from './constants';
+
 export function addTodo(label) {
   return {
-    type: 'ADD_TODO',
+    type: Actions.ADD_TODO,
     payload: { label },
   };
 }
 
 export function clearCompleteTodos() {
   return {
-    type: 'CLEAR_COMPLETE_TODOS',
+    type: Actions.CLEAR_COMPLETE_TODOS,
   };
 }
 
 export function deleteTodo(id) {
   return {
-    type: 'DELETE_TODO',
+    type: Actions.DELETE_TODO,
     payload: { id },
   };
 }
 
 export function editTodo(id, label) {
   return {
-    type: 'EDIT_TODO',
+    type: Actions.EDIT_TODO,
     payload: { id, label },
   };
 }
 
 export function fetchAllTodos() {
   return {
-    type: 'FETCH_ALL_TODOS',
+    type: Actions.FETCH_ALL_TODOS,
   };
 }
 
 export function fetchTodo(id) {
   return {
-    type: 'FETCH_TODO',
+    type: Actions.FETCH_TODO,
     payload: { id },
   };
 }
 
 export function markAllTodos(complete) {
   return {
-    type: 'MARK_ALL_TODOS',
+    type: Actions.MARK_ALL_TODOS,
     payload: { complete },
   };
 }
 
 export function markTodo(id, complete) {
   return {
-    type: 'MARK_TODO',
+    type: Actions.MARK_TODO,
     payload: { id, complete },
   };
 }
 
 export function moveTodo(at, to) {
   return {
-    type: 'MOVE_TODO',
+    type: Actions.MOVE_TODO,
     payload: { at, to },
   };
 }

@@ -2,6 +2,7 @@ import { each } from 'lodash';
 import { List } from 'immutable';
 
 import { behavesLikeReducer } from '../support/sharedBehaviors';
+import * as Actions from '../../js/actions/constants';
 import Application from '../../js/records/Application';
 import application, { createAlert } from '../../js/reducers/application';
 
@@ -10,8 +11,8 @@ describe('application()', function () {
 
   behavesLikeReducer(application, state);
 
-  context('with action type "ADD_TODO"', function () {
-    const action = { type: 'ADD_TODO' };
+  context('with action type Actions.ADD_TODO', function () {
+    const action = { type: Actions.ADD_TODO };
 
     it('toggles loading: true', function () {
       const result = application(state, action);
@@ -19,8 +20,8 @@ describe('application()', function () {
     });
   });
 
-  context('with action type "ADD_TODO__END"', function () {
-    const action = { type: 'ADD_TODO__END' };
+  context('with action type Actions.ADD_TODO__END', function () {
+    const action = { type: Actions.ADD_TODO__END };
 
     before(function setState() {
       state = state.set('isLoading', true);
@@ -32,8 +33,8 @@ describe('application()', function () {
     });
   });
 
-  context('with action type "ADD_TODO__ERR"', function () {
-    const action = { type: 'ADD_TODO__ERR', payload: 'Error' };
+  context('with action type Actions.ADD_TODO__ERR', function () {
+    const action = { type: Actions.ADD_TODO__ERR, payload: 'Error' };
 
     before(function setState() {
       state = state.set('isLoading', true);
@@ -46,8 +47,8 @@ describe('application()', function () {
     });
   });
 
-  context('with action type "FETCH_ALL_TODOS"', function () {
-    const action = { type: 'FETCH_ALL_TODOS' };
+  context('with action type Actions.FETCH_ALL_TODOS', function () {
+    const action = { type: Actions.FETCH_ALL_TODOS };
 
     it('toggles loading: true', function () {
       const result = application(state, action);
@@ -55,8 +56,8 @@ describe('application()', function () {
     });
   });
 
-  context('with action type "FETCH_ALL_TODOS__END"', function () {
-    const action = { type: 'FETCH_ALL_TODOS__END' };
+  context('with action type Actions.FETCH_ALL_TODOS__END', function () {
+    const action = { type: Actions.FETCH_ALL_TODOS__END };
 
     before(function setState() {
       state = state.set('isLoading', true);
@@ -68,8 +69,8 @@ describe('application()', function () {
     });
   });
 
-  context('with action type "FETCH_ALL_TODOS__ERR"', function () {
-    const action = { type: 'FETCH_ALL_TODOS__ERR', payload: 'Error' };
+  context('with action type Actions.FETCH_ALL_TODOS__ERR', function () {
+    const action = { type: Actions.FETCH_ALL_TODOS__ERR, payload: 'Error' };
 
     before(function setState() {
       state = state.set('isLoading', true);
@@ -84,13 +85,13 @@ describe('application()', function () {
 
   describe('error handling', function () {
     const actionTypes = [
-      'CLEAR_COMPLETE_TODOS__ERR',
-      'DELETE_TODO__ERR',
-      'EDIT_TODO__ERR',
-      'FETCH_TODO__ERR',
-      'MARK_ALL_TODOS__ERR',
-      'MARK_TODO__ERR',
-      'MOVE_TODO__ERR',
+      Actions.CLEAR_COMPLETE_TODOS__ERR,
+      Actions.DELETE_TODO__ERR,
+      Actions.EDIT_TODO__ERR,
+      Actions.FETCH_TODO__ERR,
+      Actions.MARK_ALL_TODOS__ERR,
+      Actions.MARK_TODO__ERR,
+      Actions.MOVE_TODO__ERR,
     ];
 
     each(actionTypes, (type) => {
@@ -106,9 +107,9 @@ describe('application()', function () {
   });
 
   // Alert handlers
-  context('when action type "ADD_ALERT"', function () {
+  context('when action type Actions.ADD_ALERT', function () {
     const action = {
-      type: 'ADD_ALERT',
+      type: Actions.ADD_ALERT,
       payload: { message: 'info', type: 'info' },
     };
 
@@ -120,9 +121,9 @@ describe('application()', function () {
     });
   });
 
-  context('when action type "CLEAR_ALERT"', function () {
+  context('when action type Actions.CLEAR_ALERT', function () {
     const clientId = 12345;
-    const action = { type: 'CLEAR_ALERT', payload: { clientId } };
+    const action = { type: Actions.CLEAR_ALERT, payload: { clientId } };
 
     before(function setState() {
       state = state.set('alerts', new List([
@@ -136,6 +137,19 @@ describe('application()', function () {
       expect(result).to.have.size(1);
       expect(result.every(alert => alert.get('clientId') !== clientId))
         .to.be.true();
+    });
+  });
+
+  context('when action type Actions.CLEAR_ALL_ALERTS', function () {
+    const action = { type: Actions.CLEAR_ALL_ALERTS };
+
+    before(function setState() {
+      state = state.set('alerts', new List([1, 2]));
+    });
+
+    it('removes the correct alert', function () {
+      const result = application(state, action).get('alerts');
+      expect(result).to.have.size(0);
     });
   });
 });

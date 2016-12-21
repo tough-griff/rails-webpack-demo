@@ -5,10 +5,14 @@ import mockStore from './mockStore';
 /**
  * Assert that a given action creator behaves correctly.
  */
-export function behavesLikeActionCreator(subject, expectedActions) {
+export function behavesLikeActionCreator(subject, expectedActions, store = mockStore) {
+  after(function clearStoreActions() {
+    store.clearActions();
+  });
+
   it('dispatches the correct action(s)', function () {
-    mockStore.dispatch(subject);
-    expect(mockStore.getActions()).to.eql(castArray(expectedActions));
+    store.dispatch(subject);
+    expect(store.getActions()).to.eql(castArray(expectedActions));
   });
 }
 

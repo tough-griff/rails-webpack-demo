@@ -1,6 +1,7 @@
 import { List } from 'immutable';
 
 import { behavesLikeReducer } from '../support/sharedBehaviors';
+import * as Actions from '../../js/actions/constants';
 import todos, { createTodoList } from '../../js/reducers/todos';
 
 describe('todos()', function () {
@@ -18,9 +19,9 @@ describe('todos()', function () {
 
   behavesLikeReducer(todos, new List());
 
-  context('with action type "ADD_TODO__END"', function () {
+  context('with action type Actions.ADD_TODO__END', function () {
     const action = {
-      type: 'ADD_TODO__END',
+      type: Actions.ADD_TODO__END,
       payload: {
         todo: {
           id: 3,
@@ -37,9 +38,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "CLEAR_COMPLETE_TODOS__END"', function () {
+  context('with action type Actions.CLEAR_COMPLETE_TODOS__END', function () {
     const action = {
-      type: 'CLEAR_COMPLETE_TODOS__END',
+      type: Actions.CLEAR_COMPLETE_TODOS__END,
       payload: {
         todos: [{
           id: 1,
@@ -54,9 +55,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "DELETE_TODO__END"', function () {
+  context('with action type Actions.DELETE_TODO__END', function () {
     const action = {
-      type: 'DELETE_TODO__END',
+      type: Actions.DELETE_TODO__END,
       payload: {
         todo: { id: 2 },
       },
@@ -69,9 +70,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "EDIT_TODO__END"', function () {
+  context('with action type Actions.EDIT_TODO__END', function () {
     const action = {
-      type: 'EDIT_TODO__END',
+      type: Actions.EDIT_TODO__END,
       payload: {
         todo: {
           id: 2,
@@ -87,9 +88,9 @@ describe('todos()', function () {
   });
 
 
-  context('with action type "FETCH_ALL_TODOS__END"', function () {
+  context('with action type Actions.FETCH_ALL_TODOS__END', function () {
     const action = {
-      type: 'FETCH_ALL_TODOS__END',
+      type: Actions.FETCH_ALL_TODOS__END,
       payload: {
         todos: [{
           label: 'Fetched me!',
@@ -110,10 +111,10 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "FETCH_TODO__END"', function () {
+  context('with action type Actions.FETCH_TODO__END', function () {
     context('when fetching a new todo', function () {
       const action = {
-        type: 'FETCH_TODO__END',
+        type: Actions.FETCH_TODO__END,
         payload: { todo: { id: 3, label: 'Fetched me!' } },
       };
 
@@ -126,7 +127,7 @@ describe('todos()', function () {
 
     context('when fetching an existing todo', function () {
       const action = {
-        type: 'FETCH_TODO__END',
+        type: Actions.FETCH_TODO__END,
         payload: { todo: { id: 2, label: 'Fetched me!' } },
       };
 
@@ -138,9 +139,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "MARK_ALL_TODOS__END"', function () {
+  context('with action type Actions.MARK_ALL_TODOS__END', function () {
     const action = {
-      type: 'MARK_ALL_TODOS__END',
+      type: Actions.MARK_ALL_TODOS__END,
       payload: {
         todos: [{
           isComplete: true,
@@ -160,9 +161,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "MARK_TODO__END"', function () {
+  context('with action type Actions.MARK_TODO__END', function () {
     const action = {
-      type: 'MARK_TODO__END',
+      type: Actions.MARK_TODO__END,
       payload: {
         todo: {
           id: 2,
@@ -177,9 +178,9 @@ describe('todos()', function () {
     });
   });
 
-  context('with action type "MOVE_TODO__END"', function () {
+  context('with action type Actions.MOVE_TODO__END', function () {
     const action = {
-      type: 'MOVE_TODO__END',
+      type: Actions.MOVE_TODO__END,
       payload: {
         todos: [{ index: 2 }, { index: 1 }],
       },

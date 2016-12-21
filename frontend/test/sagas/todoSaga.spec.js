@@ -11,6 +11,7 @@ import todoSaga, {
   markTodo,
   moveTodo,
 } from '../../js/sagas/todoSaga';
+import * as Actions from '../../js/actions/constants';
 import Api from '../../js/api/TodoApi';
 
 describe('todoSaga() handlers', function () {
@@ -26,14 +27,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todo = {};
       expect(generator.next(todo).value).to.eql(
-        put({ type: 'ADD_TODO__END', payload: { todo } })
+        put({ type: Actions.ADD_TODO__END, payload: { todo } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'ADD_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.ADD_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -50,14 +51,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todos = [];
       expect(generator.next(todos).value).to.eql(
-        put({ type: 'CLEAR_COMPLETE_TODOS__END', payload: { todos } })
+        put({ type: Actions.CLEAR_COMPLETE_TODOS__END, payload: { todos } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'CLEAR_COMPLETE_TODOS__ERR', payload: error, error: true })
+        put({ type: Actions.CLEAR_COMPLETE_TODOS__ERR, payload: error, error: true })
       );
     });
   });
@@ -74,14 +75,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todo = {};
       expect(generator.next(todo).value).to.eql(
-        put({ type: 'DELETE_TODO__END', payload: { todo } })
+        put({ type: Actions.DELETE_TODO__END, payload: { todo } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'DELETE_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.DELETE_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -98,14 +99,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todo = {};
       expect(generator.next(todo).value).to.eql(
-        put({ type: 'EDIT_TODO__END', payload: { todo } })
+        put({ type: Actions.EDIT_TODO__END, payload: { todo } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'EDIT_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.EDIT_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -122,14 +123,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todos = [];
       expect(generator.next(todos).value).to.eql(
-        put({ type: 'FETCH_ALL_TODOS__END', payload: { todos } })
+        put({ type: Actions.FETCH_ALL_TODOS__END, payload: { todos } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'FETCH_ALL_TODOS__ERR', payload: error, error: true })
+        put({ type: Actions.FETCH_ALL_TODOS__ERR, payload: error, error: true })
       );
     });
   });
@@ -146,14 +147,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todo = {};
       expect(generator.next(todo).value).to.eql(
-        put({ type: 'FETCH_TODO__END', payload: { todo } })
+        put({ type: Actions.FETCH_TODO__END, payload: { todo } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'FETCH_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.FETCH_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -170,14 +171,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todos = [];
       expect(generator.next(todos).value).to.eql(
-        put({ type: 'MARK_ALL_TODOS__END', payload: { todos } })
+        put({ type: Actions.MARK_ALL_TODOS__END, payload: { todos } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'MARK_ALL_TODOS__ERR', payload: error, error: true })
+        put({ type: Actions.MARK_ALL_TODOS__ERR, payload: error, error: true })
       );
     });
   });
@@ -194,14 +195,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todo = {};
       expect(generator.next(todo).value).to.eql(
-        put({ type: 'MARK_TODO__END', payload: { todo } })
+        put({ type: Actions.MARK_TODO__END, payload: { todo } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'MARK_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.MARK_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -218,14 +219,14 @@ describe('todoSaga() handlers', function () {
     it('fires the correct action on success', function () {
       const todos = [];
       expect(generator.next(todos).value).to.eql(
-        put({ type: 'MOVE_TODO__END', payload: { todos } })
+        put({ type: Actions.MOVE_TODO__END, payload: { todos } })
       );
     });
 
     it('fires the correct action on error', function () {
       const error = {};
       expect(generator.throw(error).value).to.eql(
-        put({ type: 'MOVE_TODO__ERR', payload: error, error: true })
+        put({ type: Actions.MOVE_TODO__ERR, payload: error, error: true })
       );
     });
   });
@@ -235,31 +236,31 @@ describe('todoSaga() handlers', function () {
 
     it('forks the correct action handlers', function () {
       expect(generator.next().value.name).to.eql(
-        'takeEvery(ADD_TODO, addTodo)'
+        `takeEvery(${Actions.ADD_TODO}, addTodo)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeEvery(CLEAR_COMPLETE_TODOS, clearCompleteTodos)'
+        `takeEvery(${Actions.CLEAR_COMPLETE_TODOS}, clearCompleteTodos)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeEvery(DELETE_TODO, deleteTodo)'
+        `takeEvery(${Actions.DELETE_TODO}, deleteTodo)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeEvery(EDIT_TODO, editTodo)'
+        `takeEvery(${Actions.EDIT_TODO}, editTodo)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeLatest(FETCH_ALL_TODOS, fetchAllTodos)'
+        `takeLatest(${Actions.FETCH_ALL_TODOS}, fetchAllTodos)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeLatest(FETCH_TODO, fetchTodo)'
+        `takeLatest(${Actions.FETCH_TODO}, fetchTodo)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeLatest(MARK_ALL_TODOS, markAllTodos)'
+        `takeLatest(${Actions.MARK_ALL_TODOS}, markAllTodos)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeEvery(MARK_TODO, markTodo)'
+        `takeEvery(${Actions.MARK_TODO}, markTodo)`
       );
       expect(generator.next().value.name).to.eql(
-        'takeEvery(MOVE_TODO, moveTodo)'
+        `takeEvery(${Actions.MOVE_TODO}, moveTodo)`
       );
     });
   });

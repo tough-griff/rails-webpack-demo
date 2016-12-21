@@ -11,9 +11,7 @@ export const Routing = new Record({
 
 const REDUCERS = {
   [LOCATION_CHANGE](state, payload) {
-    return state.merge({
-      locationBeforeTransitions: payload,
-    });
+    return state.set('locationBeforeTransitions', payload);
   },
 };
 

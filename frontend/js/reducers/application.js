@@ -1,3 +1,6 @@
+import { List } from 'immutable';
+
+import * as Actions from '../actions/constants';
 import Alert from '../records/Alert';
 import Application from '../records/Application';
 import createReducer from '../utils/createReducer';
@@ -19,89 +22,93 @@ export function createAlert({ clientId, message, type } = {}) {
 
 // Define reducer functions to handle each potential action.
 const REDUCERS = {
-  ADD_TODO(state, _payload) {
+  [Actions.ADD_TODO](state, _payload) {
     return state.set('isLoading', true);
   },
 
-  ADD_TODO__END(state, _payload) {
+  [Actions.ADD_TODO__END](state, _payload) {
     return state.set('isLoading', false);
   },
 
-  ADD_TODO__ERR(state, { message }) {
+  [Actions.ADD_TODO__ERR](state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
         alerts.push(createAlert({ message }))
       );
   },
 
-  CLEAR_COMPLETE_TODOS__ERR(state, { message }) {
+  [Actions.CLEAR_COMPLETE_TODOS__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  DELETE_TODO__ERR(state, { message }) {
+  [Actions.DELETE_TODO__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  EDIT_TODO__ERR(state, { message }) {
+  [Actions.EDIT_TODO__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  FETCH_ALL_TODOS(state, _payload) {
+  [Actions.FETCH_ALL_TODOS](state, _payload) {
     return state.set('isLoading', true);
   },
 
-  FETCH_ALL_TODOS__END(state, _payload) {
+  [Actions.FETCH_ALL_TODOS__END](state, _payload) {
     return state.set('isLoading', false);
   },
 
-  FETCH_ALL_TODOS__ERR(state, { message }) {
+  [Actions.FETCH_ALL_TODOS__ERR](state, { message }) {
     return state.set('isLoading', false)
       .update('alerts', alerts =>
         alerts.push(createAlert({ message }))
       );
   },
 
-  FETCH_TODO__ERR(state, { message }) {
+  [Actions.FETCH_TODO__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  MARK_ALL_TODOS__ERR(state, { message }) {
+  [Actions.MARK_ALL_TODOS__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  MARK_TODO__ERR(state, { message }) {
+  [Actions.MARK_TODO__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
-  MOVE_TODO__ERR(state, { message }) {
+  [Actions.MOVE_TODO__ERR](state, { message }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message }))
     );
   },
 
   // Alert handlers
-  ADD_ALERT(state, { message, type }) {
+  [Actions.ADD_ALERT](state, { message, type }) {
     return state.update('alerts', alerts =>
       alerts.push(createAlert({ message, type }))
     );
   },
 
-  CLEAR_ALERT(state, { clientId }) {
+  [Actions.CLEAR_ALERT](state, { clientId }) {
     return state.update('alerts', alerts =>
       alerts.filterNot(alert => alert.get('clientId') === clientId)
     );
+  },
+
+  [Actions.CLEAR_ALL_ALERTS](state, _payload) {
+    return state.set('alerts', new List());
   },
 };
 
