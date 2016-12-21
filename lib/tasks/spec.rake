@@ -4,7 +4,7 @@ unless Rails.env.production?
     if ENV["COVERAGE"]
       system! "npm run test:cov"
     else
-      system! "npm run test -- --reporter=dot"
+      system! "npm run test"
     end
   end
 end

@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 
 import chai from 'chai';
+import chaiEnzyme from 'chai-enzyme';
 import chaiImmutable from 'chai-immutable';
 import dirtyChai from 'dirty-chai';
 import jsdomGlobal from 'jsdom-global';
@@ -22,6 +23,7 @@ jsdomGlobal(HTML);
 chai.use(chaiImmutable); // Must come before dirty-chai
 chai.use(dirtyChai);
 chai.use(sinonChai);
+chai.use(chaiEnzyme());
 
 // Export globally.
 global.expect = chai.expect;

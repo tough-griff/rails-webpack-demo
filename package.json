@@ -13,7 +13,7 @@
     "clean": "rimraf app/assets/{javascripts,stylesheets}",
     "lint": "eslint --ext .js,.jsx frontend/",
     "start": "npm run webpack-server",
-    "test": "cross-env NODE_ENV=test mocha --opts .mocha frontend/test",
+    "test": "cross-env NODE_ENV=test mocha --opts .mocha frontend/test/**/*.spec.{js,jsx}",
     "test:cov": "nyc npm run test",
     "test:watch": "npm run test -- --watch --growl",
     "prewebpack-server": "npm run clean",
@@ -60,11 +60,14 @@
     "babel-register": "^6.18.0",
     "case-sensitive-paths-webpack-plugin": "^1.1.4",
     "chai": "^3.5.0",
+    "chai-enzyme": "^0.6.1",
     "chai-immutable": "^1.6.0",
+    "cheerio": "^0.22.0",
     "cors": "^2.8.1",
     "cross-env": "^3.1.3",
     "css-loader": "^0.26.0",
     "dirty-chai": "^1.2.2",
+    "enzyme": "^2.6.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-loader": "^1.6.1",
@@ -97,7 +100,7 @@
   },
   "nyc": {
     "exclude": [
-      "frontend/test/**/*.js"
+      "frontend/test/**/*"
     ],
     "report-dir": "coverage/js",
     "reporter": [

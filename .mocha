@@ -1,3 +1,5 @@
---compilers js:babel-register
+--require babel-register
 --require ./frontend/test/support/mocha
 --recursive
+--reporter dot
+--watch-extensions js,jsx
