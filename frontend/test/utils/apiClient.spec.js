@@ -1,15 +1,10 @@
 import moxios from 'moxios';
 
-import client from '../../js/utils/apiClient';
+import { withMoxios } from '../support/sharedContexts';
+import apiClient from '../../js/utils/apiClient';
 
 describe('apiClient', function () {
-  beforeEach(function installMoxios() {
-    moxios.install(client);
-  });
-
-  afterEach(function uninstallMoxios() {
-    moxios.uninstall(client);
-  });
+  withMoxios(apiClient);
 
   context('making a successful request', function () {
     const url = '/url';
@@ -20,7 +15,7 @@ describe('apiClient', function () {
     });
 
     it('fetches the correct data', function () {
-      return client.get(url).then((response) => {
+      return apiClient.get(url).then((response) => {
         expect(response.data).to.eql(data);
       });
     });
@@ -35,7 +30,7 @@ describe('apiClient', function () {
       });
 
       it('throws the correct error', function () {
-        return client.get(errorUrl).catch((error) => {
+        return apiClient.get(errorUrl).catch((error) => {
           expect(error.message).to.include(errMsg);
         });
       });
@@ -51,7 +46,7 @@ describe('apiClient', function () {
     });
 
     it('throws the correct error', function () {
-      return client.get(url).catch((error) => {
+      return apiClient.get(url).catch((error) => {
         expect(error.message).to.include(status);
       });
     });
@@ -66,8 +61,22 @@ describe('apiClient', function () {
       });
 
       it('throws the correct error', function () {
-        return client.get(errorUrl).catch((error) => {
+        return apiClient.get(errorUrl).catch((error) => {
           expect(error.message).to.include(errMsg);
+        });
+      });
+    });
+
+    context('without a valid response object', function () {
+      const errorUrl = '/blank-response-url';
+
+      before(function stubAxios() {
+        moxios.stubRequest(errorUrl);
+      });
+
+      it('throws the correct error', function () {
+        return apiClient.get(errorUrl).catch((error) => {
+          expect(error.message).to.include('undefined');
         });
       });
     });
