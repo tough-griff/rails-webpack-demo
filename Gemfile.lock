@@ -1,7 +1,7 @@
 PATH
   remote: vendor/gems/webpack-rails
   specs:
-    webpack-rails (1.1.0.rc)
+    webpack-rails (1.1.0.rc2)
       system-bang (~> 1.0)
 
 GEM
