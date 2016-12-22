@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "prebuild": "npm run clean",
-    "build": "cross-env NODE_ENV=production webpack --config frontend/config/webpack.config.prod.babel.js",
+    "build": "webpack --env.production --config frontend/config/webpack.config.babel.js",
     "check": "npm run lint && npm run test",
     "clean": "rimraf app/assets/{javascripts,stylesheets}",
     "lint": "eslint --ext .js,.jsx frontend/",
@@ -75,7 +75,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
     "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "jsdom": "^9.8.3",
     "jsdom-global": "^2.1.0",
     "json-loader": "^0.5.4",
@@ -91,12 +91,10 @@
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3",
+    "webpack": "^2.2.0-rc.2",
     "webpack-bundle-analyzer": "^2.1.1",
     "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.2",
-    "webpack-merge": "^1.0.2",
-    "webpack-validator": "^2.2.9"
+    "webpack-hot-middleware": "^2.13.2"
   },
   "nyc": {
     "exclude": [

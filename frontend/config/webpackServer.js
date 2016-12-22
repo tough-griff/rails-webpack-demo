@@ -6,11 +6,12 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import config, {
+import webpackConfig, {
   appHost, nodePort, serverPath,
-} from './webpack.config.dev.babel';
+} from './webpack.config';
 
 const app = express();
+const config = webpackConfig({ production: false });
 const compiler = webpack(config);
 const isHttps = !!process.env.HTTPS;
 
