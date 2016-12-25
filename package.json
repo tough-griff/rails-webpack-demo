@@ -42,7 +42,7 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-immutable": "^3.0.8",
-    "redux-saga": "^0.13.0",
+    "redux-saga": "^0.14.0",
     "reselect": "^2.5.4",
     "todomvc-app-css": "^2.0.6"
   },

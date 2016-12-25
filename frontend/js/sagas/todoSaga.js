@@ -1,5 +1,4 @@
-import { takeEvery, takeLatest } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import * as Actions from '../actions/constants';
 import Api from '../api/TodoApi';
