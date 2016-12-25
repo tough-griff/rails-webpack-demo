@@ -1,7 +1,7 @@
 PATH
   remote: vendor/gems/webpack-rails
   specs:
-    webpack-rails (1.1.0.rc2)
+    webpack-rails (2.0.0.rc1)
       system-bang (~> 1.0)
 
 GEM
@@ -295,7 +295,7 @@ DEPENDENCIES
   spring-commands-rspec
   system-bang (~> 1.0.0)
   travis
-  webpack-rails (~> 1.1.0.rc)!
+  webpack-rails (~> 2.0.0.rc1)!
 
 RUBY VERSION
    ruby 2.3.1p112
