@@ -1,6 +1,4 @@
-import moxios from 'moxios';
-
-import { withMoxios } from '../support/sharedContexts';
+import { withMoxios, withMockedUrl } from '../support/sharedContexts';
 import apiClient from '../../js/utils/apiClient';
 
 describe('apiClient', function () {
@@ -10,9 +8,7 @@ describe('apiClient', function () {
     const url = '/url';
     const data = { hello: 'world' };
 
-    before(function stubAxios() {
-      moxios.stubRequest(url, { response: data, status: 200 });
-    });
+    withMockedUrl(url, { response: data, status: 200 });
 
     it('fetches the correct data', function () {
       return apiClient.get(url).then((response) => {
@@ -25,9 +21,7 @@ describe('apiClient', function () {
       const errMsg = 'we have a problem';
       const errorData = { meta: { error: errMsg } };
 
-      before(function stubAxios() {
-        moxios.stubRequest(errorUrl, { response: errorData, status: 200 });
-      });
+      withMockedUrl(errorUrl, { response: errorData, status: 200 });
 
       it('throws the correct error', function () {
         return apiClient.get(errorUrl).catch((error) => {
@@ -41,9 +35,7 @@ describe('apiClient', function () {
     const url = '/failed-url';
     const status = 404;
 
-    before(function stubAxios() {
-      moxios.stubRequest(url, { status });
-    });
+    withMockedUrl(url, { status });
 
     it('throws the correct error', function () {
       return apiClient.get(url).catch((error) => {
@@ -56,9 +48,7 @@ describe('apiClient', function () {
       const errMsg = 'we have a problem';
       const errorData = { meta: { error: errMsg } };
 
-      before(function stubAxios() {
-        moxios.stubRequest(errorUrl, { response: errorData, status: 500 });
-      });
+      withMockedUrl(errorUrl, { response: errorData, status: 500 });
 
       it('throws the correct error', function () {
         return apiClient.get(errorUrl).catch((error) => {
@@ -70,9 +60,7 @@ describe('apiClient', function () {
     context('without a valid response object', function () {
       const errorUrl = '/blank-response-url';
 
-      before(function stubAxios() {
-        moxios.stubRequest(errorUrl);
-      });
+      withMockedUrl(errorUrl);
 
       it('throws the correct error', function () {
         return apiClient.get(errorUrl).catch((error) => {

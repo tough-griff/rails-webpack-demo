@@ -1,11 +1,10 @@
 import client from '../utils/apiClient';
 
-const SERVER_PATH = '/api';
-const markAllTodosPath = () => `${SERVER_PATH}/todos/mark_all`;
-const moveTodosPath = () => `${SERVER_PATH}/todos/move`;
-const clearCompleteTodosPath = () => `${SERVER_PATH}/todos/clear_complete`;
-const todosPath = () => `${SERVER_PATH}/todos`;
-const todoPath = id => `${SERVER_PATH}/todos/${id}`;
+const markAllTodosPath = () => '/todos/mark_all';
+const moveTodosPath = () => '/todos/move';
+const clearCompleteTodosPath = () => '/todos/clear_complete';
+const todosPath = () => '/todos';
+const todoPath = id => `/todos/${id}`;
 
 function take(key) {
   return res => res.data[key];

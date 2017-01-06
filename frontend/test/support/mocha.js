@@ -12,6 +12,7 @@ const HTML = `
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="api-url" content="/api" />
     <meta name="csrf-token" content="FAKE_CSRF_TOKEN" />
   </head>
   <body></body>

@@ -1,6 +1,7 @@
 # == Route Map
 #
 #               Prefix Verb   URI Pattern                         Controller#Action
+#                  api GET    /api(.:format)                      api#index
 #       mark_all_todos PATCH  /api/todos/mark_all(.:format)       api/todos#mark_all
 #           move_todos PATCH  /api/todos/move(.:format)           api/todos#move
 # clear_complete_todos DELETE /api/todos/clear_complete(.:format) api/todos#clear_complete
@@ -15,6 +16,8 @@
 #
 
 Rails.application.routes.draw do
+  get "/api", to: "api#index"
+
   scope :api, module: :api do
     resources :todos, only: %i(index create show update destroy) do
       collection do

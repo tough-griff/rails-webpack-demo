@@ -1,14 +1,13 @@
 import axios from 'axios';
 import { castArray, has } from 'lodash/fp';
 
-function getCSRFToken() {
-  return document.getElementsByTagName('meta')['csrf-token'].content;
-}
+import meta from './meta';
 
 const client = axios.create({
+  baseURL: meta('api-url'),
   timeout: 2000,
   headers: {
-    'X-CSRF-Token': getCSRFToken(),
+    'X-CSRF-Token': meta('csrf-token'),
   },
 });
 
