@@ -2,7 +2,7 @@
   background-color: lighten($color, 45%);
   color: $color;
 
-  > .close:hover {
+  .close:hover {
     color: darken($color, 10%);
   }
 }
@@ -14,27 +14,27 @@
   padding: 0;
   position: fixed;
   right: 15px;
+}
 
-  > .alert {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding: 10px;
-    width: 250px;
+.alert {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 10px;
+  width: 250px;
 
-    &.notice {
-      @include alert($blue);
-    }
+  &.notice {
+    @include alert($blue);
+  }
 
-    &.error {
-      @include alert($red);
-    }
+  &.error {
+    @include alert($red);
+  }
 
-    > .close {
-      align-self: flex-start;
-      cursor: pointer;
-      float: right;
-      opacity: 0.5;
-    }
+  .close {
+    align-self: flex-start;
+    cursor: pointer;
+    float: right;
+    opacity: 0.5;
   }
 }

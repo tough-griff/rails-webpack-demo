@@ -5,6 +5,8 @@ import Footer from '../../js/components/Footer';
 import ClearButton from '../../js/components/ClearButton';
 
 describe('<Footer />', function () {
+  let wrapper;
+
   const props = {
     canDrop: false,
     completeCount: 0,
@@ -17,7 +19,9 @@ describe('<Footer />', function () {
     todosFilter: 'all',
   };
 
-  const wrapper = shallow(<Footer {...props} />);
+  beforeEach(function render() {
+    wrapper = shallow(<Footer {...props} />);
+  });
 
   it('renders correctly', function () {
     expect(wrapper).to.have.tagName('footer');
@@ -35,12 +39,12 @@ describe('<Footer />', function () {
   });
 
   context('with a nonzero complete count', function () {
-    const wrapperWithButton = shallow(
-      <Footer {...props} completeCount={1} count={2} />
-    );
+    beforeEach(function render() {
+      wrapper = shallow(<Footer {...props} completeCount={1} count={2} />);
+    });
 
     it('renders the clear complete button', function () {
-      expect(wrapperWithButton).to.have.descendants(ClearButton);
+      expect(wrapper).to.have.descendants(ClearButton);
     });
   });
 });
