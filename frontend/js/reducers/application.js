@@ -1,20 +1,17 @@
 import { List } from 'immutable';
+import shortid from 'shortid';
 
 import * as Actions from '../actions/constants';
 import Alert from '../records/Alert';
 import Application from '../records/Application';
 import createReducer from '../utils/createReducer';
 
-let clientIdCounter = 0;
-
 /**
  * Returns a properly initialized Alert record.
  */
 export function createAlert({ clientId, message, type } = {}) {
-  if (!clientId) clientIdCounter += 1;
-
   return new Alert({
-    clientId: clientId || clientIdCounter,
+    clientId: clientId || shortid(),
     message: message || 'An error occurred',
     type: type || 'error',
   });

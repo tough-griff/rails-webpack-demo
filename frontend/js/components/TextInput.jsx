@@ -12,8 +12,13 @@ export default class TextInput extends Component {
     value: PropTypes.string,
   };
 
+  static defaultProps = {
+    placeholder: '',
+    value: '',
+  };
+
   state = {
-    value: this.props.value || '',
+    value: this.props.value,
   };
 
   onBlur = (_evt) => {

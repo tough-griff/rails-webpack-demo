@@ -40,7 +40,7 @@ export default class TodoList extends Component {
 
   renderListItems() {
     const listItems = map(todo =>
-      <Todo key={`todo-${todo.id}`} {...todo} />
+      <Todo key={todo.id} {...todo} />
     )(this.props.todos);
 
     return (

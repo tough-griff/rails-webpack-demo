@@ -21,7 +21,7 @@ function App({ params }) {
 App.propTypes = {
   params: PropTypes.shape({
     filter: PropTypes.oneOf(['all', 'active', 'completed']),
-  }),
+  }).isRequired,
 };
 
 export default App;

@@ -46,12 +46,12 @@ export default function webpackConfig({ production }) {
     module: {
       rules: [{
         test: /\.jsx?$/,
-        use: 'eslint-loader',
+        loader: 'eslint-loader',
         enforce: 'pre',
         include: paths.src,
       }, {
         test: /\.jsx?$/,
-        use: 'babel-loader',
+        loader: 'babel-loader',
         include: paths.src,
         options: {
           babelrc: false,

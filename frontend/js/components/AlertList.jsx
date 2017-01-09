@@ -7,7 +7,7 @@ import { alertShape } from '../shapes';
 
 function AlertList({ alerts }) {
   const alertItems = map(alert =>
-    <Alert key={`alert-${alert.clientId}`} {...alert} />
+    <Alert key={alert.clientId} {...alert} />
   )(alerts);
 
   return (
