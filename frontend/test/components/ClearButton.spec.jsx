@@ -10,8 +10,10 @@ describe('<ClearButton />', function () {
     onClick: sinon.stub(),
   };
 
-  beforeEach(function render() {
+  beforeEach(function () {
     wrapper = shallow(<ClearButton {...props} />);
+
+    props.onClick.reset();
   });
 
   it('renders correctly', function () {

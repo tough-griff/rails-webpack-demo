@@ -7,7 +7,7 @@ describe('<Alert />', function () {
   let wrapper;
 
   const props = {
-    clientId: 10,
+    clientId: 'abcdefg',
     message: 'Message',
     onClick: sinon.stub(),
     type: 'error',

@@ -11,8 +11,10 @@ describe('<Header />', function () {
     onSave: sinon.stub(),
   };
 
-  beforeEach(function render() {
+  beforeEach(function () {
     wrapper = shallow(<Header {...props} />);
+
+    props.onDoubleClick.reset();
   });
 
   it('renders correctly', function () {
@@ -21,5 +23,10 @@ describe('<Header />', function () {
     expect(wrapper).to.have.descendants('h1');
     expect(wrapper).to.have.descendants('.new-todo');
     expect(wrapper).to.have.text().match(/Todos/);
+  });
+
+  it('correctly handles double click events', function () {
+    wrapper.find('h1').simulate('doubleClick');
+    expect(props.onDoubleClick).to.have.been.calledOnce();
   });
 });

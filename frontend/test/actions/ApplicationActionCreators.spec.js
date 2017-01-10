@@ -16,7 +16,7 @@ describe('ApplicationActionCreators', function () {
   });
 
   describe('clearAlert()', function () {
-    const clientId = 4;
+    const clientId = '456def';
     const subject = ApplicationActionCreators.clearAlert(clientId);
     const expectedAction = {
       type: Actions.CLEAR_ALERT,

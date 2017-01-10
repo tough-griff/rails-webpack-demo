@@ -122,7 +122,7 @@ describe('application()', function () {
   });
 
   context('when action type Actions.CLEAR_ALERT', function () {
-    const clientId = 12345;
+    const clientId = '123abc';
     const action = { type: Actions.CLEAR_ALERT, payload: { clientId } };
 
     before(function setState() {
