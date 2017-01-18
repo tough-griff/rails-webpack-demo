@@ -110,10 +110,10 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.7.0)
     json (2.0.2)
-    jsonapi (0.1.1.beta5)
-      jsonapi-parser (= 0.1.1.beta2)
+    jsonapi (0.1.1.beta6)
+      jsonapi-parser (= 0.1.1.beta3)
       jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta2)
+    jsonapi-parser (0.1.1.beta3)
     jsonapi-renderer (0.1.1.beta1)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -298,7 +298,7 @@ DEPENDENCIES
   webpack-rails (~> 2.0.0.rc1)!
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
