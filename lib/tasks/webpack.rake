@@ -6,5 +6,6 @@ namespace :webpack do
     system! "npm run build"
     Rake::Task["assets:precompile"].invoke
     system! "cp -v app/assets/{javascripts,stylesheets}/*.map public/assets/"
+    system! "npm run clean"
   end
 end
