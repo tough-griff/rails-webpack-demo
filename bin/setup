@@ -12,7 +12,7 @@ Dir.chdir APP_ROOT do
   system "gem install bundler --conservative"
   system "gem install mailcatcher --conservative"
   system "bundle check || bundle install"
-  system "npm install"
+  system "yarn install"
 
   puts "\n== Copying sample files as necessary =="
   system "cp -v .env.example .env" unless File.exist?(".env")
