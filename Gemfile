@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.3.1"
+ruby "2.3.3"
 
 gem "rails", "5.0.0.1"
 
@@ -9,7 +9,6 @@ gem "passenger",                "~> 5.0.30"
 gem "pg",                       "~> 0.19.0"
 gem "rack-timeout",             "~> 0.4.2"
 gem "system-bang",              "~> 1.0.0"
-gem "webpack-rails",            "~> 2.0.0.rc1", path: "vendor/gems/webpack-rails"
 
 group :development do
   gem "annotate"
@@ -17,8 +16,8 @@ group :development do
   gem "haml_lint", require: false
   gem "rubocop", require: false
   gem "scss_lint", require: false
-  gem "spring-commands-rspec"
   gem "spring"
+  gem "spring-commands-rspec"
   gem "travis", require: false
 end
 
